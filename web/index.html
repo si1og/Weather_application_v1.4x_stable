@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Погода</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header-blocks">
+            <div class="header-content">
+                <span class="header-content__label">Погода</span>
+                <div class="header-search">
+                    <div class="header-search__search-button--conteiner">
+                        <button class="header-search__search-button" tabindex="-1"></button>
+                    </div>
+                    <input class="header-search__search-input" type="text" placeholder="Введите название города">
+                </div>
+            </div>
+            <button class="header-settings-button"></button>
+        </div>
+    </header>
+    <main class="main">
+        <section class="main-content-block">
+            <section class="weather-main">
+                <div class="weather-main__text">
+                    <h2 class="weather-main__label">
+                        Погода в 
+                        <span class="weather-main__town">Санкт-Петербурге</span>
+                    </h2>
+                    Данные на
+                    <span class="weather-main__time">22:00</span>
+                </div>
+                <div class="weather-main__content">
+                    <span class="weather-main__temp">
+                        <span class="weather-main__temp-block" id="temp">+20</span>
+                    </span>
+                    <div class="weather-main__status">
+                        <img src="./icons/weather_icons/02d.svg" class="weather-main__staus-icon" alt>
+                        <span class="weather-main__status-block">Облачно</span>
+                        <div class="weather-main__self-temp">
+                            <span class="weather-main__self-temp--label">Ощущается как </span>
+                            <span class="weather-main__self-temp-block">+20</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="weather-main__second-block">
+                    <span class="weather-main__wind">
+                        <span class="weather-main__wind-block">5</span>
+                    </span>
+                    <span class="weather-main__humidity">
+                        <span class="weather-main__humidity-block">85</span>
+                    </span>
+                    <span class="weather-main__pressure">
+                        <span class="weather-main__pressure-block">1000</span>
+                    </span>
+                </div>
+            </section>
+            <section class="hourly-forecast">
+                <h2 class="hourly-forecast__label">Почасовой прогноз</h2>
+                <div class="hourly-forecast__slider">
+                    <button class="hourly-forecast__left-button">
+                        <span class="hourly-forecast__left-button-view"></span>
+                    </button>
+                    <div class="hourly-forecast__slider-block">
+                        <div class="hourly-forecast__slider-content">
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon" style="background-image: url(./icons/weather_icons/02d.svg);"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            <div class="slider-block">
+                                <span class="slider-block__time">22:00</span>
+                                <span class="slider-block__status-icon"></span>
+                                <span class="slider-block__temp-block">
+                                    <span class="slider-block__temp">+20</span>
+                                </span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <button class="hourly-forecast__right-button">
+                        <span class="hourly-forecast__right-button-view"></span>
+                    </button>
+                </div>
+            </section>
+        </section>
+        <section class="5-day-forecast">
+            <section class="5-day-forast-graph">
+                <h2 class="5-day-forast-graph__label">Пятидневный прогноз</h2>
+            </section>
+        </section>
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>
