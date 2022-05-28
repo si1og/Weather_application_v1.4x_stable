@@ -120,7 +120,7 @@ body {
 }
 .main-content-block {
     display: grid;
-    grid-template-columns: 520px 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: auto auto;
     grid-gap: 25px
 }
@@ -128,7 +128,6 @@ body {
     display: flex;
     flex-direction: column;
     row-gap: 15px;
-    max-width: 500px;
     padding: 12px;
     border-radius: 15px;
     box-shadow: 0px 5px 14px #00000018;
@@ -292,7 +291,6 @@ body {
 .hourly-forecast__slider-content {
     position: absolute;
     display: flex;
-    column-gap: 10px;
     height: 100%;
 }
 .hourly-forecast__right-button,
@@ -307,16 +305,44 @@ body {
     background: none;
     cursor: pointer;
 }
+
 .hourly-forecast__right-button-view,
 .hourly-forecast__left-button-view {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background-color: #ffffff23;
+    background-color: #ffffff31;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 12px 12px;
-    transition: .2s ease;
+    transition: .3s ease;
+}
+.swiper-button-disabled {
+    pointer-events: none;
+}
+.swiper-button-disabled .hourly-forecast__right-button-view,
+.swiper-button-disabled .hourly-forecast__left-button-view {
+    opacity: .6;
+}
+.hourly-forecast__right-button:hover .hourly-forecast__right-button-view,
+.hourly-forecast__right-button:focus-visible  .hourly-forecast__right-button-view {
+    transform: translateX(2px);
+    background-color: #ffffff48;
+}
+.hourly-forecast__right-button:hover.swiper-button-disabled .hourly-forecast__right-button-view,
+.hourly-forecast__right-button:focus-visible.swiper-button-disabled .hourly-forecast__right-button-view {
+    transform: translateX(0px);
+    background-color: #ffffff31;
+}
+.hourly-forecast__left-button:hover .hourly-forecast__left-button-view,
+.hourly-forecast__left-button:focus-visible  .hourly-forecast__left-button-view {
+    transform: translateX(-2px);
+    background-color: #ffffff48;
+}
+.hourly-forecast__left-button:hover.swiper-button-disabled .hourly-forecast__left-button-view,
+.hourly-forecast__left-button:focus-visible.swiper-button-disabled .hourly-forecast__left-button-view {
+    transform: translateX(0px);
+    background-color: #ffffff31;
 }
 .hourly-forecast__left-button-view {
     background-image: url("../icons/left-arrow-icon.svg");
@@ -325,6 +351,7 @@ body {
     background-image: url("../icons/right-arrow-icon.svg");
 }
 .slider-block {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -364,7 +391,9 @@ body {
     background-size: 60px 60px;
 }
 .slider-block__status-icon {
-    position: relative;
+    position: absolute;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
     width: 50px;
     height: 50px;
     background-repeat: no-repeat;
@@ -399,7 +428,6 @@ body {
     position: absolute;
     display: flex;
     flex-wrap: nowrap;
-    gap: 10px;
     height: 100%;
 }
 .day-card {
