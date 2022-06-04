@@ -5,9 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
     <title>Погода</title>
 </head>
 <body>
+    <div class="page-madal disactive">
+        <section class="page-madal-settings disactive">
+            <div class="page-madal-settings__label--conteiner">
+                <h1 class="page-madal-settings__label">Настройки</h1>
+            </div>
+        </section>
+    </div>
     <header class="header">
         <div class="header-blocks">
             <div class="header-content">
@@ -19,9 +27,30 @@
                     <input class="header-search__search-input" type="text" placeholder="Введите название города">
                 </div>
             </div>
-            <button class="header-settings-button"></button>
+            <div class="header-content__function-menu">
+                <button class="header-menu-burger">
+                    <span class="header-menu-burger__burger"></span>
+                </button>
+                <div class="header-main-menu">
+                    <button class="header-main-menu__button settings-button-atr">
+                        <span class="header-main-menu__button-name settings-button">Настройки</span>
+                    </button>
+                    <button class="header-main-menu__button favorite-towns-button-atr">
+                        <span class="header-main-menu__button-name favorite-towns-button">Избранные города</span>
+                    </button>
+                    <button class="header-main-menu__button latest-towns-button-atr">
+                        <span class="header-main-menu__button-name latest-towns-button">Недавние города</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
+    <div class="main-menu--conteiner">
+        <div class="main-menu__background"></div>
+        <section class="main-menu">
+
+        </section>
+    </div>
     <main class="main">
         <div class="first-content">
             <section class="main-content-block">
@@ -434,16 +463,34 @@
                 </section>
             </div>
         </div>
-        <section class="seven-days-foracast-ditails">
+        <!-- <section class="seven-days-foracast-ditails">
             <section class="day-info-block">
                 <h2 class="day-info-block__label">
-                    
+                    <span class="day-info-block__date">2 июня</span>
+                    , 
+                    <span class="day-info-block__next-day">завтра</span>
                 </h2>
+                <div class="day-info-block__content">
+                    <div class="day-info-block-main-content">
+                        <div class="day-info-block-main-content__main-weather">
+                            <div class="day-info-block-main-content__temp-block">
+                                <span class="day-info-block-main-content__temp">
+                                    +20
+                                </span>
+                            </div>
+                            <div class="day-info-block-main-content__other">
+                                <span class="day-info-block-main-content__status"></span>
+                                <span class="day-info-block-main-content__feels-like"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
-        </section>
+        </section> -->
     </main>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/slider.js"></script>
+    <script src="js/main-menu.js"></script>
 </body>
 </html>
