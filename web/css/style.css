@@ -713,11 +713,17 @@ body {
     font-weight: 700;
     color: rgba(0, 0, 0, 0.686);
 }
+.main-menu-remove {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 10;
+}
 .page-madal {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
+    position: fixed;
     height: 100vh;
     width: 100vw;
     z-index: 101;

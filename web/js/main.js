@@ -3,6 +3,7 @@ const search_input = document.querySelector(".header-search__search-input");
 const search = document.querySelector(".header-search");
 const burger = document.querySelector(".header-menu-burger");
 const header_function_menu = document.querySelector(".header-content__function-menu");
+const main_menu_remove = document.querySelector(".main-menu-remove");
 const key = '5ba78f463e9dddeead6f1f0cf154d3ca';
 
 function display_weather(place) {
@@ -57,14 +58,22 @@ function document_events() {
 
     burger.addEventListener("click", function() {
         if (burger.classList.contains("active")) {
-            burger.classList.remove("active");
-            header_function_menu.classList.remove("menu-active");
+            disactive_menu();
         } else {
             burger.classList.add("active");
             header_function_menu.classList.add("menu-active");
+            main_menu_remove.classList.remove("disactive");
         }
     });
+    main_menu_remove.addEventListener("click", function() {
+        disactive_menu();
+    });
+}
 
+function disactive_menu() {
+    burger.classList.remove("active");
+    header_function_menu.classList.remove("menu-active");
+    main_menu_remove.classList.add("disactive");
 }
 
 
