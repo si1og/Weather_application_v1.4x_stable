@@ -34,6 +34,12 @@ function display_weather(place) {
 }
 
 function document_events() {
+    window.addEventListener("keydown", function(event) {
+        if (event.keyCode == 27) {
+            console.log("1");
+        }
+    });
+
     search_input.addEventListener("focus", function() {
         search.classList.add("header-search--active");
     });

@@ -6,13 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/modal-mnu.css">
     <title>Погода</title>
 </head>
 <body>
-    <div class="page-madal disactive">
-        <section class="page-madal-settings disactive">
-            <div class="page-madal-settings__label--conteiner">
-                <h1 class="page-madal-settings__label">Настройки</h1>
+    <div class="page-modal disactive">
+        <div class="page-blur"></div>
+        <section class="page-modal-settings disactive">
+            <div class="page-modal-settings__label--conteiner">
+                <h1 class="page-modal-settings__label">Настройки</h1>
+                <button class="page-modal-settings__close-button modal-close-button"></button>
+            </div>
+            <div class="page-modal-settings-content">
+                <div class="page-modal-settings-content__settings-menu">
+                    <button class="settings-content-button">Настройки интерфейса</button>
+                    <button class="settings-content-button">Настройки поиска</button>
+                    <button class="settings-content-button">О приложении</button>
+                </div>
+                <div class="page-modal-settings-content__settings">
+                    <div class="ui-content settins-content-block">
+                        <button class="settings-button">
+                            <span class="settings-button__label"></span>
+                            <span class="settings-button__triger"></span>
+                        </button>
+                        <button class="settings-button">
+                            <span class="settings-button__label"></span>
+                            <span class="settings-button__triger"></span>
+                        </button>
+                        <button class="settings-button">
+                            <span class="settings-button__label"></span>
+                            <span class="settings-button__triger"></span>
+                        </button>
+                        <button class="settings-button">
+                            <span class="settings-button__label"></span>
+                            <span class="settings-button__triger"></span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
