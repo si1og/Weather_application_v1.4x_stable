@@ -26,7 +26,9 @@
 .page-modal.remove-animation {
     animation: modal-background-remove .2s ease;
 }
-.page-modal-settings {
+.page-modal-settings,
+.page-modal-favorite-towns,
+.page-modal-latest-towns {
     position: relative;
     max-width: 800px;
     max-height: 350px;
@@ -41,10 +43,14 @@
     box-sizing: border-box;
     z-index: 200;
 }
-.page-modal-settings.remove-animation {
+.page-modal-settings.remove-animation,
+.page-modal-favorite-towns.remove-animation,
+.page-modal-latest-towns.remove-animation {
     animation: modal-block-remove .2s ease;
 }
-.page-modal-settings__label--conteiner {
+.page-modal-settings__label--conteiner,
+.page-modal-favorite-towns__label--conteiner,
+.page-modal-latest-towns__label--conteiner {
     display: flex;
     justify-content: space-between;
     font-family: "Sourse Sans Pro", sans-serif;
@@ -52,10 +58,14 @@
     font-weight: 700;
     color: rgba(0, 0, 0, 0.686);
 }
-.page-modal-settings__label {
+.page-modal-settings__label,
+.page-modal-favorite-towns__label,
+.page-modal-latest-towns__label {
     margin: 0;
 }
-.page-modal-settings__close-button {
+.page-modal-settings__close-button,
+.page-modal-favorite-towns__close-button,
+.page-modal-latest-towns__close-button {
     width: 30px;
     height: 30px;
     padding: 0;
@@ -71,7 +81,11 @@
     transition: .2s ease;
 }
 .page-modal-settings__close-button:hover,
-.page-modal-settings__close-button:focus {
+.page-modal-settings__close-button:focus,
+.page-modal-favorite-towns__close-button:hover,
+.page-modal-favorite-towns__close-button:focus,
+.page-modal-latest-towns__close-button:hover,
+.page-modal-latest-towns__close-button:focus {
     cursor: pointer;
     background-color: #00000011;
     border: 1px solid #0000000a;

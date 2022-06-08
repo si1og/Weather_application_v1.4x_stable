@@ -12,7 +12,7 @@
 <body>
     <div class="page-modal disactive">
         <div class="page-blur"></div>
-        <section class="page-modal-settings disactive">
+        <section class="page-modal-settings disactive page-modal-block">
             <div class="page-modal-settings__label--conteiner">
                 <h1 class="page-modal-settings__label">Настройки</h1>
                 <button class="page-modal-settings__close-button modal-close-button"></button>
@@ -43,6 +43,18 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section class="page-modal-favorite-towns disactive page-modal-block">
+            <div class="page-modal-favorite-towns__label--conteiner">
+                <h1 class="page-modal-favorite-towns__label">Избранные города</h1>
+                <button class="page-modal-favorite-towns__close-button modal-close-button"></button>
+            </div>
+        </section>
+        <section class="page-modal-latest-towns disactive page-modal-block">
+            <div class="page-modal-latest-towns__label--conteiner">
+                <h1 class="page-modal-latest-towns__label">Недавние города</h1>
+                <button class="page-modal-latest-towns__close-button modal-close-button"></button>
             </div>
         </section>
     </div>
@@ -494,11 +506,10 @@
                 </section>
             </div>
         </div>
-        <!-- <section class="seven-days-foracast-ditails">
+        <section class="seven-days-foracast-ditails">
             <section class="day-info-block">
                 <h2 class="day-info-block__label">
-                    <span class="day-info-block__date">2 июня</span>
-                    , 
+                    <span class="day-info-block__date">2 июня</span>, 
                     <span class="day-info-block__next-day">завтра</span>
                 </h2>
                 <div class="day-info-block__content">
@@ -510,14 +521,14 @@
                                 </span>
                             </div>
                             <div class="day-info-block-main-content__other">
-                                <span class="day-info-block-main-content__status"></span>
-                                <span class="day-info-block-main-content__feels-like"></span>
+                                <span class="day-info-block-main-content__status">Облачно</span>
+                                <span class="day-info-block-main-content__feels-like">Ощущается как +20</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-        </section> -->
+        </section>
     </main>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
