@@ -2,6 +2,10 @@
 var swiper_hourly_foresast = new Swiper(".hourly-forecast__slider-block", {
     slidesPerView: "auto",
     spaceBetween: 10,
+    slidesPerGroup: 3,
+    keyboard: {
+        enabled: true,
+      },
     navigation: {
         nextEl: '.hourly-forecast__right-button',
         prevEl: '.hourly-forecast__left-button',

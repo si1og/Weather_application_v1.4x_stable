@@ -694,9 +694,9 @@ body {
     content: "°C";
 }
 .seven-days-foracast-ditails {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 25px
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
 }
 .day-info-block {
     display: flex;
@@ -712,6 +712,23 @@ body {
     font-size: 22px;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.686);
+}
+.day-info-block__content {
+    display: flex;
+    column-gap: 20px;
+}
+.day-info-block-main-content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+.day-info-block-main-content__main-weather {
+    display: flex;
+    gap: 15px;
+}
+.day-info-block-main-content__other {
+    display: flex;
+    flex-direction: column;
 }
 @font-face {
     font-family: "Sourse Sans Pro";
