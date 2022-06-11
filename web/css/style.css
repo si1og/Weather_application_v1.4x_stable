@@ -705,30 +705,32 @@ body {
     padding: 12px;
     border-radius: 15px;
     box-shadow: 0px 5px 14px #00000018;
+    background: #ffffff;
 }
-.day-info-block__label {
+.info-name-block {
     margin: 0;
     font-family: "Sourse Sans Pro";
-    font-size: 22px;
     font-weight: 700;
+    font-size: 22px;
     color: rgba(0, 0, 0, 0.686);
 }
-.day-info-block__content {
+.info-name-block__week-day::first-letter {
+    text-transform: uppercase;
+}
+.day-info-block-content {
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    grid-column-gap: 20px;
+}
+.day-info-block-content__block {
     display: flex;
+    flex-direction: column;
     column-gap: 20px;
 }
-.day-info-block-main-content {
+.day-info-block-day-time {
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
-}
-.day-info-block-main-content__main-weather {
-    display: flex;
-    gap: 15px;
-}
-.day-info-block-main-content__other {
-    display: flex;
-    flex-direction: column;
+    row-gap: 5px;
 }
 @font-face {
     font-family: "Sourse Sans Pro";
