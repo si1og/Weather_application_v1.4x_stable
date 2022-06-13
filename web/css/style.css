@@ -138,6 +138,7 @@ body {
 .header-main-menu__button {
     display: flex;
     align-items: center;
+    width: 100%;
     padding: 7px;
     border-radius: 10px;
     outline: none;
@@ -246,7 +247,7 @@ body {
 .first-content {
     display: grid;
     grid-template-columns: 520px 1fr;
-    grid-column-gap: 25px;
+    grid-gap: 25px;
 }
 .main-content-block {
     display: grid;
@@ -398,7 +399,6 @@ body {
     content: "мм. рс. ст.";
 }
 .hourly-forecast {
-    grid-row-start: 2;
     display: flex;
     flex-direction: column;
     row-gap: 15px;
@@ -630,7 +630,7 @@ body {
 }
 .main-info-block-add-info {
     display: flex;
-    column-gap: 25px;
+    gap: 25px;
 }
 .sinrise-sunset,
 .temp-yesterday {
@@ -705,21 +705,21 @@ body {
     row-gap: 20px;
     padding: 12px;
     border-radius: 15px;
-    box-shadow: 0px 5px 14px #00000018;
+    box-shadow: 0px 5px 10px #00000018;
     background: #ffffff;
 }
 .info-name-block {
     margin: 0;
     font-family: "Sourse Sans Pro";
     font-weight: 700;
-    font-size: 22px;
+    font-size: 21px;
     color: rgba(0, 0, 0, 0.686);
 }
 .info-name-block__day-info {
     width: max-content;
     padding: 3px 10px;
     border-radius: 15px;
-    background: #28282811;
+    background: #52525211;
 }
 .info-name-block__week-day::first-letter {
     text-transform: uppercase;

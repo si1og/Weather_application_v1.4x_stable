@@ -16,7 +16,22 @@ var seven_day_forecast_slider = new Swiper(".seven-day-forecast-short__content",
     slidesPerView: 7,
     spaceBetween: 10,
     breakpoints: {
-        1000: {
+        280: {
+            slidesPerView: 2
+        },
+        370: {
+            slidesPerView: 3
+        },
+        450: {
+            slidesPerView: 4
+        },
+        600: {
+            slidesPerView: 5
+        },
+        800: {
+            slidesPerView: 6
+        },
+        950: {
             slidesPerView: 7
         },
         1200: {
