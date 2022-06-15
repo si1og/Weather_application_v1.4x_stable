@@ -52,6 +52,7 @@
 .page-modal-favorite-towns__label--conteiner,
 .page-modal-latest-towns__label--conteiner {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     font-family: "Sourse Sans Pro", sans-serif;
     font-size: 18px;

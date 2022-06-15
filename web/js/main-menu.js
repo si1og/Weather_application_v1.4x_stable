@@ -26,8 +26,9 @@ modal_menu_button.forEach(element => {
     element.addEventListener("click", function() {
         page_modal.classList.remove("disactive");
         menu_event_add(element);
-
-        disactive_menu();
+        setTimeout(function() {
+            disactive_menu();
+        }, 200);
         document.body.style = "overflow: hidden;";
     });
 });
@@ -45,7 +46,7 @@ function remove_modal() {
             element.classList.remove("remove-animation");
             element.classList.add("disactive");
         });
-    }, 200);
+    }, 190);
     document.body.style = "";
 }
 

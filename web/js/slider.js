@@ -6,6 +6,7 @@ var swiper_hourly_foresast = new Swiper(".hourly-forecast__slider-block", {
     keyboard: {
         enabled: true,
       },
+    freeMode: true,
     navigation: {
         nextEl: '.hourly-forecast__right-button',
         prevEl: '.hourly-forecast__left-button',
@@ -15,6 +16,7 @@ var swiper_hourly_foresast = new Swiper(".hourly-forecast__slider-block", {
 var seven_day_forecast_slider = new Swiper(".seven-day-forecast-short__content", {
     slidesPerView: 7,
     spaceBetween: 10,
+    freeMode: true,
     breakpoints: {
         280: {
             slidesPerView: 2

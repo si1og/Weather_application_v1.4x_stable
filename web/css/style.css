@@ -132,7 +132,7 @@ body {
     pointer-events: none;
     opacity: 0;
     transform: scale(.8) translateY(-30px);
-    transition: .2s ease;
+    transition: transform .2s ease, opacity .2s ease;
     box-sizing: border-box;
 }
 .header-main-menu__button {

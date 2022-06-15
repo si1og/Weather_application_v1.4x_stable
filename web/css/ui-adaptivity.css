@@ -57,6 +57,41 @@
     .header-content {
         column-gap: 20px;
     }
+    .page-modal {
+        padding: 0;
+        backdrop-filter: blur(0px);
+    }
+    .page-modal-block {
+        max-height: none;
+        padding: 20px;
+    }
+    .page-modal-settings__label,
+    .page-modal-favorite-towns__label,
+    .page-modal-latest-towns__label {
+        font-size: 30px;
+        font-weight: 500;
+    }
+    .modal-close-button {
+        width: 34px;
+        height: 34px;
+        background-size: 15px 15px;
+    }
+    @keyframes modal-block-add {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(0%);
+        }
+    }
+    @keyframes modal-block-remove {
+        0% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
 }
 @media (max-width: 640px) {
     .main-info-block-add-info {

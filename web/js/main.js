@@ -34,6 +34,7 @@ function display_weather(place) {
 }
 
 function document_events() {
+
     window.addEventListener("keydown", function(event) {
         if (event.keyCode == 27) {
             console.log("1");
@@ -63,6 +64,16 @@ function document_events() {
     });
 
     burger.addEventListener("click", function() {
+        if (window.innerWidth <= 768 && !burger.classList.contains("active")) {
+            setTimeout(function() {
+                document.body.style = "overflow: hidden; height: 100vh;";
+            }, 200);
+        } else if (burger.classList.contains("active")) {
+            setTimeout(function() {
+                document.body.style = "";
+            }, 200);
+        }
+
         if (burger.classList.contains("active")) {
             disactive_menu();
         } else {
