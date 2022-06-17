@@ -30,10 +30,13 @@
 .page-modal-favorite-towns,
 .page-modal-latest-towns {
     position: relative;
+    display: grid;
+    grid-template-rows: auto calc(100% - 73px);
+    grid-gap: 15px;
     max-width: 800px;
-    max-height: 350px;
-    width: 100%;
+    max-height: 370px;
     height: 100%;
+    width: 100%;
     padding: 12px;
     border-radius: 15px;
     box-shadow: 0px 5px 14px #00000018;
@@ -63,6 +66,8 @@
 .page-modal-favorite-towns__label,
 .page-modal-latest-towns__label {
     margin: 0;
+    white-space: nowrap;
+    max-width: calc(100% - 24px);
 }
 .page-modal-settings__close-button,
 .page-modal-favorite-towns__close-button,
@@ -90,4 +95,47 @@
     cursor: pointer;
     background-color: #00000011;
     border: 1px solid #0000000a;
+}
+.page-modal-settings-content {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-gap: 20px;
+    max-height: 100%;
+}
+.page-modal-settings-content__settings-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 15px;
+    background: #f4f4f474;
+    border: 2px solid #e8e8e862;
+    overflow-y: visible;
+    overflow-x: hidden;
+}
+.settings-content-button {
+    padding: 8px;
+    border: none;
+    border-radius: 15px;
+    font-family: "Sourse Sans Pro", sans-serif;
+    text-align: left;
+    font-weight: 600;
+    font-size: 18px;
+    background: none;
+    color: #000000af;
+    transition: .2s ease;
+}
+.settings-content-button:hover,
+.settings-content-button:focus {
+    cursor: pointer;
+    background: #44444414;
+}
+.settings-content-button:active {
+    transform: scale(.95);
+}
+.page-modal-settings-content__settings {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    overflow-y: visible;
+    overflow-x: hidden;
 }

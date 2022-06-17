@@ -26,7 +26,7 @@
         justify-content: center;
         align-items: center;
         width: 100vw;
-        min-height: 100vh;
+        max-height: 100vh;
         border-radius: 0px;
         background: #fff;
         opacity: 1;
@@ -62,8 +62,15 @@
         backdrop-filter: blur(0px);
     }
     .page-modal-block {
-        max-height: none;
+        max-height: 100vh;
+        height: 100%;
         padding: 20px;
+    }
+    .page-modal-settings-content__settings-menu {
+        display: none;
+    }
+    .page-modal-settings-content {
+        grid-template-columns: 1fr;
     }
     .page-modal-settings__label,
     .page-modal-favorite-towns__label,
