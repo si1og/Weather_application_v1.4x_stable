@@ -173,13 +173,13 @@ body {
     background-position: center;
     background-size: 21px 21px;
 }
-.settings-button::before {
+.settings-button-menu::before {
     background-image: url("../icons/settings-icon.svg");
 }
-.favorite-towns-button::before {
+.favorite-towns-button-menu::before {
     background-image: url("../icons/heart-icon.svg");
 }
-.latest-towns-button::before {
+.latest-towns-button-menu::before {
     background-image: url("../icons/city-icon.svg");
 }
 .header-content__function-menu.menu-active .header-main-menu {
@@ -281,6 +281,8 @@ body {
 }
 .weather-main__content {
     display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
     column-gap: 15px;
 }
 .weather-main__temp {
@@ -324,9 +326,10 @@ body {
 }
 .weather-main__second-block {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    max-width: 250px;
+    column-gap: 35px;
+    row-gap: 10px;
+    width: 100%;
 }
 .weather-main__wind,
 .weather-main__humidity,
@@ -397,6 +400,15 @@ body {
 .weather-main__pressure-block::after {
     width: 100px;
     content: "мм. рс. ст.";
+}
+.weather-main__wind-block {
+    margin-right: 28px;
+}
+.weather-main__humidity-block {
+    margin-right: 15px;
+}
+.weather-main__pressure-block {
+    margin-right: 73px;
 }
 .hourly-forecast {
     display: flex;
@@ -854,6 +866,14 @@ body {
 }
 .day-info-block-day-time__pressure {
     margin-right: 75px;
+}
+.footer {
+    max-width: 1920px;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0px 0px 15px #00000015;
+    background: #ffffff;
+    box-sizing: border-box;
 }
 @font-face {
     font-family: "Sourse Sans Pro";
