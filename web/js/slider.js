@@ -45,3 +45,13 @@ var seven_day_forecast_slider = new Swiper(".seven-day-forecast-short__content",
         }
     }
 });
+
+var swiper_settings = new Swiper(".swiper-settings", {
+    direction: "vertical",
+    slidesPerView: "auto",
+    freeMode: true,
+    scrollbar: {
+      el: ".swiper-scrollbar",
+    },
+    mousewheel: true,
+});

@@ -113,6 +113,14 @@
     overflow-y: visible;
     overflow-x: hidden;
 }
+.page-modal-settings-content__settings-menu::-webkit-scrollbar {
+    width: 5px;
+    background: none;
+}
+.page-modal-settings-content__settings-menu::-webkit-scrollbar-thumb {
+    background: #e7e7e7;
+    border-radius: 10px;
+}
 .settings-content-button {
     padding: 8px;
     border: none;
@@ -142,6 +150,13 @@
     overflow-y: visible;
     overflow-x: hidden;
 }
+.swiper-settings {
+    overflow-y: visible;
+    overflow-x: hidden; 
+}
+ .swiper-settings::-webkit-scrollbar {
+    display: none;
+}
 .settins-content-block {
     display: flex;
     flex-direction: column;
@@ -159,6 +174,9 @@
     flex-direction: column;
 }
 .settings-button {
+    display: grid;
+    grid-template-columns: 0px 1fr 50px;
+    align-items: center;
     padding: 10px;
     border: none;
     border-radius: 15px;
@@ -166,4 +184,56 @@
     font-size: 17px;
     background: none;
     transition: .2s ease;
+}
+.settings-scrollbar {
+    position: absolute;
+    top: 0;
+    left: calc(100% - 5px);
+    width: 5px;
+    height: 100%;
+    z-index: 200;
+}
+.page-modal-settings-content {
+    position: relative;
+}
+.swiper-scrollbar-drag {
+    background: #e7e7e7;
+    border-radius: 10px;
+}
+.settings-button__checkbox {
+    display: block;
+    z-index: -1;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.settings-button__label {
+    margin: 0 20px 0 0;
+    font-weight: 500;
+    font-size: 18px;
+}
+.settings-button__triger {
+    position: relative;
+    width: 38px;
+    height: 14px;
+    border-radius: 20px;
+    background: #d3d3d3a4;
+    transition: .2s ease;
+}
+.settings-button__triger::before {
+    position: absolute;
+    top: -3px;
+    content: "";
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background: rgb(170, 170, 170);
+    transition: .2s ease;
+}
+.settings-button__checkbox:checked ~ .settings-button__triger {
+    background: #748ae97e;
+}
+.settings-button__checkbox:checked ~ .settings-button__triger::before {
+    transform: translateX(17px);
+    background: #748ae9;
 }
