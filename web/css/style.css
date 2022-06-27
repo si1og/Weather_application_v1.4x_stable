@@ -720,6 +720,21 @@ body {
     box-shadow: 0px 5px 10px #00000018;
     background: #ffffff;
 }
+.day-info-block.not-scrolled,
+.weather-main.not-scrolled,
+.hourly-forecast.not-scrolled,
+.seven-day-forast-short.not-scrolled,
+.main-info-block-add-info.not-scrolled {
+    visibility: hidden;
+}
+.day-info-block.scrolled,
+.weather-main.scrolled,
+.hourly-forecast.scrolled,
+.seven-day-forast-short.scrolled,
+.main-info-block-add-info.scrolled {
+    animation: info-block-add .3s ease;
+    visibility: visible;
+}
 .info-name-block {
     margin: 0;
     font-family: "Sourse Sans Pro";

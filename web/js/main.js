@@ -93,5 +93,99 @@ function disactive_menu() {
     main_menu_remove.classList.add("disactive");
 }
 
+function link_scroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(element) {
+            element.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+}
+
+function document_scroll() {	
+    const scrollElements = document.querySelectorAll(".js-scroll");
+
+    scrollElements.forEach((element) => {
+        element.classList.add("not-scrolled");
+    });
+
+    const element_in_view = (element, margin) => {
+        const element_top = element.getBoundingClientRect().top;
+        
+        return (
+            element_top <= (window.innerHeight - margin || document.documentElement.clientHeight)
+        );
+        };
+
+    const display_scroll_element = (element) => {
+        element.classList.add("scrolled");
+        element.classList.remove("not-scrolled");
+    };
+
+    const hide_scroll_element = (element) => {
+        element.classList.add("not-scrolled");
+    }
+
+    const handle_scroll_animation = () => {
+    scrollElements.forEach((element) => {
+        if (element_in_view(element, 50)) {
+            display_scroll_element(element);
+        } else {
+            hide_scroll_element(element);
+        }
+    })
+    }
+
+    window.addEventListener("scroll", () => {
+        handle_scroll_animation();
+    });
+
+    window.addEventListener("load", () => {
+        handle_scroll_animation();
+    });
+}
+
+function get_user_location() {
+    const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+    
+    function success(pos) {
+        const crd = pos.coords;
+        
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${crd.latitude}&lon=${crd.longitude}&limit=200&appid=${key}`)  
+        .then(function(resp) { return resp.json() })
+        .then(function(data) {
+            console.log(data);
+
+            if (data.cod == 404) {
+                console.log("town not found");
+                return;
+            } else if (data.cod != 200) {
+                return;
+            }
+        })
+        .catch(function() {
+            if (!error_index) {
+                return;
+            }
+            console.log("town not found");
+        }); 
+    }
+    
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+    
+    navigator.geolocation.getCurrentPosition(success, error, options);
+}
 
 document_events();
+document_scroll();
+link_scroll();
+get_user_location();
