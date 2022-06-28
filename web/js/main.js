@@ -5,6 +5,7 @@ const burger = document.querySelector(".header-menu-burger");
 const header_function_menu = document.querySelector(".header-content__function-menu");
 const main_menu_remove = document.querySelector(".main-menu-remove");
 const key = '5ba78f463e9dddeead6f1f0cf154d3ca';
+const token = 'pk.5458a1a49de64870a499080d6af514dc';
 
 function display_weather(place) {
 
@@ -12,11 +13,11 @@ function display_weather(place) {
         return;
     }
 
-    fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + place + ",&appid=" + key + "&lang=ru&cnt=8")  
+    fetch("https://api.openweathermap.org/data/2.5/forecast/?q=" + place + ",&appid=" + key + "&lang=ru&cnt=8")  
     .then(function(resp) { return resp.json() })
     .then(function(data) {
 
-        error_index = 0;
+        console.log(data);
 
         if (data.cod == 404) {
             console.log("town not found");
@@ -24,6 +25,8 @@ function display_weather(place) {
         } else if (data.cod != 200) {
             return;
         }
+
+
     })
     .catch(function() {
         if (!error_index) {
@@ -157,25 +160,9 @@ function get_user_location() {
     
     function success(pos) {
         const crd = pos.coords;
-        
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${crd.latitude}&lon=${crd.longitude}&limit=200&appid=${key}`)  
-        .then(function(resp) { return resp.json() })
-        .then(function(data) {
-            console.log(data);
 
-            if (data.cod == 404) {
-                console.log("town not found");
-                return;
-            } else if (data.cod != 200) {
-                return;
-            }
-        })
-        .catch(function() {
-            if (!error_index) {
-                return;
-            }
-            console.log("town not found");
-        }); 
+        get_city(crd.latitude, crd.longitude);
+        
     }
     
     function error(err) {
@@ -183,6 +170,22 @@ function get_user_location() {
     }
     
     navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
+function get_city(lat, lng) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('GET', `https://us1.locationiq.com/v1/reverse.php?key=${token}&lat=${lat}&lon=${lng}&format=json`, true);
+    xhr.send();
+    xhr.addEventListener("readystatechange", process_request, false);
+  
+    function process_request() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+            let city = response.address.city;
+            display_weather(city);
+        }
+    }
 }
 
 document_events();
