@@ -10,6 +10,7 @@ const token = 'pk.5458a1a49de64870a499080d6af514dc';
 // weater consts
 const weather_main = document.querySelector(".weather-main");
 const hourly_forecast = document.querySelector(".hourly-forecast__slider-content");
+const full_daily_forecast = document.querySelector(".seven-days-foracast-ditails");
 
 const set_temp = (temp_k) => {
     let temp = Math.round(temp_k - 273.15);
@@ -66,6 +67,109 @@ function generate_hourly_forecast(arr) {
     });
 }
 
+function generate_full_daily_forecast(arr) {
+
+    day_data = [];
+    counter_data = 1;
+    for (let i = 0; i < arr.length; i++) {
+        day_data.push(arr[i]);
+
+        if (day_data.length == 8) {
+            console.log(1);
+            const forecast_day = document.createElement("section");
+            forecast_day.className = "day-info-block js-scroll not-scrolled scrolled";
+            forecast_day.id = `day-info-block-${counter_data}`;
+            forecast_day.innerHTML = `
+            <h2 class="info-name-block">
+            <div class="info-name-block__day-info">
+                <span class="info-name-block__week-day">Завтра</span>,
+                <span class="info-name-block__date">13</span>
+                <span class="info-name-block__month">Июня</span>
+            </div>
+            </h2>
+            <div class="day-info-block-content">
+                <div class="day-info-block-content__block">
+                    <div class="day-info-block-day-time">
+                        <span class="day-info-block-day-time__label">Ночью</span>
+                        <div class="day-info-block-day-time__content">
+                            <div class="day-info-block-day-time__info-block-1">
+                                <span class="day-info-block-day-time__temp">${set_temp(day_data[1].main.temp)}</span>
+                                <span class="day-info-block-day-time__status">
+                                    <span class="day-info-block-day-time__icon" style="background-image: url('${set_icon(day_data[1].weather[0].icon)}')"></span>
+                                    ${day_data[1].weather[0].description}
+                                </span>
+                            </div>
+                            <div class="day-info-block-day-time__info-block-2">
+                                <span class="day-info-block-day-time__wind">${Math.round(day_data[1].wind.speed)}</span>
+                                <span class="day-info-block-day-time__humidity">${day_data[1].main.humidity}</span>
+                                <span class="day-info-block-day-time__pressure">${day_data[1].main.pressure}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-info-block-day-time">
+                        <span class="day-info-block-day-time__label">Утром</span>
+                        <div class="day-info-block-day-time__content">
+                            <div class="day-info-block-day-time__info-block-1">
+                                <span class="day-info-block-day-time__temp">${set_temp(day_data[3].main.temp)}</span>
+                                <span class="day-info-block-day-time__status">
+                                    <span class="day-info-block-day-time__icon" style="background-image: url('${set_icon(day_data[3].weather[0].icon)}')"></span>
+                                    ${day_data[3].weather[0].description}
+                                </span>
+                            </div>
+                            <div class="day-info-block-day-time__info-block-2">
+                                <span class="day-info-block-day-time__wind">${Math.round(day_data[3].wind.speed)}</span>
+                                <span class="day-info-block-day-time__humidity">${day_data[3].main.humidity}</span>
+                                <span class="day-info-block-day-time__pressure">${day_data[3].main.pressure}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-info-block-day-time">
+                        <span class="day-info-block-day-time__label">Днём</span>
+                        <div class="day-info-block-day-time__content">
+                            <div class="day-info-block-day-time__info-block-1">
+                                <span class="day-info-block-day-time__temp">${set_temp(day_data[5].main.temp)}</span>
+                                <span class="day-info-block-day-time__status">
+                                    <span class="day-info-block-day-time__icon" style="background-image: url('${set_icon(day_data[5].weather[0].icon)}')"></span>
+                                    ${day_data[5].weather[0].description}
+                                </span>
+                            </div>
+                            <div class="day-info-block-day-time__info-block-2">
+                                <span class="day-info-block-day-time__wind">${Math.round(day_data[5].wind.speed)}</span>
+                                <span class="day-info-block-day-time__humidity">${day_data[5].main.humidity}</span>
+                                <span class="day-info-block-day-time__pressure">${day_data[5].main.pressure}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-info-block-day-time">
+                        <span class="day-info-block-day-time__label">Вечером</span>
+                        <div class="day-info-block-day-time__content">
+                            <div class="day-info-block-day-time__info-block-1">
+                                <span class="day-info-block-day-time__temp">${set_temp(day_data[7].main.temp)}</span>
+                                <span class="day-info-block-day-time__status">
+                                    <span class="day-info-block-day-time__icon" style="background-image: url('${set_icon(day_data[5].weather[0].icon)}')"></span>
+                                    ${day_data[7].weather[0].description}
+                                </span>
+                            </div>
+                            <div class="day-info-block-day-time__info-block-2">
+                                <span class="day-info-block-day-time__wind">${Math.round(day_data[7].wind.speed)}</span>
+                                <span class="day-info-block-day-time__humidity">${day_data[7].main.humidity}</span>
+                                <span class="day-info-block-day-time__pressure">${day_data[7].main.pressure}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-info-block-content__other"></div>
+            </div>
+            `;
+            counter_data++;
+            full_daily_forecast.append(forecast_day);
+        }
+        if (convent_dt_txt(day_data[day_data.length - 1].dt_txt) == "00:00" && day_data.length != 1) {
+            day_data = [];
+        }
+    }
+}
+
 function display_weather(place) {
     if (!place) {
         return;
@@ -111,16 +215,29 @@ function display_weather(place) {
             <span class="weather-main__wind">
                 <span class="weather-main__wind-block">${Math.round(weather_now.wind.speed)}</span>
             </span>
-            <span class="weather-main__humidity">
-                <span class="weather-main__humidity-block">${weather_now.main.humidity}</span>
-            </span>
             <span class="weather-main__pressure">
                 <span class="weather-main__pressure-block">${weather_now.main.pressure}</span>
             </span>
         </div>
         `;
 
+        const set_round_data = (element_sp, data) => {
+            const element_data = document.querySelector(`.weather-ditails__data.${element_sp}`);
+            const round = document.querySelector(`#${element_sp}`);
+
+            element_data.textContent = data;
+
+            if (data) {
+                round.style = `stroke-dasharray: ${250*(data/100)} 400;`;
+            } else {
+                round.style = "stroke: transparent;";
+            }
+        }
+
+        set_round_data("clouds", weather_now.clouds.all);
+        set_round_data("humidity", weather_now.main.humidity);
         generate_hourly_forecast(data.list);
+        generate_full_daily_forecast(data.list);
 
     });
     // .catch(function() {

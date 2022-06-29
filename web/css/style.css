@@ -311,6 +311,9 @@ body {
     line-height: 20px;
     color: #f5f5f5;
 }
+.weather-main__status-block::first-letter {
+    text-transform: uppercase;
+}
 .weather-main__self-temp {
     font-size: 16px;
     font-weight: 600;
@@ -821,6 +824,9 @@ body {
     position: relative;
     margin: 0 0 0 30px;
 }
+.day-info-block-day-time__status::first-letter {
+    text-transform: uppercase;
+}
 .day-info-block-day-time__icon {
     position: absolute;
     width: 35px;
@@ -967,10 +973,18 @@ body {
 }
 .weather-ditails__content svg circle:nth-child(2) {
     stroke: #3d9fe0;
-    stroke-dasharray: 100 400;
+    stroke-dasharray: 0 400;
 }
 .weather-ditails__data {
+    position: relative;
     font-size: 22px;
+    margin: 0 18px 0 0;
+}
+.weather-ditails__data::after {
+    position: absolute;
+    top: 4px;
+    content: "%";
+    font-size: 18px;
 }
 @font-face {
     font-family: "Sourse Sans Pro";
