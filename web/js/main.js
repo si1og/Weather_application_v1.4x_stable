@@ -7,13 +7,70 @@ const main_menu_remove = document.querySelector(".main-menu-remove");
 const key = '5ba78f463e9dddeead6f1f0cf154d3ca';
 const token = 'pk.5458a1a49de64870a499080d6af514dc';
 
-function display_weather(place) {
+// weater consts
+const weather_main = document.querySelector(".weather-main");
+const hourly_forecast = document.querySelector(".hourly-forecast__slider-content");
 
+const set_temp = (temp_k) => {
+    let temp = Math.round(temp_k - 273.15);
+    let temp_ret = "";
+
+    if (temp > 0) {
+        temp_ret = `+${temp}`;
+    } else {
+        temp_ret = temp;
+    }
+
+    return temp_ret;
+}
+
+const convent_dt_txt = (dt) => {
+    let hours = dt.split(" ")[1];
+    let time = hours.split(":");
+    return `${time[0]}:${time[1]}`;
+}
+
+const set_icon = (index) => {
+    return `./icons/weather_icons/${index}.svg`;
+}
+
+function generate_hourly_forecast(arr) {
+    arr.forEach(element => {
+        let content = document.createElement("div");
+        if (convent_dt_txt(element.dt_txt) == "00:00") {
+            content.className = "new-day slider-block swiper-slide";
+        } else {
+            content.className = "slider-block swiper-slide";
+        }
+        content.innerHTML = `
+        <span class="slider-block__time">${convent_dt_txt(element.dt_txt)}</span>
+        <span class="slider-block__status-icon" style="background-image: url(${set_icon(element.weather[0].icon)});"></span>
+        <span class="slider-block__temp-block">
+            <span class="slider-block__temp">${set_temp(element.main.temp)}</span>
+        </span>
+        `;
+        hourly_forecast.append(content);
+    });
+
+    var swiper_hourly_foresast = new Swiper(".hourly-forecast__slider-block", {
+        slidesPerView: "auto",
+        spaceBetween: 10,
+        slidesPerGroup: 3,
+        keyboard: {
+            enabled: true,
+          },
+        navigation: {
+            nextEl: '.hourly-forecast__right-button',
+            prevEl: '.hourly-forecast__left-button',
+        }
+    });
+}
+
+function display_weather(place) {
     if (!place) {
         return;
     }
-
-    fetch("https://api.openweathermap.org/data/2.5/forecast/?q=" + place + ",&appid=" + key + "&lang=ru&cnt=8")  
+    fetch("https://api.openweathermap.org/data/2.5/forecast/?q=" + place + ",&appid=" + key + "&lang=ru&cnt=40")  
     .then(function(resp) { return resp.json() })
     .then(function(data) {
 
@@ -26,14 +83,54 @@ function display_weather(place) {
             return;
         }
 
+        var weather_now = data.list[0];
 
-    })
-    .catch(function() {
-        if (!error_index) {
-            return;
-        }
-        console.log("town not found");
-    }); 
+        weather_main.innerHTML = `
+        <div class="weather-main__text">
+            <h2 class="weather-main__label">
+                Погода в горде
+                <span class="weather-main__town">${place}</span>
+            </h2>
+            Данные на
+            <span class="weather-main__time">${convent_dt_txt(weather_now.dt_txt)}</span>
+        </div>
+        <div class="weather-main__content">
+            <span class="weather-main__temp">
+                <span class="weather-main__temp-block" id="temp">${set_temp(weather_now.main.temp)}</span>
+            </span>
+            <div class="weather-main__status">
+                <img src="${set_icon(weather_now.weather[0].icon)}" class="weather-main__staus-icon" alt>
+                <span class="weather-main__status-block">${weather_now.weather[0].description}</span>
+                <div class="weather-main__self-temp">
+                    <span class="weather-main__self-temp--label">Ощущается как </span>
+                    <span class="weather-main__self-temp-block">${set_temp(weather_now.main.feels_like)}</span>
+                </div>
+            </div>
+        </div>
+        <div class="weather-main__second-block">
+            <span class="weather-main__wind">
+                <span class="weather-main__wind-block">${Math.round(weather_now.wind.speed)}</span>
+            </span>
+            <span class="weather-main__humidity">
+                <span class="weather-main__humidity-block">${weather_now.main.humidity}</span>
+            </span>
+            <span class="weather-main__pressure">
+                <span class="weather-main__pressure-block">${weather_now.main.pressure}</span>
+            </span>
+        </div>
+        `;
+
+        generate_hourly_forecast(data.list);
+
+    });
+    // .catch(function() {
+    //     console.log("town not found");
+    //     var weather_now = data.list[0];
+    //     const convent_dt = (dt) => {
+    //         return dt.duration().asMinutes();
+    //     }
+    //     console.log(convent_dt(weather_now.dt));
+    // }); 
 }
 
 function document_events() {
@@ -182,8 +279,14 @@ function get_city(lat, lng) {
     function process_request() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
-            let city = response.address.city;
-            display_weather(city);
+            let place = "";
+
+            if (response.address.town) {
+                place = response.address.town;
+            } else {
+                place = response.address.city;
+            }
+            display_weather(place);
         }
     }
 }
