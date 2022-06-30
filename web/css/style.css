@@ -315,6 +315,9 @@ body {
     line-height: 20px;
     color: #f5f5f5;
 }
+.weather-main__status-block {
+    display: block;
+}
 .weather-main__status-block::first-letter {
     text-transform: uppercase;
 }
@@ -765,6 +768,9 @@ body {
     padding: 3px 10px;
     border-radius: 15px;
     background: #52525211;
+}
+.info-name-block__week-day {
+    display: block;
 }
 .info-name-block__week-day::first-letter {
     text-transform: uppercase;

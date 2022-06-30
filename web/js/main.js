@@ -36,6 +36,22 @@ const set_icon = (index) => {
     return `./icons/weather_icons/${index}.svg`;
 }
 
+const construct_date = () => {
+    const set_format = (value) => {
+        if (value / 10 < 1) {
+            return `0${value}`;
+        } else {
+            return value;
+        }
+    }
+
+    const date = new Date();
+    const hours = set_format(date.getHours());
+    const min = set_format(date.getMinutes());
+
+    return `${hours}:${min}`;
+}
+
 function generate_hourly_forecast(arr) {
     arr.forEach(element => {
         let content = document.createElement("div");
@@ -46,8 +62,16 @@ function generate_hourly_forecast(arr) {
             content.className = "slider-block swiper-slide";
         }
 
+        let time_data = "";
+
+        if (arr[0] != element) {
+            time_data = convent_dt_txt(element.dt_txt);
+        } else {
+            time_data = construct_date();
+        }
+
         content.innerHTML = `
-        <span class="slider-block__time">${convent_dt_txt(element.dt_txt)}</span>
+        <span class="slider-block__time">${time_data}</span>
         <span class="slider-block__status-icon" style="background-image: url(${set_icon(element.weather[0].icon)});"></span>
         <span class="slider-block__temp-block">
             <span class="slider-block__temp">${set_temp(element.main.temp)}</span>
@@ -72,22 +96,46 @@ function generate_hourly_forecast(arr) {
 
 function generate_full_daily_forecast(arr) {
 
+    const get_date = (index) => {
+        let day_next = index - 2;
+        const date = new Date();
+        date.setDate(date.getDate() + (day_next+(7-date.getDay())) % 7);
+
+        if (day_next != -1) {
+            var options = {
+                weekday: 'long',
+                month: 'long', 
+                day: 'numeric' 
+            };
+    
+            return date.toLocaleDateString('ru-RU', options);
+        } else {
+            var options = {
+                month: 'long', 
+                day: 'numeric' 
+            };
+    
+            return `завтра, ${date.toLocaleDateString('ru-RU', options)}`;
+        }
+    }
+
     day_data = [];
     counter_data = 1;
     for (let i = 0; i < arr.length; i++) {
         day_data.push(arr[i]);
 
+        if (day_data.length == 8 && i == 7) {
+            day_data = [];
+        }
+
         if (day_data.length == 8) {
-            console.log(1);
             const forecast_day = document.createElement("section");
             forecast_day.className = "day-info-block js-scroll";
             forecast_day.id = `day-info-block-${counter_data}`;
             forecast_day.innerHTML = `
             <h2 class="info-name-block">
             <div class="info-name-block__day-info">
-                <span class="info-name-block__week-day">Завтра</span>,
-                <span class="info-name-block__date">13</span>
-                <span class="info-name-block__month">Июня</span>
+                <span class="info-name-block__week-day">${get_date(counter_data)}</span>
             </div>
             </h2>
             <div class="day-info-block-content">
@@ -166,8 +214,6 @@ function generate_full_daily_forecast(arr) {
             `;
             counter_data++;
             full_daily_forecast.append(forecast_day);
-        }
-        if (convent_dt_txt(day_data[day_data.length - 1].dt_txt) == "00:00" && day_data.length != 1) {
             day_data = [];
         }
     }
@@ -195,6 +241,7 @@ function display_weather(place) {
 
         var weather_now = data.list[0];
 
+        construct_date();
         weather_main.innerHTML = `
         <div class="weather-main__text">
             <h2 class="weather-main__label">
@@ -202,7 +249,7 @@ function display_weather(place) {
                 <span class="weather-main__town">${place}</span>
             </h2>
             Данные на
-            <span class="weather-main__time">${convent_dt_txt(weather_now.dt_txt)}</span>
+            <span class="weather-main__time">${construct_date()}</span>
         </div>
         <div class="weather-main__content">
             <span class="weather-main__temp">
