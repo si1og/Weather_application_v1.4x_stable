@@ -4,6 +4,7 @@ const search = document.querySelector(".header-search");
 const burger = document.querySelector(".header-menu-burger");
 const header_function_menu = document.querySelector(".header-content__function-menu");
 const main_menu_remove = document.querySelector(".main-menu-remove");
+var weather_content = document.querySelectorAll(".weather-content");
 const key = '5ba78f463e9dddeead6f1f0cf154d3ca';
 const token = 'pk.5458a1a49de64870a499080d6af514dc';
 
@@ -38,11 +39,13 @@ const set_icon = (index) => {
 function generate_hourly_forecast(arr) {
     arr.forEach(element => {
         let content = document.createElement("div");
-        if (convent_dt_txt(element.dt_txt) == "00:00") {
+
+        if (convent_dt_txt(element.dt_txt) == "00:00" && arr[0] != element) {
             content.className = "new-day slider-block swiper-slide";
         } else {
             content.className = "slider-block swiper-slide";
         }
+
         content.innerHTML = `
         <span class="slider-block__time">${convent_dt_txt(element.dt_txt)}</span>
         <span class="slider-block__status-icon" style="background-image: url(${set_icon(element.weather[0].icon)});"></span>
@@ -77,7 +80,7 @@ function generate_full_daily_forecast(arr) {
         if (day_data.length == 8) {
             console.log(1);
             const forecast_day = document.createElement("section");
-            forecast_day.className = "day-info-block js-scroll not-scrolled scrolled";
+            forecast_day.className = "day-info-block js-scroll";
             forecast_day.id = `day-info-block-${counter_data}`;
             forecast_day.innerHTML = `
             <h2 class="info-name-block">
@@ -174,11 +177,14 @@ function display_weather(place) {
     if (!place) {
         return;
     }
+
     fetch("https://api.openweathermap.org/data/2.5/forecast/?q=" + place + ",&appid=" + key + "&lang=ru&cnt=40")  
     .then(function(resp) { return resp.json() })
     .then(function(data) {
 
-        console.log(data);
+        weather_content.forEach(element => {
+            element.classList.remove("disactive")
+        });
 
         if (data.cod == 404) {
             console.log("town not found");
@@ -215,6 +221,9 @@ function display_weather(place) {
             <span class="weather-main__wind">
                 <span class="weather-main__wind-block">${Math.round(weather_now.wind.speed)}</span>
             </span>
+            <span class="weather-main__humidity">
+                <span class="weather-main__humidity-block">${weather_now.main.humidity}</span>
+            </span>
             <span class="weather-main__pressure">
                 <span class="weather-main__pressure-block">${weather_now.main.pressure}</span>
             </span>
@@ -235,9 +244,10 @@ function display_weather(place) {
         }
 
         set_round_data("clouds", weather_now.clouds.all);
-        set_round_data("humidity", weather_now.main.humidity);
+        set_round_data("pop", weather_now.pop);
         generate_hourly_forecast(data.list);
         generate_full_daily_forecast(data.list);
+        document_scroll();
 
     });
     // .catch(function() {
@@ -360,9 +370,8 @@ function document_scroll() {
         handle_scroll_animation();
     });
 
-    window.addEventListener("load", () => {
-        handle_scroll_animation();
-    });
+
+    handle_scroll_animation();
 }
 
 function get_user_location() {
@@ -409,6 +418,5 @@ function get_city(lat, lng) {
 }
 
 document_events();
-document_scroll();
 link_scroll();
 get_user_location();
