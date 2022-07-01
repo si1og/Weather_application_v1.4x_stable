@@ -53,14 +53,26 @@ const construct_date = () => {
 }
 
 function generate_hourly_forecast(arr) {
+
+    const add_new_day_date = (element, index) => {
+        let day_next = index + 2;
+        const date = new Date();
+        date.setDate(date.getDate() + (day_next+(7-date.getDay())) % 7);
+
+        var options = {
+            month: 'numeric', 
+            day: 'numeric' 
+        };
+
+        const date_element = document.createElement("span");
+        date_element.className = "slider-date";
+        date_element.textContent = date.toLocaleDateString('ru-RU', options);
+        element.append(date_element);
+    }
+
+    counter = 1;
     arr.forEach(element => {
         let content = document.createElement("div");
-
-        if (convent_dt_txt(element.dt_txt) == "00:00" && arr[0] != element) {
-            content.className = "new-day slider-block swiper-slide";
-        } else {
-            content.className = "slider-block swiper-slide";
-        }
 
         let time_data = "";
 
@@ -78,6 +90,14 @@ function generate_hourly_forecast(arr) {
         </span>
         `;
         hourly_forecast.append(content);
+        if (convent_dt_txt(element.dt_txt) == "00:00" && arr[0] != element) {
+            
+            content.className = "new-day slider-block swiper-slide";
+            add_new_day_date(content, counter);
+        } else {
+            content.className = "slider-block swiper-slide";
+        }
+        counter++;
     });
 
     var swiper_hourly_foresast = new Swiper(".hourly-forecast__slider-block", {
@@ -99,7 +119,7 @@ function generate_full_daily_forecast(arr) {
     const get_date = (index) => {
         let day_next = index - 2;
         const date = new Date();
-        date.setDate(date.getDate() + (day_next+(7-date.getDay())) % 7);
+        date.setDate(date.getDate() + (day_next+(7-date.getDay())));
 
         if (day_next != -1) {
             var options = {
@@ -123,8 +143,11 @@ function generate_full_daily_forecast(arr) {
     counter_data = 1;
     for (let i = 0; i < arr.length; i++) {
         day_data.push(arr[i]);
-
+        
         if (day_data.length == 8 && i == 7) {
+            day_data = [];
+        }
+        if (convent_dt_txt(day_data[day_data.length - 1].dt_txt) == "21:00" && day_data.length < 8) {
             day_data = [];
         }
 
