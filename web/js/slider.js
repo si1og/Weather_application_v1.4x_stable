@@ -6,26 +6,26 @@ var seven_day_forecast_slider = new Swiper(".seven-day-forecast-short__content",
         280: {
             slidesPerView: 2
         },
-        370: {
+        450: {
             slidesPerView: 3
         },
-        450: {
+        570: {
             slidesPerView: 4
         },
-        600: {
-            slidesPerView: 5
+        640: {
+            slidesPerView: 3
         },
-        800: {
-            slidesPerView: 6
+        768: {
+            slidesPerView: 4
         },
         950: {
-            slidesPerView: 7
-        },
-        1200: {
             slidesPerView: 5
         },
-        1300: {
-            slidesPerView: 5
+        1175: {
+            slidesPerView: 3
+        },
+        1320: {
+            slidesPerView: 4
         },
         1440: {
             slidesPerView: 5

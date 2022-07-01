@@ -107,6 +107,23 @@
     .sinrise-sunset {
         width: auto;
     }
+    .second-main-info-block {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3 auto);
+    }
+    .weather-ditails {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+    .weather-ditails::after {
+        top: 15px;
+        width: 1px;
+        height: calc(100% - 30px);
+    }
 }
 @media (max-width: 500px) {
     .header-content__label {
