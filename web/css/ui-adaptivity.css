@@ -110,6 +110,8 @@
     .second-main-info-block {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(3 auto);
+        gap: 0;
+        row-gap: 20px;
     }
     .weather-ditails {
         grid-template-columns: 1fr 1fr;

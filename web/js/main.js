@@ -4,7 +4,9 @@ const search = document.querySelector(".header-search");
 const burger = document.querySelector(".header-menu-burger");
 const header_function_menu = document.querySelector(".header-content__function-menu");
 const main_menu_remove = document.querySelector(".main-menu-remove");
+const animation = document.querySelector(".loading-animation--conteiner");
 var weather_content = document.querySelectorAll(".weather-content");
+var document_blocks = document.querySelectorAll(".js-scroll");
 const key = '5ba78f463e9dddeead6f1f0cf154d3ca';
 const token = 'pk.5458a1a49de64870a499080d6af514dc';
 
@@ -55,7 +57,7 @@ const construct_date = () => {
 function generate_hourly_forecast(arr) {
 
     const add_new_day_date = (element, index) => {
-        let day_next = index + 2;
+        let day_next = index - 2;
         const date = new Date();
         date.setDate(date.getDate() + (day_next+(7-date.getDay())) % 7);
 
@@ -94,10 +96,10 @@ function generate_hourly_forecast(arr) {
             
             content.className = "new-day slider-block swiper-slide";
             add_new_day_date(content, counter);
+            counter++;
         } else {
             content.className = "slider-block swiper-slide";
         }
-        counter++;
     });
 
     var swiper_hourly_foresast = new Swiper(".hourly-forecast__slider-block", {
@@ -147,8 +149,10 @@ function generate_full_daily_forecast(arr) {
         if (day_data.length == 8 && i == 7) {
             day_data = [];
         }
-        if (convent_dt_txt(day_data[day_data.length - 1].dt_txt) == "21:00" && day_data.length < 8) {
-            day_data = [];
+        if (day_data.length > 0) {
+            if (convent_dt_txt(day_data[day_data.length - 1].dt_txt) == "21:00" && day_data.length < 8) {
+                day_data = [];
+            }
         }
 
         if (day_data.length == 8) {
@@ -262,6 +266,7 @@ function display_weather(place) {
             return;
         }
 
+        animation.classList.add("disactive");
         var weather_now = data.list[0];
 
         construct_date();
@@ -307,14 +312,18 @@ function display_weather(place) {
             element_data.textContent = data;
 
             if (data) {
-                round.style = `stroke-dasharray: ${250*(data/100)} 400;`;
+                round.style = `stroke-dasharray: ${255*(data/100)} 400;`;
             } else {
                 round.style = "stroke: transparent;";
             }
         }
 
+        document_blocks.forEach(element => {
+            element.classList.remove("disactive");
+        });
+
         set_round_data("clouds", weather_now.clouds.all);
-        set_round_data("pop", weather_now.pop);
+        set_round_data("pop", weather_now.pop*100);
         generate_hourly_forecast(data.list);
         generate_full_daily_forecast(data.list);
         document_scroll();
@@ -330,7 +339,32 @@ function display_weather(place) {
     // }); 
 }
 
+function search_event() {
+    const search = document.querySelector(".header-search__search-input");
+
+    const update_page = () => {
+        var slider_blocks = document.querySelectorAll(".slider-block, .day-info-block")
+
+        slider_blocks.forEach(element => {
+            element.remove();
+        });
+        document_blocks.forEach(element => {
+            element.classList.add("disactive");
+        });
+        animation.classList.remove("disactive");
+    }
+
+    search.addEventListener("keydown", (event) => {
+        if (event.keyCode == 13) {
+            update_page();
+            display_weather(search.value);
+        }
+    })
+}
+
 function document_events() {
+
+    search_event();
 
     window.addEventListener("keydown", function(event) {
         if (event.keyCode == 27) {
