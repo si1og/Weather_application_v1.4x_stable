@@ -57,9 +57,8 @@ const construct_date = () => {
 function generate_hourly_forecast(arr) {
 
     const add_new_day_date = (element, index) => {
-        let day_next = index - 2;
         const date = new Date();
-        date.setDate(date.getDate() + (day_next+(7-date.getDay())) % 7);
+        date.setDate(date.getDate() + index);
 
         var options = {
             month: 'numeric', 
@@ -119,11 +118,10 @@ function generate_hourly_forecast(arr) {
 function generate_full_daily_forecast(arr) {
 
     const get_date = (index) => {
-        let day_next = index - 2;
         const date = new Date();
-        date.setDate(date.getDate() + (day_next+(7-date.getDay())));
+        date.setDate(date.getDate() + index);
 
-        if (day_next != -1) {
+        if (index != -1) {
             var options = {
                 weekday: 'long',
                 month: 'long', 
@@ -357,6 +355,9 @@ function search_event() {
     search.addEventListener("keydown", (event) => {
         if (event.keyCode == 13) {
             update_page();
+            if (search.value == "") {
+                get_user_location();
+            }
             display_weather(search.value);
         }
     })
