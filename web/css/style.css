@@ -27,6 +27,7 @@ body {
     max-width: 1440px;
     width: 100%;
     padding: 0 20px;
+    box-sizing: border-box;
 }
 .header-content {
     display: flex;
@@ -594,7 +595,7 @@ body {
 .seven-day-forast-short__label {
     padding: 0;
     margin: 0;
-    font-family: "Sourse Sans Pro";
+    font-family: "Sourse Sans Pro", sans-serif;
     font-weight: 700;
     font-size: 22px;
     color: #ffffffe7;
@@ -691,7 +692,7 @@ body {
     padding: 12px;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.103) 0px 2px 8px;
-    font-family: "Sourse Sans Pro";
+    font-family: "Sourse Sans Pro", sans-serif;
     font-weight: 600;
     font-size: 17px;
     color: rgba(0, 0, 0, 0.686);
@@ -771,7 +772,7 @@ body {
 }
 .info-name-block {
     margin: 0;
-    font-family: "Sourse Sans Pro";
+    font-family: "Sourse Sans Pro", sans-serif;
     font-weight: 700;
     font-size: 21px;
     color: rgba(0, 0, 0, 0.686);
@@ -805,7 +806,7 @@ body {
     row-gap: 5px;
 }
 .day-info-block-day-time {
-    font-family: "Sourse Sans Pro";
+    font-family: "Sourse Sans Pro", sans-serif;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.686);
 }
@@ -1032,6 +1033,80 @@ body {
 .loading-animation .animation {
     top: 5px;
     left: 5px;
+}
+.error-notification {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+    animation: info-block-add .3s ease;
+}
+.error-notification__label {
+    position: relative;
+    max-width: 400px;
+    margin: 70px 0 0 0;
+    font-family: "Sourse Sans Pro", sans-serif;
+    font-size: 27px;
+    font-weight: 700;
+    text-align: center;
+    color: #000000af;
+}
+.error-notification__label::before {
+    position: absolute;
+    content: "";
+    left: calc(50% - 35px);
+    top: -70px;
+    width: 70px;
+    height: 70px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    pointer-events: none;
+}
+.error-notification.geolocation .error-notification__label::before {
+    background-image: url("../icons/location-not-found.svg");
+}
+.error-notification.not-found .error-notification__label::before {
+    top: -80px;
+    width: 130px;
+    height: 130px;
+    background-image: url("../icons/not-found-icon.svg");
+}
+.error-notification__button {
+    position: relative;
+    padding: 5px 15px 5px 33px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    font-family: "Sourse Sans Pro", sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    background: #ffffff;
+    box-shadow: 0px 2px 8px #00000020;
+    color: rgba(0, 0, 0, 0.686);
+    transition: .2s ease;
+}
+.error-notification__button.search::before {
+    position: absolute;
+    left: 10px;
+    top: 9px;
+    content: "";
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("../icons/search-icon.svg");
+}
+.error-notification__search:hover {
+    cursor: pointer;
+    box-shadow: 0px 2px 12px #0000001b;
+    transform: translateY(-3px);
 }
 @font-face {
     font-family: "Sourse Sans Pro";

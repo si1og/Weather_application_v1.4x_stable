@@ -5,6 +5,8 @@ const burger = document.querySelector(".header-menu-burger");
 const header_function_menu = document.querySelector(".header-content__function-menu");
 const main_menu_remove = document.querySelector(".main-menu-remove");
 const animation = document.querySelector(".loading-animation--conteiner");
+const notification_cont = document.querySelector(".error-notification");
+const notification_button = document.querySelector(".error-notification__button");
 var weather_content = document.querySelectorAll(".weather-content");
 var document_blocks = document.querySelectorAll(".js-scroll");
 const key = '5ba78f463e9dddeead6f1f0cf154d3ca';
@@ -52,6 +54,29 @@ const construct_date = () => {
     const min = set_format(date.getMinutes());
 
     return `${hours}:${min}`;
+}
+
+function generate_err_notification(err, place="none") {
+    const notification_label = document.querySelector(".error-notification__label");
+
+    animation.classList.add("disactive");
+
+    switch (err) {
+        case "geolocation":
+            notification_cont.classList.remove("disactive");
+            notification_cont.classList.add("geolocation");
+            notification_label.textContent = "Не удалось определить ваше местоположение";
+            notification_button.classList.add("search");
+            notification_button.textContent = "Перейти к поиску";
+            break;
+        case "not-found":
+            notification_cont.classList.remove("disactive");
+            notification_cont.classList.add("not-found");
+            notification_label.textContent = `Не удалось найти город "${place}"`;
+            notification_button.classList.add("location");
+            notification_button.textContent = "Определить местоположение";
+            break;
+    }
 }
 
 function generate_hourly_forecast(arr) {
@@ -121,7 +146,7 @@ function generate_full_daily_forecast(arr) {
         const date = new Date();
         date.setDate(date.getDate() + index);
 
-        if (index != -1) {
+        if (index != 1) {
             var options = {
                 weekday: 'long',
                 month: 'long', 
@@ -257,14 +282,18 @@ function display_weather(place) {
             element.classList.remove("disactive")
         });
 
+        animation.classList.add("disactive");
+
         if (data.cod == 404) {
             console.log("town not found");
+            generate_err_notification("not-found", place);
+            weather_content.forEach(element => {
+                element.classList.add("disactive")
+            });
             return;
         } else if (data.cod != 200) {
             return;
         }
-
-        animation.classList.add("disactive");
         var weather_now = data.list[0];
 
         construct_date();
@@ -326,15 +355,7 @@ function display_weather(place) {
         generate_full_daily_forecast(data.list);
         document_scroll();
 
-    });
-    // .catch(function() {
-    //     console.log("town not found");
-    //     var weather_now = data.list[0];
-    //     const convent_dt = (dt) => {
-    //         return dt.duration().asMinutes();
-    //     }
-    //     console.log(convent_dt(weather_now.dt));
-    // }); 
+    })
 }
 
 function search_event() {
@@ -350,6 +371,7 @@ function search_event() {
             element.classList.add("disactive");
         });
         animation.classList.remove("disactive");
+        notification_cont.classList.add("disactive");
     }
 
     search.addEventListener("keydown", (event) => {
@@ -414,8 +436,13 @@ function document_events() {
             main_menu_remove.classList.remove("disactive");
         }
     });
+
     main_menu_remove.addEventListener("click", function() {
         disactive_menu();
+    });
+
+    notification_button.addEventListener("click", () => {
+        search_input.focus();
     });
 }
 
@@ -493,8 +520,8 @@ function get_user_location() {
         
     }
     
-    function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
+    function error() {
+        generate_err_notification("geolocation");
     }
     
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -517,6 +544,7 @@ function get_city(lat, lng) {
             } else {
                 place = response.address.city;
             }
+            console.log(response);
             display_weather(place);
         }
     }
