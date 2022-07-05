@@ -853,13 +853,13 @@ body {
 }
 .day-info-block-day-time__icon {
     position: absolute;
-    width: 35px;
-    height: 35px;
-    left: -43px;
-    top: -8px;
+    width: 45px;
+    height: 45px;
+    left: -49px;
+    top: -11px;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 45px 45px;
+    background-size: contain;
     background-image: url("../icons/weather_icons/02d.svg");
 }
 .day-info-block-day-time__wind,
