@@ -7,12 +7,10 @@
         grid-template-rows: 1fr;
     }
 }
-@media (max-width: 950px) {
+@media (max-width: 955px) {
     .seven-days-foracast-ditails {
         grid-template-columns: 1fr;
     }
-}
-@media (max-width: 850px) {
     .main-content-block {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;

@@ -79,6 +79,46 @@ function generate_err_notification(err, place="none") {
     }
 }
 
+const generate_short_daily_forecast = (arr) => {
+    const average = (array) => array.reduce((a, b) => a + b) / array.length;
+
+    var icon_arr = [];
+    var temp_arr = [];
+    var wind_arr = [];
+    var humidity_arr = [];
+
+    day_data = [];
+    for (let i = 0; i < arr.length; i++) {
+        day_data.push(arr[i]);
+        
+        if (day_data.length == 8 && i == 7) {
+            day_data = [];
+        }
+        if (day_data.length > 0) {
+            if (convent_dt_txt(day_data[day_data.length - 1].dt_txt) == "21:00" && day_data.length < 8) {
+                day_data = [];
+            }
+        }
+
+        if (day_data.length == 8) {
+            day_data.forEach(element => {
+                icon_arr.push(element.weather[0].icon);
+                temp_arr.push(element.main.temp);
+                wind_arr.push(Math.round(element.wind.speed));
+                humidity_arr.push(element.main.humidity);
+            });
+            console.log(set_temp(average(temp_arr)));
+
+            day_data = [];
+            icon_arr = [];
+            temp_arr = [];
+            wind_arr = [];
+            humidity_arr = [];
+        }
+        
+    }
+}
+
 function generate_hourly_forecast(arr) {
 
     const add_new_day_date = (element, index) => {
@@ -352,6 +392,7 @@ function display_weather(place) {
         set_round_data("clouds", weather_now.clouds.all);
         set_round_data("pop", weather_now.pop*100);
         generate_hourly_forecast(data.list);
+        generate_short_daily_forecast(data.list);
         generate_full_daily_forecast(data.list);
         document_scroll();
 
