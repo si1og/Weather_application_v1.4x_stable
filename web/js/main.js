@@ -16,6 +16,7 @@ const token = 'pk.5458a1a49de64870a499080d6af514dc';
 const weather_main = document.querySelector(".weather-main");
 const hourly_forecast = document.querySelector(".hourly-forecast__slider-content");
 const full_daily_forecast = document.querySelector(".seven-days-foracast-ditails");
+const short_daily_forecast = document.querySelector(".seven-day-forecast-short__slider");
 
 const set_temp = (temp_k) => {
     let temp = Math.round(temp_k - 273.15);
@@ -82,10 +83,18 @@ function generate_err_notification(err, place="none") {
 const generate_short_daily_forecast = (arr) => {
     const average = (array) => array.reduce((a, b) => a + b) / array.length;
 
+    const mode = (arr) => {
+        return arr.sort((a,b) =>
+              arr.filter(v => v===a).length
+            - arr.filter(v => v===b).length
+        ).pop();
+    }
+
     var icon_arr = [];
     var temp_arr = [];
     var wind_arr = [];
     var humidity_arr = [];
+    var status_arr = [];
 
     day_data = [];
     for (let i = 0; i < arr.length; i++) {
@@ -106,16 +115,47 @@ const generate_short_daily_forecast = (arr) => {
                 temp_arr.push(element.main.temp);
                 wind_arr.push(Math.round(element.wind.speed));
                 humidity_arr.push(element.main.humidity);
+                status_arr.push(element.weather[0].description);
             });
+            const forecast_element = document.createElement("a");
+            forecast_element.className = "day-card swiper-slide";
+            forecast_element.href = `#day-info-block-1`;
+            forecast_element.innerHTML = `
+            <span class="day-card__label">
+                Завтра
+                <span class="day-card__date">
+                    12 Июня
+                </span>
+            </span>
+            <span class="day-card__weather-icon" style="background-image: url('./icons/weather_icons/${mode(icon_arr)}.svg');"></span>
+            <span class="day-card__status">${mode(status_arr)}</span>
+            <div class="day-card__main-info">
+                <span class="day-card__temp-block">
+                    <span class="day-card__temp">${set_temp(average(temp_arr))}</span>
+                </span>
+            </div>
+            <div class="day-card__second-block">
+                <span class="day-card__wind">
+                    <span class="day-card__wind-block">${Math.round(average(wind_arr))}</span>
+                </span>
+                <span class="day-card__humidity">
+                    <span class="day-card__humidity-block">${Math.round(average(humidity_arr))}</span>
+                </span>
+            </div>
+            `;
+
             console.log(set_temp(average(temp_arr)));
+            console.log(mode(icon_arr));
 
             day_data = [];
             icon_arr = [];
             temp_arr = [];
             wind_arr = [];
             humidity_arr = [];
+
+            short_daily_forecast.append(forecast_element);
         }
-        
+
     }
 }
 
