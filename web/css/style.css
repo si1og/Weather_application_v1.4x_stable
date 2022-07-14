@@ -288,6 +288,10 @@ body {
     font-size: 22px;
     color: #f5f5f5;
 }
+.weather-main__label {
+    display: flex;
+    gap: 5px;
+}
 .weather-main__content {
     display: flex;
     flex-wrap: wrap;
@@ -633,10 +637,13 @@ body {
     border: 2px solid #ffffff1a;
     box-shadow: 0px 0px 14px #00000018;
 }
-.day-card__label {
+.day-card__label--conteiner {
     display: flex;
     flex-direction: column;
-    font-size: 18px;
+}
+.day-card__label {
+    display: block;
+    font-size: 20px;
     font-weight: 700;
 }
 .day-card__date {
@@ -646,16 +653,16 @@ body {
 }
 .day-card__weather-icon {
     position: relative;
-    left: -2px;
-    width: 60px;
-    height: 60px;
+    left: -6px;
+    width: 70px;
+    height: 70px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 70px 70px;
 }
 .day-card__temp-block {
     display: flex;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
 }
 .day-card__second-block {
@@ -786,7 +793,13 @@ body {
 .info-name-block__week-day {
     display: block;
 }
-.info-name-block__week-day::first-letter {
+.weather-main__town {
+    display: block;
+}
+.info-name-block__week-day::first-letter,
+.day-card__status::first-letter,
+.day-card__label::first-letter,
+.weather-main__town::first-letter {
     text-transform: uppercase;
 }
 .day-info-block-content {
@@ -1091,19 +1104,21 @@ body {
     color: rgba(0, 0, 0, 0.686);
     transition: .2s ease;
 }
-.error-notification__button.search::before {
+.error-notification__button::before {
     position: absolute;
-    left: 10px;
-    top: 9px;
     content: "";
-    width: 15px;
-    height: 15px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+}
+.error-notification__button.search::before {
+    left: 10px;
+    top: 9px;
+    width: 15px;
+    height: 15px;
     background-image: url("../icons/search-icon.svg");
 }
-.error-notification__search:hover {
+.error-notification__button:hover {
     cursor: pointer;
     box-shadow: 0px 2px 12px #0000001b;
     transform: translateY(-3px);

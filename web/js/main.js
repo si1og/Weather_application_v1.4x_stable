@@ -18,6 +18,40 @@ const hourly_forecast = document.querySelector(".hourly-forecast__slider-content
 const full_daily_forecast = document.querySelector(".seven-days-foracast-ditails");
 const short_daily_forecast = document.querySelector(".seven-day-forecast-short__slider");
 
+const get_date = (index) => {
+    const date = new Date();
+    date.setDate(date.getDate() + index + 1);
+
+    if (index != 0) {
+        var options = {
+            weekday: 'long',
+            month: 'long', 
+            day: 'numeric' 
+        };
+
+        return date.toLocaleDateString('ru-RU', options);
+    } else {
+        var options = {
+            month: 'long', 
+            day: 'numeric' 
+        };
+
+        return `завтра, ${date.toLocaleDateString('ru-RU', options)}`;
+    }
+}
+
+const array_min = (arr) => {
+    return arr.reduce(function (p, v) {
+        return ( p < v ? p : v );
+    });
+}
+
+const array_max = (arr) => {
+    return arr.reduce(function (p, v) {
+        return ( p > v ? p : v );
+    });
+}
+
 const set_temp = (temp_k) => {
     let temp = Math.round(temp_k - 273.15);
     let temp_ret = "";
@@ -41,6 +75,19 @@ const set_icon = (index) => {
     return `./icons/weather_icons/${index}.svg`;
 }
 
+const update_page = () => {
+    var slider_blocks = document.querySelectorAll(".slider-block, .day-info-block")
+
+    slider_blocks.forEach(element => {
+        element.remove();
+    });
+    document_blocks.forEach(element => {
+        element.classList.add("disactive");
+    });
+    animation.classList.remove("disactive");
+    notification_cont.classList.add("disactive");
+}
+
 const construct_date = () => {
     const set_format = (value) => {
         if (value / 10 < 1) {
@@ -60,6 +107,12 @@ const construct_date = () => {
 function generate_err_notification(err, place="none") {
     const notification_label = document.querySelector(".error-notification__label");
 
+    const old_notification_button = document.querySelector(".error-notification__button");
+    const new_notification_button = notification_button.cloneNode(true);
+    old_notification_button.parentNode.replaceChild(new_notification_button, old_notification_button);
+
+    new_notification_button.classList.remove("search", "location");
+    notification_cont.classList.remove("not-found", "geolocation")
     animation.classList.add("disactive");
 
     switch (err) {
@@ -67,15 +120,25 @@ function generate_err_notification(err, place="none") {
             notification_cont.classList.remove("disactive");
             notification_cont.classList.add("geolocation");
             notification_label.textContent = "Не удалось определить ваше местоположение";
-            notification_button.classList.add("search");
-            notification_button.textContent = "Перейти к поиску";
+            new_notification_button.classList.add("search");
+            new_notification_button.textContent = "Перейти к поиску";
+
+            new_notification_button.addEventListener("click", () => {
+                search_input.focus();
+            });
+
             break;
         case "not-found":
             notification_cont.classList.remove("disactive");
             notification_cont.classList.add("not-found");
             notification_label.textContent = `Не удалось найти город "${place}"`;
-            notification_button.classList.add("location");
-            notification_button.textContent = "Определить местоположение";
+            new_notification_button.classList.add("location");
+            new_notification_button.textContent = "Определить местоположение";
+
+            new_notification_button.addEventListener("click", () => {
+                update_page();
+                get_user_location();
+            });
             break;
     }
 }
@@ -90,11 +153,41 @@ const generate_short_daily_forecast = (arr) => {
         ).pop();
     }
 
+    const add_new_day_date = (index) => {
+        const date = new Date();
+        date.setDate(date.getDate() + index + 1);
+
+        var options = {
+            month: 'long', 
+            day: 'numeric' 
+        };
+        return date.toLocaleDateString('ru-RU', options);
+    }
+
+    const add_week_day = (index) => {
+        const date = new Date();
+        date.setDate(date.getDate() + index + 1);
+
+        if (index != 0) {
+            var options = { 
+                weekday: 'long',
+            };
+            return date.toLocaleDateString('ru-RU', options);
+        } else {
+            return "завтра";
+        }
+    }
+
+    const set_min_max_temp = (arr) => {
+        return `${set_temp(array_min(arr))} / ${set_temp(array_max(arr))}`;
+    }
+
     var icon_arr = [];
     var temp_arr = [];
     var wind_arr = [];
     var humidity_arr = [];
     var status_arr = [];
+    let date_counter = 0;
 
     day_data = [];
     for (let i = 0; i < arr.length; i++) {
@@ -121,17 +214,19 @@ const generate_short_daily_forecast = (arr) => {
             forecast_element.className = "day-card swiper-slide";
             forecast_element.href = `#day-info-block-1`;
             forecast_element.innerHTML = `
-            <span class="day-card__label">
-                Завтра
-                <span class="day-card__date">
-                    12 Июня
+            <div class="day-card__label--conteiner">
+                <span class="day-card__label">
+                    ${add_week_day(date_counter)}
                 </span>
-            </span>
+                <span class="day-card__date">
+                    ${add_new_day_date(date_counter)}
+                </span>
+            </div>
             <span class="day-card__weather-icon" style="background-image: url('./icons/weather_icons/${mode(icon_arr)}.svg');"></span>
             <span class="day-card__status">${mode(status_arr)}</span>
             <div class="day-card__main-info">
                 <span class="day-card__temp-block">
-                    <span class="day-card__temp">${set_temp(average(temp_arr))}</span>
+                    <span class="day-card__temp">${set_min_max_temp(temp_arr)}</span>
                 </span>
             </div>
             <div class="day-card__second-block">
@@ -144,19 +239,18 @@ const generate_short_daily_forecast = (arr) => {
             </div>
             `;
 
-            console.log(set_temp(average(temp_arr)));
-            console.log(mode(icon_arr));
-
             day_data = [];
             icon_arr = [];
             temp_arr = [];
             wind_arr = [];
             humidity_arr = [];
+            date_counter++;
 
             short_daily_forecast.append(forecast_element);
         }
-
+    link_scroll();
     }
+
 }
 
 function generate_hourly_forecast(arr) {
@@ -221,31 +315,8 @@ function generate_hourly_forecast(arr) {
 }
 
 function generate_full_daily_forecast(arr) {
-
-    const get_date = (index) => {
-        const date = new Date();
-        date.setDate(date.getDate() + index);
-
-        if (index != 1) {
-            var options = {
-                weekday: 'long',
-                month: 'long', 
-                day: 'numeric' 
-            };
-    
-            return date.toLocaleDateString('ru-RU', options);
-        } else {
-            var options = {
-                month: 'long', 
-                day: 'numeric' 
-            };
-    
-            return `завтра, ${date.toLocaleDateString('ru-RU', options)}`;
-        }
-    }
-
     day_data = [];
-    counter_data = 1;
+    counter_data = 0;
     for (let i = 0; i < arr.length; i++) {
         day_data.push(arr[i]);
         
@@ -442,19 +513,6 @@ function display_weather(place) {
 function search_event() {
     const search = document.querySelector(".header-search__search-input");
 
-    const update_page = () => {
-        var slider_blocks = document.querySelectorAll(".slider-block, .day-info-block")
-
-        slider_blocks.forEach(element => {
-            element.remove();
-        });
-        document_blocks.forEach(element => {
-            element.classList.add("disactive");
-        });
-        animation.classList.remove("disactive");
-        notification_cont.classList.add("disactive");
-    }
-
     search.addEventListener("keydown", (event) => {
         if (event.keyCode == 13) {
             update_page();
@@ -469,12 +527,6 @@ function search_event() {
 function document_events() {
 
     search_event();
-
-    window.addEventListener("keydown", function(event) {
-        if (event.keyCode == 27) {
-            console.log("1");
-        }
-    });
 
     search_input.addEventListener("focus", function() {
         search.classList.add("header-search--active");
@@ -520,10 +572,6 @@ function document_events() {
 
     main_menu_remove.addEventListener("click", function() {
         disactive_menu();
-    });
-
-    notification_button.addEventListener("click", () => {
-        search_input.focus();
     });
 }
 
@@ -598,6 +646,7 @@ function get_user_location() {
         const crd = pos.coords;
 
         get_city(crd.latitude, crd.longitude);
+        search_input.value = "";
         
     }
     
@@ -625,12 +674,10 @@ function get_city(lat, lng) {
             } else {
                 place = response.address.city;
             }
-            console.log(response);
             display_weather(place);
         }
     }
 }
 
 document_events();
-link_scroll();
 get_user_location();
