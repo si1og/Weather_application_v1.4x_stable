@@ -40,6 +40,15 @@ const get_date = (index) => {
     }
 }
 
+const dt_conventer = (dt) => {
+    var options = {
+        hour: '2-digit',
+        minute:'2-digit'
+    }
+    const date = new Date(dt*1000);
+    return date.toLocaleDateString('ru-RU', options).split(", ")[1];
+}
+
 const array_min = (arr) => {
     return arr.reduce(function (p, v) {
         return ( p < v ? p : v );
@@ -76,7 +85,7 @@ const set_icon = (index) => {
 }
 
 const update_page = () => {
-    var slider_blocks = document.querySelectorAll(".slider-block, .day-info-block")
+    var slider_blocks = document.querySelectorAll(".slider-block, .day-info-block, .day-card");
 
     slider_blocks.forEach(element => {
         element.remove();
@@ -425,9 +434,11 @@ function display_weather(place) {
         return;
     }
 
-    fetch("https://api.openweathermap.org/data/2.5/forecast/?q=" + place + ",&appid=" + key + "&lang=ru&cnt=40")  
+    fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${place}&appid=${key}&lang=ru&cnt=40`)  
     .then(function(resp) { return resp.json() })
     .then(function(data) {
+
+        console.log(data);
 
         weather_content.forEach(element => {
             element.classList.remove("disactive")
@@ -436,7 +447,6 @@ function display_weather(place) {
         animation.classList.add("disactive");
 
         if (data.cod == 404) {
-            console.log("town not found");
             generate_err_notification("not-found", place);
             weather_content.forEach(element => {
                 element.classList.add("disactive")
@@ -496,10 +506,19 @@ function display_weather(place) {
             }
         }
 
+        const set_dt = (data) => {
+            const sunrise = document.querySelector(".sinrise-sunset__sunrise-time");
+            const sunset = document.querySelector(".sinrise-sunset__sunset-time");
+
+            sunrise.textContent = dt_conventer(data.city.sunrise);
+            sunset.textContent = dt_conventer(data.city.sunset);
+        }
+
         document_blocks.forEach(element => {
             element.classList.remove("disactive");
         });
 
+        set_dt(data);
         set_round_data("clouds", weather_now.clouds.all);
         set_round_data("pop", weather_now.pop*100);
         generate_hourly_forecast(data.list);
@@ -515,10 +534,10 @@ function search_event() {
 
     search.addEventListener("keydown", (event) => {
         if (event.keyCode == 13) {
-            update_page();
             if (search.value == "") {
                 get_user_location();
             }
+            update_page();
             display_weather(search.value);
         }
     })
@@ -619,7 +638,7 @@ function document_scroll() {
 
     const handle_scroll_animation = () => {
     scrollElements.forEach((element) => {
-        if (element_in_view(element, 50)) {
+        if (element_in_view(element, 0)) {
             display_scroll_element(element);
         } else {
             hide_scroll_element(element);

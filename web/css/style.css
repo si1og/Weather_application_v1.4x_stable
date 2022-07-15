@@ -662,7 +662,7 @@ body {
 }
 .day-card__temp-block {
     display: flex;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
 }
 .day-card__second-block {
