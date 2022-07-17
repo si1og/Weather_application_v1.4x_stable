@@ -30,12 +30,9 @@ burger.addEventListener("click", () => {
     if (window.innerWidth <= 768 && !burger.classList.contains("active")) {
         setTimeout(() => {
             document.body.style = "overflow: hidden; height: 100vh;";
-        }, 200);
+        }, 300);
     } else if (burger.classList.contains("active")) {
-        setTimeout(() => {
-            document.body.style = "";
-        }, 200);
-        main_content_elements.forEach(element => {
+            main_content_elements.forEach(element => {
             element.classList.remove("main-disactive");
         });
     }
@@ -106,7 +103,11 @@ const calc_transform = (pos) => {
     const position_on_menu = (win_width - conteiner) / 2;
     const menu_right = 185;
 
-    burger.style = `left: ${pos}px; transform: translateX(${win_width - conteiner - burger_width - position_on_menu - menu_right}px)`;
+    if (window.innerWidth > 768) {
+        burger.style = `left: ${pos}px; transform: translateX(${win_width - conteiner - burger_width - position_on_menu - menu_right}px)`;
+    } else {
+        burger.style = `left: ${pos}px;`;
+    }
 }
 
 const burger_position = () => {
@@ -117,7 +118,7 @@ const burger_position = () => {
     const padding = 20;
     const conteiner = main.offsetWidth;
 
-    const pos = win_width - padding - burger_width - ((win_width - conteiner) / 2);
+    const pos = win_width - padding - burger_width - (win_width - conteiner) / 2;
     return pos;
 }
 
@@ -167,5 +168,6 @@ function disactive_menu() {
 
     setTimeout(() => {
         header_main_menu.classList.add("disactive");
+        document.body.style = "";
     }, 300);
 }
