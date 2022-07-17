@@ -110,9 +110,9 @@ body {
 }
 .header-content__function-menu {
     position: relative;
-    display: flex;
-    column-gap: 15px;
-    transition: .2s ease;
+    display: block;
+    width: 40px;
+    height: 40px;
 }
 .header-menu-burger {
     width: 40px;
@@ -193,12 +193,9 @@ body {
     pointer-events: all;
     transform: translateX(0px);
 }
-.header-content__function-menu.menu-active {
-    transform: translateX(120px);
-}
 .header-menu-burger {
     position: absolute;
-    top: 15px;
+    top: 13px;
     z-index: 100;
 }
 .header-menu-burger__burger {
@@ -228,9 +225,6 @@ body {
     width: calc(100% + 7px);
     left: -7px;
     top: 8px;
-}
-.header-menu-burger.active {
-    transform: translateX(-175px);
 }
 .header-menu-burger.active .header-menu-burger__burger {
     background: rgba(0, 0, 0, 0);
