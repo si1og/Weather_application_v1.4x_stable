@@ -91,9 +91,8 @@ body {
 .header-search__search-button:hover,
 .header-settings-button:hover,
 .header-settings-button:focus,
-.header-menu-burger:hover,
-.header-menu-burger:focus,
-.header-menu-burger.active {
+.menu-burger:hover,
+.menu-burger:focus-visible {
     cursor: pointer;
     background-color: #00000011;
     border: 1px solid #0000000a;
@@ -114,7 +113,7 @@ body {
     width: 40px;
     height: 40px;
 }
-.header-menu-burger {
+.menu-burger {
     width: 40px;
     height: 40px;
     border: 1px solid #ffffff00;
@@ -124,17 +123,18 @@ body {
     background-size: 28px 28px;
     transition: background .3s, border .3s, transform .3s;
 }
-.header-main-menu {
+.main-menu {
     position: fixed;
     top: 0;
     display: flex;
     flex-direction: column;
+    gap: 17px;
     left: calc(100% - 300px);
     background: #ffffff33;
     backdrop-filter: blur(10px);
     width: 300px;
     height: 100vh;
-    padding: 70px 10px 10px 10px;
+    padding: 10px;
     box-shadow: 0px 0px 18px #00000021;
     z-index: 20;
     pointer-events: none;
@@ -142,7 +142,16 @@ body {
     transition: transform .3s, opacity .3s;
     box-sizing: border-box;
 }
-.header-main-menu__button {
+.main-menu__label {
+    position: relative;
+    top: 8px;
+    margin: 0px 0 0 45px;
+    font-family: "Sourse Sans Pro", sans-serif;
+    font-size: 27px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.686);
+}
+.main-menu__button {
     display: flex;
     align-items: center;
     width: 100%;
@@ -153,26 +162,27 @@ body {
     background: none;
     text-align: left;
     font-family: "Sourse Sans Pro", sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.686);
     transition: .2s ease;
 }
-.header-main-menu__button:hover,
-.header-main-menu__button:focus {
+.main-menu__button:hover,
+.main-menu__button:focus {
     cursor: pointer;
     background: #28282813;
 }
-.header-main-menu__button:active {
+.main-menu__button:active {
     transform: scale(.97);
 }
-.header-main-menu__button-name {
+.main-menu__button-name {
     position: relative;
     margin: 0 0 0 30px;
 }
-.header-main-menu__button-name::before {
+.main-menu__button-name::before {
     position: absolute;
     content: "";
+    top:  2px;
     left: -30px;
     width: 22px;
     height: 22px;
@@ -189,16 +199,16 @@ body {
 .latest-towns-button-menu::before {
     background-image: url("../icons/city-icon.svg");
 }
-.header-main-menu.active {
+.main-menu.active {
     pointer-events: all;
     transform: translateX(0px);
 }
-.header-menu-burger {
+.menu-burger {
     position: absolute;
-    top: 13px;
-    z-index: 100;
+    top: 15px;
+    z-index: 300;
 }
-.header-menu-burger__burger {
+.menu-burger__burger {
     position: absolute;
     width: calc(100% - 24px);
     left: 16px;
@@ -207,8 +217,8 @@ body {
     background: #474747;
     transition: .2s ease;
 }
-.header-menu-burger__burger::before,
-.header-menu-burger__burger::after {
+.menu-burger__burger::before,
+.menu-burger__burger::after {
     position: absolute;
     content: "";
     height: 3px;
@@ -216,32 +226,60 @@ body {
     background: #474747;
     transition: .2s ease;
 }
-.header-menu-burger__burger::before {
+.menu-burger__burger::before {
     width: calc(100% + 5px);
     top: -8px;
     left: -5px;
 }
-.header-menu-burger__burger::after {
+.menu-burger__burger::after {
     width: calc(100% + 7px);
     left: -7px;
     top: 8px;
 }
-.header-menu-burger.active .header-menu-burger__burger {
+.menu-burger.active .menu-burger__burger {
     background: rgba(0, 0, 0, 0);
     transform: translateX(-10px);
 }
-.header-menu-burger.active .header-menu-burger__burger::before,
-.header-menu-burger.active .header-menu-burger__burger::after {
+.menu-burger.active .menu-burger__burger::before,
+.menu-burger.active .menu-burger__burger::after {
     transform: translateX(10px);
     width: calc(100% + 12px);
     left: 0px;
     top: -1px;
 }
-.header-menu-burger.active .header-menu-burger__burger::before {
+.menu-burger.active .menu-burger__burger::before {
     transform: rotate(45deg);
 }
-.header-menu-burger.active .header-menu-burger__burger::after {
+.menu-burger.active .menu-burger__burger::after {
     transform: rotate(-45deg);
+}
+
+.menu-burger.arrow .menu-burger__burger {
+    transform: translateX(0px);
+    width: 20px;
+    top: 19px;
+    left: 12px;
+}
+.menu-burger.arrow .menu-burger__burger::before,
+.menu-burger.arrow .menu-burger__burger::after {
+    transform: translateX(10px);
+    width: calc(100% - 4px);
+    left: 0px;
+    top: 0px;
+}
+.menu-burger.arrow .menu-burger__burger::before {
+    transform: rotate(45deg);
+}
+.menu-burger.arrow .menu-burger__burger::after {
+    transform: rotate(-45deg);
+}
+.menu-burger.arrow .menu-burger__burger::before {
+    top: 5px;
+    left: -5px;
+}
+.menu-burger.arrow .menu-burger__burger::after {
+    top: -5px;
+    left: -5px;
 }
 .main {
     position: relative;
@@ -1125,9 +1163,6 @@ body {
     cursor: pointer;
     box-shadow: 0px 2px 12px #0000001b;
     transform: translateY(-3px);
-}
-.main-disactive {
-    transform:  translateX(-300px);
 }
 @font-face {
     font-family: "Sourse Sans Pro";

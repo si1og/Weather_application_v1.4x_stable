@@ -17,8 +17,14 @@
     height: 100vh;
     width: 100vw;
     z-index: 101;
-    backdrop-filter: blur(10px);
-    animation: modal-background-add .2s ease;
+    animation: modal-background-add .3s;
+    background: #ffffff77;
+}
+.main-disactive {
+    transform: translateX(-300px);
+}
+.main-disactive-menu-acitve {
+    transform: translateX(-500px);
 }
 .page-modal {
     display: flex;
@@ -32,39 +38,32 @@
     box-sizing: border-box;
 }
 .page-modal.remove-animation {
-    animation: modal-background-remove .2s ease;
+    animation: modal-background-remove .3s;
 }
-.page-modal-settings,
-.page-modal-favorite-towns,
-.page-modal-latest-towns {
-    position: relative;
+.page-modal-block {
+    position: fixed;
+    left: calc(100% - 500px);
     display: grid;
     grid-template-rows: min-content calc(100% - 53px);
     grid-gap: 15px;
-    max-width: 800px;
-    max-height: 370px;
-    height: 100%;
+    max-width: 500px;
+    height: 100vh;
     width: 100%;
-    padding: 12px;
-    border-radius: 15px;
-    box-shadow: 0px 5px 14px #00000018;
+    padding: 18px 12px 12px 12px;
+    box-shadow: 0px 0px 18px #00000021;
     background: #ffffff;
-    animation: modal-block-add .2s ease;
+    animation: modal-block-add .3s ease;
     transition: .2s ease;
     box-sizing: border-box;
     z-index: 200;
 }
-.page-modal-settings.remove-animation,
-.page-modal-favorite-towns.remove-animation,
-.page-modal-latest-towns.remove-animation {
-    animation: modal-block-remove .2s ease;
+.page-modal-block.remove-animation {
+    animation: modal-block-remove .3s;
 }
 .page-modal-settings__label--conteiner,
 .page-modal-favorite-towns__label--conteiner,
 .page-modal-latest-towns__label--conteiner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: left;
     font-family: "Sourse Sans Pro", sans-serif;
     font-size: 18px;
     font-weight: 700;
@@ -73,16 +72,16 @@
 .page-modal-settings__label,
 .page-modal-favorite-towns__label,
 .page-modal-latest-towns__label {
-    font-size: 30px;
-    margin: 0;
+    font-size: 27px;
+    margin: 0 0 0 45px;
     white-space: nowrap;
     max-width: calc(100% - 24px);
 }
-.page-modal-settings__close-button,
-.page-modal-favorite-towns__close-button,
-.page-modal-latest-towns__close-button {
-    width: 30px;
-    height: 30px;
+.modal-close-button {
+    position: relative;
+    top: 1px;
+    width: 40px;
+    height: 40px;
     padding: 0;
     margin: 0;
     border: 1px solid #00000000;
@@ -91,7 +90,7 @@
     background: none;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 15px 15px;
+    background-size: 20px 20px;
     background-image: url("../icons/close-icon.svg");
     transition: .2s ease;
 }
@@ -106,9 +105,6 @@
     border: 1px solid #0000000a;
 }
 .page-modal-settings-content {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    grid-gap: 20px;
     max-height: 100%;
 }
 .page-modal-settings-content__settings-menu {

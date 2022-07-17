@@ -1,7 +1,7 @@
 
 const search_input = document.querySelector(".header-search__search-input");
 const search = document.querySelector(".header-search");
-const burger = document.querySelector(".header-menu-burger");
+const burger = document.querySelector(".menu-burger");
 const header_function_menu = document.querySelector(".header-content__function-menu");
 const main_menu_remove = document.querySelector(".main-menu-remove");
 const animation = document.querySelector(".loading-animation--conteiner");
@@ -571,7 +571,7 @@ function document_events() {
 }
 
 function disactive_menu() {
-    const header_main_menu = document.querySelector(".header-main-menu");
+    const header_main_menu = document.querySelector(".main-menu");
 
     burger.classList.remove("active");
     header_function_menu.classList.remove("menu-active");
