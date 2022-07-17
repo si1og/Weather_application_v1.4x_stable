@@ -63,7 +63,17 @@ function menu_event_add(element) {
 }
 
 function disactive_menu() {
+    const header_main_menu = document.querySelector(".header-main-menu");
+
     burger_.classList.remove("active");
     header_function_menu_.classList.remove("menu-active");
-    main_menu_remove_.classList.add("disactive");
+    main_menu_remove_.classList.add("menu-disactive");
+
+    setTimeout(() => {
+        header_main_menu.classList.remove("active");
+    }, 50);
+
+    setTimeout(() => {
+        header_main_menu.classList.add("disactive");
+    }, 300);
 }

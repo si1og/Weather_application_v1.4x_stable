@@ -1,8 +1,16 @@
 .main-menu-remove {
     position: fixed;
+    top: 0;
     height: 100vh;
     width: 100vw;
     z-index: 10;
+    opacity: 1;
+    background: #ffffff77;
+    transition: .2s ease;
+}
+.main-menu-remove.menu-disactive {
+    opacity: 0;
+    pointer-events: none;
 }
 .page-blur {
     position: fixed;
@@ -213,7 +221,7 @@
     font-size: 18px;
 }
 .settings-button__triger {
-    position: relative;
+    position: relative; 
     width: 38px;
     height: 14px;
     border-radius: 20px;

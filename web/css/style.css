@@ -18,6 +18,7 @@ body {
     padding: 10px 0;
     box-shadow: 0px 0px 15px #00000015;
     background: #fff;
+    transition: .3s;
 }
 .header-blocks {
     display: flex;
@@ -111,6 +112,7 @@ body {
     position: relative;
     display: flex;
     column-gap: 15px;
+    transition: .2s ease;
 }
 .header-menu-burger {
     width: 40px;
@@ -120,25 +122,24 @@ body {
     border-radius: 100%;
     background: none;
     background-size: 28px 28px;
-    transition: .2s ease;
+    transition: background .3s, border .3s, transform .3s;
 }
 .header-main-menu {
+    position: absolute;
+    top: 0;
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: calc(100% + 5px);
-    left: -185px;
+    left: calc(100% - 300px);
     background: #ffffff33;
     backdrop-filter: blur(10px);
-    width: 230px;
-    padding: 5px;
-    border-radius: 15px;
+    width: 300px;
+    height: 100vh;
+    padding: 70px 10px 10px 10px;
     box-shadow: 0px 0px 18px #00000021;
-    z-index: 10;
+    z-index: 20;
     pointer-events: none;
-    opacity: 0;
-    transform: scale(.8) translateY(-30px);
-    transition: transform .2s ease, opacity .2s ease;
+    transform: translateX(300px);
+    transition: transform .3s, opacity .3s;
     box-sizing: border-box;
 }
 .header-main-menu__button {
@@ -188,13 +189,16 @@ body {
 .latest-towns-button-menu::before {
     background-image: url("../icons/city-icon.svg");
 }
-.header-content__function-menu.menu-active .header-main-menu {
+.header-main-menu.active {
     pointer-events: all;
-    opacity: 1;
-    transform: scale(1) translateY(0px);
+    transform: translateX(0px);
+}
+.header-content__function-menu.menu-active {
+    transform: translateX(120px);
 }
 .header-menu-burger {
-    position: relative;
+    position: absolute;
+    top: 15px;
     z-index: 100;
 }
 .header-menu-burger__burger {
@@ -225,6 +229,9 @@ body {
     left: -7px;
     top: 8px;
 }
+.header-menu-burger.active {
+    transform: translateX(-175px);
+}
 .header-menu-burger.active .header-menu-burger__burger {
     background: rgba(0, 0, 0, 0);
     transform: translateX(-10px);
@@ -252,6 +259,7 @@ body {
     margin: 0 auto;
     padding: 30px 20px;
     box-sizing: border-box;
+    transition: .3s;
 }
 .first-content {
     display: grid;
@@ -943,6 +951,7 @@ body {
     box-shadow: 0px 0px 15px #00000015;
     background: #ffffff;
     box-sizing: border-box;
+    transition: .3s;
 }
 .weather-ditails {
     position: relative;
@@ -1122,6 +1131,9 @@ body {
     cursor: pointer;
     box-shadow: 0px 2px 12px #0000001b;
     transform: translateY(-3px);
+}
+.main-disactive {
+    transform:  translateX(-300px);
 }
 @font-face {
     font-family: "Sourse Sans Pro";
