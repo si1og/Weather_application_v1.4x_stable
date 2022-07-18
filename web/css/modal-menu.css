@@ -60,6 +60,9 @@
 .page-modal-block.remove-animation {
     animation: modal-block-remove .3s;
 }
+.page-modal-block.back-main-animation {
+    animation: modal-block-back .3s;
+}
 .page-modal-settings__label--conteiner,
 .page-modal-favorite-towns__label--conteiner,
 .page-modal-latest-towns__label--conteiner {

@@ -65,6 +65,14 @@
         transform: translateX(100%);
     }
 }
+@keyframes modal-block-back {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(calc(100% - 300px));
+    }   
+}
 @keyframes info-block-add {
     0% {
         opacity: 0;

@@ -31,7 +31,7 @@ burger.addEventListener("click", () => {
     }
 
     if (burger.classList.contains("arrow")) {
-        remove_modal();
+        remove_modal("back_main");
         active_menu();
         burger.classList.add("active");
         burger.classList.remove("arrow");
@@ -136,11 +136,22 @@ const burger_position = () => {
     return pos;
 }
 
-function remove_modal() {
+function remove_modal(mode="default") {
     page_modal.classList.add("remove-animation");
-    page_modal_blocks.forEach(element => {
-        element.classList.add("remove-animation");
-    });
+    if (mode == "default") {
+        page_modal_blocks.forEach(element => {
+            element.classList.add("remove-animation");
+        });
+    } else if (mode == "back_main") {
+        page_modal_blocks.forEach(element => {
+            element.classList.add("back-main-animation");
+        });
+        setTimeout(() => {
+            page_modal_blocks.forEach(element => {
+                element.classList.remove("back-main-animation");
+            });
+        }, 300);
+    }
     disactive_main_menu();
 
     setTimeout(() => {
