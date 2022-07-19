@@ -1,6 +1,7 @@
 body {
     display: grid;
     grid-template-rows: min-content 1fr min-content;
+    justify-items: center;
     min-height: 100vh;
     padding: 0;
     margin: 0;
@@ -284,6 +285,7 @@ body {
 .main {
     position: relative;
     display: flex;
+    justify-content: flex-start;
     flex-direction: column;
     row-gap: 25px;
     max-width: 1440px;
@@ -292,6 +294,11 @@ body {
     padding: 30px 20px;
     box-sizing: border-box;
     transition: .3s;
+}
+.main-menu--conteiner {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
 }
 .first-content {
     display: grid;
