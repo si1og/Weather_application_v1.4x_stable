@@ -52,6 +52,7 @@ window.addEventListener('resize', () => {
 });
 
 window.addEventListener("load", () => {
+    burger.classList.remove("disactive");
     burger.style = `left: ${burger_position()}px`;
 });
 
