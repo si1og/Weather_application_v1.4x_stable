@@ -1,7 +1,7 @@
 
 # Weather application v1.4.0
 
-The weather application that can genearte weather forecast in any world point!
+The weather application that can generate weather forecast in any world point!
 
 ## Features
 
