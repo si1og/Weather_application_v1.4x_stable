@@ -60,6 +60,7 @@
         backdrop-filter: blur(0px);
     }
     .page-modal-block {
+        left: 0;
         max-height: 100vh;
         height: 100%;
         padding: 20px;
@@ -73,13 +74,22 @@
     .page-modal-settings__label,
     .page-modal-favorite-towns__label,
     .page-modal-latest-towns__label {
+        top: 1ox;
+        margin: 0 0 0 50px;
         font-size: 30px;
-        font-weight: 500;
     }
     .modal-close-button {
         width: 34px;
         height: 34px;
         background-size: 15px 15px;
+    }
+    .main-menu__label {
+        display: none;
+    }
+    .menu-burger.arrow {
+        top: 19px;
+        left: 20px !important;
+        animation: main-block-add-rew .3s ease forwards;
     }
     @keyframes modal-block-add {
         0% {

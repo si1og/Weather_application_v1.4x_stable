@@ -1,7 +1,7 @@
 
 const header = document.querySelector(".header");
 
-const page_scroll = 70;
+const page_scroll = 150;
 
 window.addEventListener("load", () => {
 	page_sctolled(page_scroll);
@@ -17,7 +17,7 @@ let page_sctolled = (scroll) => {
 		return;
 	}
 
-	if (window.pageYOffset < 140 && window.pageYOffset > 0) {
+	if (window.pageYOffset < 70 + page_scroll && window.pageYOffset > 0) {
 		burger.style.opacity = 0;
 	} else {
 		burger.style.opacity = 1;
@@ -36,7 +36,6 @@ let page_sctolled = (scroll) => {
 		} else if (header.style.top.split("px")[0] < 0) {
 			header.style.top = `0px`;
 		}
-		console.log(header.style.top.split("px")[0]);
 		return true;
 	}
 }
