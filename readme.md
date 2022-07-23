@@ -21,8 +21,8 @@ The weather application that can generate weather forecast in any world point!
 
 ## Changes from weather app v1.3.8.3
 
-1. Redisighn ui
-2. Add auto location definition
-3. Add hourly forecast
-4. Add full daily forecsat
+1. Redesigned ui
+2. Added auto location definition
+3. Added hourly forecast
+4. Added full daily forecsat
 5. Reworked web site structure

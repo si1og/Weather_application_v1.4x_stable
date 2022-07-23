@@ -994,12 +994,23 @@ body {
     margin-right: 75px;
 }
 .footer {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    padding: 20px;
+    padding: 15px 0;
     box-shadow: 0px 0px 15px #00000015;
     background: #ffffff;
     box-sizing: border-box;
     transition: .3s;
+    z-index: 1;
+}
+.footer__content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1440px;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 .weather-ditails {
     position: relative;
@@ -1179,6 +1190,51 @@ body {
     cursor: pointer;
     box-shadow: 0px 2px 12px #0000001b;
     transform: translateY(-3px);
+}
+.footer-link {
+    display: block;
+    margin: 0;
+    padding: 2px 4px;
+    border-radius: 5px;
+    font-family: "Sourse Sans Pro", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    font-style: italic;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.686);
+    transition: .2s ease;
+    box-sizing: border-box;
+}
+.footer-link:hover,
+.footer-link:focus {
+    background: #02020211;
+}
+.footer-link.github,
+.footer-link.data {
+    position: relative;
+    padding: 2px 4px 2px 22px;
+}
+.footer-link.data {
+    padding: 2px 4px 2px 25px;   
+}
+.footer-link.github::before,
+.footer-link.data::before {
+    position: absolute;
+    content: "";
+    top: 4px;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.footer-link.github::before {
+    background-image: url("../icons/github.svg");
+}
+.footer-link.data::before {
+    top: 5px;
+    background-image: url("../icons/cloud.svg");
 }
 @font-face {
     font-family: "Sourse Sans Pro";
