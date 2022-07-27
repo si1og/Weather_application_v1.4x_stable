@@ -188,7 +188,7 @@ const generate_short_daily_forecast = (arr) => {
     }
 
     const set_min_max_temp = (arr) => {
-        return `${set_temp(array_min(arr))} / ${set_temp(array_max(arr))}`;
+        return `${set_temp(array_max(arr))} / ${set_temp(array_min(arr))}`;
     }
 
     var icon_arr = [];

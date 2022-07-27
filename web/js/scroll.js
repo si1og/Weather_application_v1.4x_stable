@@ -1,7 +1,7 @@
 
 const header = document.querySelector(".header");
 
-const page_scroll = 150;
+const page_scroll = 170;
 
 window.addEventListener("load", () => {
 	page_sctolled(page_scroll);
