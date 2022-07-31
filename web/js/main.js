@@ -221,7 +221,7 @@ const generate_short_daily_forecast = (arr) => {
             });
             const forecast_element = document.createElement("a");
             forecast_element.className = "day-card swiper-slide";
-            forecast_element.href = `#day-info-block-1`;
+            forecast_element.href = `#day-info-block-${date_counter}`;
             forecast_element.innerHTML = `
             <div class="day-card__label--conteiner">
                 <span class="day-card__label">
