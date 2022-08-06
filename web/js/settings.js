@@ -24,20 +24,22 @@ if (isNaN(document_settings)) {
     let settings_user = get_dict_keys(document_settings, Object.keys(document_settings).length);
 
     if (compartion_of_two_arr(settings_default, settings_user)) {
-        init_settings();
+        init_settings(document_settings);
     } else {
         localStorage.setItem("document-settings", JSON.stringify(document_default_settings));
-        init_settings();
+        document_settings = JSON.parse(localStorage.getItem("document-settings"));
+        init_settings(document_settings);
     }
 } else {
     localStorage.setItem("document-settings", JSON.stringify(document_default_settings));
-    init_settings();
+    document_settings = JSON.parse(localStorage.getItem("document-settings"));
+    init_settings(document_settings);
 }
 
-function init_settings() {
-    set_select_option(document_settings["units"]["temp"], "temp");
-    set_select_option(document_settings["units"]["speed"], "speed");
-    set_select_option(document_settings["units"]["pressure"], "pressure");
+function init_settings(settings) {
+    set_select_option(settings["units"]["temp"], "temp");
+    set_select_option(settings["units"]["speed"], "speed");
+    set_select_option(settings["units"]["pressure"], "pressure");
 
     select_button.forEach(element => {
         element.addEventListener('click', () => {
