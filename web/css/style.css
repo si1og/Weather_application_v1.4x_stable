@@ -162,6 +162,7 @@ body {
     color: rgba(0, 0, 0, 0.686);
 }
 .main-menu__button {
+    position: relative;
     display: flex;
     align-items: center;
     width: 100%;
@@ -176,6 +177,7 @@ body {
     font-weight: 600;
     color: rgba(0, 0, 0, 0.686);
     transition: .2s ease;
+    box-sizing: border-box;
 }
 .main-menu__button:hover,
 .main-menu__button:focus {
@@ -184,6 +186,9 @@ body {
 }
 .main-menu__button:active {
     transform: scale(.97);
+}
+.main-menu__button.triger-button:active {
+    transform: scale(1);
 }
 .main-menu__button-name {
     position: relative;
@@ -200,6 +205,9 @@ body {
     background-position: center;
     background-size: 21px 21px;
 }
+.triger-button>.main-menu__button-name {
+    margin-right: 50px;
+}
 .settings-button-menu::before {
     background-image: url("../icons/settings-icon.svg");
 }
@@ -208,6 +216,41 @@ body {
 }
 .latest-towns-button-menu::before {
     background-image: url("../icons/city-icon.svg");
+}
+.main-menu__button-input {
+    display: none;
+}
+.main-menu__button-triger {
+    position: absolute;
+    left: calc(100% - 45px);
+    width: 35px;
+    height: 20px;
+    border-radius: 10px;
+    background: rgba(211, 211, 211, 0.643);
+    transition: .2s ease;
+}
+.main-menu__button-triger::before {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+    transition: .2s ease;
+}
+.main-menu__button-input:checked ~ .main-menu__button-triger {
+    background: #889eff;
+}
+.main-menu__button-input:checked ~ .main-menu__button-triger::before {
+    transform: translateX(15px);
+}
+.main-menu__button:active .main-menu__button-triger::before {
+    transform: scale(1.2);
+}
+.main-menu__button:active .main-menu__button-input:checked ~ .main-menu__button-triger::before {
+    transform: translateX(15px) scale(1.2);
 }
 .main-menu.active {
     pointer-events: all;
@@ -1234,6 +1277,65 @@ body {
 .footer-link.data::before {
     top: 5px;
     background-image: url("../icons/cloud.svg");
+}
+.weather-main__temp-block.c::after,
+.day-card__temp.c::after,
+.slider-block__temp.c::after,
+.day-info-block-day-time__temp.c::after,
+.weather-main__self-temp-block.c::after {
+    content: "°C";
+}
+.weather-main__temp-block.f::after,
+.day-card__temp.f::after,
+.slider-block__temp.f::after,
+.day-info-block-day-time__temp.f::after,
+.weather-main__self-temp-block.f::after {
+    content: "°F";
+}
+.weather-main__temp-block.k::after,
+.day-card__temp.k::after,
+.slider-block__temp.k::after,
+.day-info-block-day-time__temp.k::after,
+.weather-main__self-temp-block.k::after {
+    left: 110%;
+    content: "K";
+}
+.weather-main__wind-block.mps::after,
+.day-card__wind-block.mps::after,
+.day-info-block-day-time__wind.mps::after {
+    content: "м/с";
+}
+.weather-main__wind-block.kmph::after,
+.day-card__wind-block.kmph::after,
+.day-info-block-day-time__wind.kmph::after {
+    content: "км/ч";
+    width: 40px;
+}
+.weather-main__wind-block.milph::after,
+.day-card__wind-block.milph::after,
+.day-info-block-day-time__wind.milph::after {
+    content: "мл/ч";
+    width: 40px;
+}
+.weather-main__wind-block.kmph,
+.day-card__wind-block.kmph,
+.day-info-block-day-time__wind.kmph,
+.weather-main__wind-block.milph,
+.day-card__wind-block.milph,
+.day-info-block-day-time__wind.milph {
+    margin-right: 40px;
+}
+.weather-main__pressure-block.mm-rt::after,
+.day-info-block-day-time__pressure.mm-rt::after {
+    content: "мм. рс. ст.";
+}
+.weather-main__pressure-block.hpa::after,
+.day-info-block-day-time__pressure.hpa::after {
+    content: "гПа";
+}
+.weather-main__pressure-block.hpa,
+.day-info-block-day-time__pressure.hpa {
+    margin-right: 30px;
 }
 @font-face {
     font-family: "Sourse Sans Pro";

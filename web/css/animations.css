@@ -113,3 +113,23 @@
         transform: translateY(0%);
     }
 }
+@keyframes select-menu-add {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+@keyframes select-menu-remove {
+    0% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}

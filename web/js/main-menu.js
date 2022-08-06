@@ -63,10 +63,12 @@ main_menu_remove.addEventListener("click", () => {
 
 modal_menu_button.forEach(element => {
     element.addEventListener("click", () => {
-        page_modal.classList.remove("disactive");
-        menu_event_add(element);
-        active_menu_block();
-        document.body.style = "overflow: hidden;";
+        if (!element.classList.contains("triger-button")) {
+            page_modal.classList.remove("disactive");
+            menu_event_add(element);
+            active_menu_block();
+            document.body.style = "overflow: hidden;";
+        }
     });
 });
 
@@ -85,7 +87,7 @@ const disactive_main_menu = () => {
 const remove_main_disactive = () => {
     main_content_elements.forEach(element => {
         element.classList.remove("main-disactive");
-    });   
+    });
 }
 
 const active_menu = () => {

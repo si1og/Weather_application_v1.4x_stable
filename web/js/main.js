@@ -64,7 +64,18 @@ const array_max = (arr) => {
 }
 
 const set_temp = (temp_k) => {
-    let temp = Math.round(temp_k - 273.15);
+    let temp = 0;
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+    const temp_mode = settings["units"]["temp"];
+
+    if (temp_mode == "c") {
+        temp = Math.round(temp_k - 273.15);
+    } else if (temp_mode == "f") {
+        temp = Math.round((temp_k - 273.15) * 9/5 + 32);
+    } else if (temp_mode == "k") {
+        temp = Math.round(temp_k);
+    }
+
     let temp_ret = "";
 
     if (temp > 0) {
@@ -74,6 +85,59 @@ const set_temp = (temp_k) => {
     }
 
     return temp_ret;
+}
+
+const set_temp_atr = () => {
+    const temp_elements = document.querySelectorAll(".weather-main__temp-block, .day-card__temp, .day-info-block-day-time__temp, .slider-block__temp, .weather-main__self-temp-block");
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    temp_elements.forEach(element => {
+        element.classList.add(settings["units"]["temp"]);
+    });
+}
+
+const set_speed = (speed) => {
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+    const speed_mode = settings["units"]["speed"];
+
+    if (speed_mode == "mps") {
+        return Math.round(speed);
+    } else if (speed_mode == "kmph") {
+        return Math.round(speed * 3.6);
+    } else if (speed_mode == "milph") {
+        return Math.round(speed * 2.23694);
+    }
+}
+
+const set_speed_atr = () => {
+    const temp_elements = document.querySelectorAll(".weather-main__wind-block, .day-card__wind-block, .day-info-block-day-time__wind");
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    temp_elements.forEach(element => {
+        element.classList.add(settings["units"]["speed"]);
+    });
+}
+
+const set_pressure = (pressure) => {
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+    const speed_mode = settings["units"]["pressure"];
+
+    if (speed_mode == "mm-rt") {
+        return Math.round(pressure * 0.75);
+    } else if (speed_mode == "hpa") {
+        return pressure;
+    } else if (speed_mode == "atm") {
+        return Math.round(pressure * 0.75 / 760.002 * 10**5) / 10**5;
+    }
+}
+
+const set_pressure_atr = () => {
+    const temp_elements = document.querySelectorAll(".weather-main__pressure-block, .day-info-block-day-time__pressure");
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    temp_elements.forEach(element => {
+        element.classList.add(settings["units"]["pressure"]);
+    });
 }
 
 const convent_dt_txt = (dt) => {
@@ -216,7 +280,7 @@ const generate_short_daily_forecast = (arr) => {
             day_data.forEach(element => {
                 icon_arr.push(element.weather[0].icon);
                 temp_arr.push(element.main.temp);
-                wind_arr.push(Math.round(element.wind.speed));
+                wind_arr.push(set_speed(element.wind.speed));
                 humidity_arr.push(element.main.humidity);
                 status_arr.push(element.weather[0].description);
             });
@@ -356,12 +420,10 @@ function generate_full_daily_forecast(arr) {
                 <div class="day-info-block-content__other"></div>
             </div>
             `;
-            counter_data++;
             full_daily_forecast.append(forecast_day);
 
             const day_info_content = document.querySelectorAll(".day-info-block-content__block");
 
-            console.log(day_info_content.length);
             let counter_data_1 = 0;
             let counter_data_2 = 1;
             const day_time_arr = ["Ночью", "Утром", "Днём", "Вечером"]
@@ -380,18 +442,19 @@ function generate_full_daily_forecast(arr) {
                         </span>
                     </div>
                     <div class="day-info-block-day-time__info-block-2">
-                        <span class="day-info-block-day-time__wind">${Math.round(average([day_data[counter_data_1].wind.speed, day_data[counter_data_1].wind.speed]))}</span>
+                        <span class="day-info-block-day-time__wind">${Math.round(average([set_speed(day_data[counter_data_1].wind.speed), set_speed(day_data[counter_data_1].wind.speed)]))}</span>
                         <span class="day-info-block-day-time__humidity">${Math.round(average([day_data[counter_data_1].main.humidity, day_data[counter_data_2].main.humidity]))}</span>
-                        <span class="day-info-block-day-time__pressure">${Math.round(average([day_data[counter_data_1].main.pressure, day_data[counter_data_2].main.pressure]))}</span>
+                        <span class="day-info-block-day-time__pressure">${Math.round(average([set_pressure(day_data[counter_data_1].main.pressure), set_pressure(day_data[counter_data_2].main.pressure)]))}</span>
                     </div>
                 </div>
                 `;
 
-                day_info_content[counter_data-1].append(day_info_block_time);
+                day_info_content[counter_data].append(day_info_block_time);
                 counter_data_1 += 2;
                 counter_data_2 += 2;
             }
 
+            counter_data++;
             day_data = [];
         }
     }
@@ -406,12 +469,22 @@ function display_weather(place) {
     .then(function(resp) { return resp.json() })
     .then(function(data) {
 
-        console.log(data);
+        let latest_towns = JSON.parse(sessionStorage.getItem("latest-towns"));
+        if (isNaN(latest_towns)) {
+            if (latest_towns[length-1] != place) {
+                latest_towns.push(place);
+                sessionStorage.setItem("latest-towns", JSON.stringify(latest_towns));
+            }
+        } else {
+            try {
+                latest_towns.push(place);
+                sessionStorage.setItem("latest-towns", JSON.stringify(latest_towns));
+            } catch {}
+        }
 
         weather_content.forEach(element => {
             element.classList.remove("disactive")
         });
-
         animation.classList.add("disactive");
 
         if (data.cod == 404) {
@@ -450,13 +523,13 @@ function display_weather(place) {
         </div>
         <div class="weather-main__second-block">
             <span class="weather-main__wind">
-                <span class="weather-main__wind-block">${Math.round(weather_now.wind.speed)}</span>
+                <span class="weather-main__wind-block">${set_speed(weather_now.wind.speed)}</span>
             </span>
             <span class="weather-main__humidity">
                 <span class="weather-main__humidity-block">${weather_now.main.humidity}</span>
             </span>
             <span class="weather-main__pressure">
-                <span class="weather-main__pressure-block">${weather_now.main.pressure}</span>
+                <span class="weather-main__pressure-block">${set_pressure(weather_now.main.pressure)}</span>
             </span>
         </div>
         `;
@@ -468,7 +541,7 @@ function display_weather(place) {
             element_data.textContent = data;
 
             if (data) {
-                round.style = `stroke-dasharray: ${255*(data/100)} 400;`;
+                round.style = `stroke-dasharray: ${250*(data/100)} 400;`;
             } else {
                 round.style = "stroke: transparent;";
             }
@@ -493,7 +566,9 @@ function display_weather(place) {
         generate_short_daily_forecast(data.list);
         generate_full_daily_forecast(data.list);
         document_scroll();
-
+        set_temp_atr();
+        set_speed_atr();
+        set_pressure_atr();
     })
 }
 
@@ -512,6 +587,8 @@ function search_event() {
 }
 
 function document_events() {
+
+    sessionStorage.setItem("latest-towns", JSON.stringify([]));
 
     search_event();
 

@@ -18,27 +18,69 @@
                 <h1 class="page-modal-settings__label">Настройки</h1>
             </div>
             <div class="page-modal-settings-content">
-                <div class="swiper swiper-settings">
-                    <div class="swiper-wrapper swiper-settings__content">
-                        <div class="swiper-slide page-modal-settings-content__settings">
-                            <div class="ui-content settins-content-block">
-                                <h2 class="settins-content-block__label">Интерфейс:</h2>
-                                <div class="settins-content-block__elements">
-                                    <label class="settings-button">
-                                        <input class="settings-button__checkbox" type="checkbox">
-                                        <span class="settings-button__label">Lorem ipsum dolor sit amet.</span>
-                                        <span class="settings-button__triger"></span>
-                                    </label>
-                                    <label class="settings-button">
-                                        <input class="settings-button__checkbox" type="checkbox">
-                                        <span class="settings-button__label">Lorem ipsum dolor sit amet.</span>
-                                        <span class="settings-button__triger"></span>
-                                    </label>
+                <div class="page-modal-settings-content__settings">
+                    <div class="ui-content settins-content-block">
+                        <h2 class="settins-content-block__label">Интерфейс:</h2>
+                        <div class="settins-content-block__elements">
+                            <label class="settings-button">
+                                <input class="settings-button__checkbox" id="fix-header" type="checkbox">
+                                <span class="settings-button__label">Использовать фиксированную шапку сайта</span>
+                                <span class="settings-button__triger"></span>
+                            </label>
+                            <label class="settings-button">
+                                <input class="settings-button__checkbox" id="menu-animation" type="checkbox">
+                                <span class="settings-button__label">Смещать содержимое страницы при открытии меню</span>
+                                <span class="settings-button__triger"></span>
+                            </label>
+                            <label class="settings-button">
+                                <input class="settings-button__checkbox" id="24-hours-time" type="checkbox">
+                                <span class="settings-button__label">Использовать 24 часовой временной формат</span>
+                                <span class="settings-button__triger"></span>
+                            </label>
+                            <label class="settings-button">
+                                <input class="settings-button__checkbox" id="system-theme" type="checkbox">
+                                <span class="settings-button__label">Использовать системную цветовую тему</span>
+                                <span class="settings-button__triger"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="ui-content settins-content-block">
+                        <h2 class="settins-content-block__label">Единицы измерения:</h2>
+                        <div class="settins-content-block__elements">
+                            <div class="settings-select">
+                                <span class="settings-select_label">Температура:</span>
+                                <div class="select">
+                                    <button class="select__button temp"></button>
+                                    <div class="select__menu temp">
+                                        <button class="select__option" id="c">В градусах Цельсия</button>
+                                        <button class="select__option" id="f">В градусах Фаренгейта</button>
+                                        <button class="select__option" id="k">В кельвинах</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>  
+                            <div class="settings-select">
+                                <span class="settings-select_label">Скорость:</span>
+                                <div class="select">
+                                    <button class="select__button speed"></button>
+                                    <div class="select__menu speed">
+                                        <button class="select__option" id="mps">В метрах в секунду</button>
+                                        <button class="select__option" id="kmph">В километрах в час</button>
+                                        <button class="select__option" id="milph">В милях в час</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-select">
+                                <span class="settings-select_label">Давление:</span>
+                                <div class="select">
+                                    <button class="select__button pressure"></button>
+                                    <div class="select__menu pressure">
+                                        <button class="select__option" id="mm-rt">В миллиметрах ртурного столба</button>
+                                        <button class="select__option" id="hpa">В гектопаскалях</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="swiper-scrollbar settings-scrollbar"></div>
                 </div>
             </div>
         </section>
@@ -59,6 +101,11 @@
             <button class="main-menu__button settings-button-atr">
                 <span class="main-menu__button-name settings-button-menu">Настройки</span>
             </button>
+            <label class="main-menu__button triger-button dark-theme-atr">
+                <input type="checkbox" id="night-mode" class="main-menu__button-input">
+                <span class="main-menu__button-name">Ночной режим</span>
+                <span class="main-menu__button-triger"></span>
+            </label>
         </div>
     </div>
     <button class="menu-burger disactive">
@@ -203,7 +250,7 @@
         <div class="footer__content">
             <a href="https://openweathermap.org/" class="footer-link data">Данные с OpenWeather</a>
             <div class="footer-nav">
-                <a href="https://github.com/ilyasemenov1/Weather_application_v1.4x_stable" class="footer-link github">Github</a>
+                <a href="https://github.com/ilyasemenov1/Weather_application_v1.4x_stable" class="footer-link github">GitHub</a>
             </div>
         </div>
     </footer>
@@ -212,5 +259,7 @@
     <script src="js/slider.js"></script>
     <script src="js/main-menu.js"></script>
     <script src="js/scroll.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/select.js"></script>
 </body>
 </html>
