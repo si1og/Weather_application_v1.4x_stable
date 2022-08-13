@@ -4,11 +4,12 @@ const select__options = document.querySelectorAll(".select__option");
 const settings_checkboxhes = document.querySelectorAll(".settings-button__checkbox, .main-menu__button-input");
 
 const document_default_settings = {
-    "night-mode": false,
+    "night-mode": "auto",
     "fix-header": true,
     "menu-animation": true,
     "24-hours-time": true,
     "system-theme": true,
+    "data-update": "10min",
     "units": {
         "temp": "c",
         "speed": "mps",
@@ -24,22 +25,51 @@ if (isNaN(document_settings)) {
     let settings_user = get_dict_keys(document_settings, Object.keys(document_settings).length);
 
     if (compartion_of_two_arr(settings_default, settings_user)) {
-        init_settings(document_settings);
+        init_settings();
     } else {
         localStorage.setItem("document-settings", JSON.stringify(document_default_settings));
         document_settings = JSON.parse(localStorage.getItem("document-settings"));
-        init_settings(document_settings);
+        init_settings();
     }
 } else {
     localStorage.setItem("document-settings", JSON.stringify(document_default_settings));
     document_settings = JSON.parse(localStorage.getItem("document-settings"));
-    init_settings(document_settings);
+    init_settings();
 }
 
-function init_settings(settings) {
-    set_select_option(settings["units"]["temp"], "temp");
-    set_select_option(settings["units"]["speed"], "speed");
-    set_select_option(settings["units"]["pressure"], "pressure");
+function update_settings(settings, path, value) {
+    const keys = path.split('.');
+    const targetKey = keys.pop();
+    let current = settings;
+    for (let i = 0; i < keys.length; ++i) {
+      current = current[keys[i]];
+      if (!current) {
+        throw new Error('Specified key not found. ' + keys[i]);
+      }
+    }
+    current[targetKey] = value;
+
+    localStorage.setItem("document-settings", JSON.stringify(settings));
+  }
+
+function get_settings_value(settings, path) {
+    const keys = path.split('.');
+    const targetKey = keys.pop();
+    let current = settings;
+    for (let i = 0; i < keys.length; ++i) {
+      current = current[keys[i]];
+      if (!current) {
+        throw new Error('Specified key not found. ' + keys[i]);
+      }
+    }
+    return current[targetKey];
+}
+
+function init_settings() {
+    set_select_option("units.temp", "temp");
+    set_select_option("units.speed", "speed");
+    set_select_option("units.pressure", "pressure");
+    set_select_option("data-update", "data-update");
 
     select_button.forEach(element => {
         element.addEventListener('click', () => {
@@ -61,15 +91,32 @@ function init_settings(settings) {
         element.addEventListener("click", () => {
             remove_select();
             reset_select();
-            get_select_option(element, "temp");
-            get_select_option(element, "speed");
-            get_select_option(element, "pressure");
+
+            const settings = JSON.parse(localStorage.getItem("document-settings"));
+            const weater_interval = JSON.parse(sessionStorage.getItem("weather-interval"));
+
+            if (isNaN(settings)) {
+                get_select_option(element, settings, "units.temp", "temp");
+                get_select_option(element, settings, "units.speed", "speed");
+                get_select_option(element, settings, "units.pressure", "pressure");
+                get_select_option(element, settings, "data-update", "data-update");
+            }
 
             const latest_towns = JSON.parse(sessionStorage.getItem("latest-towns"));
 
             if (isNaN(latest_towns)) {
                 update_page();
                 display_weather(latest_towns[latest_towns.length-1]);
+
+                clearInterval(weater_interval);
+                
+                if (settings["data-update"] != "disable") {
+                    const weather_interval = setInterval(() => {
+                        display_weather(latest_towns[latest_towns.length-1]);
+                    }, transfer_time_from_settings_to_ms());
+    
+                    sessionStorage.setItem("weather-interval", JSON.stringify(weather_interval));
+                }
             }
         });
     });
@@ -90,26 +137,32 @@ function set_checked_option(element, option) {
     element.checked = settings[option];
 }
 
-function set_select_option(option, option_type) {
+function set_select_option(path, option_type) {
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    if (!isNaN(settings)) {
+        throw new Error("Settings not found");
+    }
+
     const select_button_new = document.querySelector(`.select__button.${option_type}`);
     const select_button_class_names = select_button_new.classList;
     const select_button_classes = []
     
     for (let i = 0; i < 3; i++) {
         if (i == 2) {
-            select_button_classes.push(option);    
+            select_button_classes.push(get_settings_value(settings, path));    
         } else {
             select_button_classes.push(select_button_class_names[i]);
         }
     }
     select_button_new.className = select_button_classes.join(" ");
 
-    let select_element = document.getElementById(option);
+    let select_element = document.getElementById(get_settings_value(settings, path));
     console.log(select_element);
     select_button_new.textContent = select_element.textContent;
 }
 
-function get_select_option(element, option) {
+function get_select_option(element, settings, path, option) {
     if (element.parentElement.classList.contains(option)) {
         const select_button_new = document.querySelector(`.select__button.${option}`);
         const select_button_class_names = select_button_new.classList;
@@ -123,20 +176,21 @@ function get_select_option(element, option) {
             }
         }
 
-        let settings = JSON.parse(localStorage.getItem("document-settings"));
-        settings["units"][option] = element.id;
-        localStorage.setItem("document-settings", JSON.stringify(settings));
+        update_settings(settings, path, element.id);
 
         select_button_new.className = select_button_classes.join(" ");
         select_button_new.textContent = element.textContent;
     }
 }
 
-function get_dict_keys(dict, dict_size, first_key=null, all_keys=[], counter=0) {
+
+function get_dict_keys(dict, dict_size, first_key=null ,all_keys=[], counter=0) {
     let keys = [];
     if (isNaN(first_key)) {
         try {
-            keys = Object.keys(dict[first_key]);
+            if (typeof dict[first_key] != "string") {
+                keys = Object.keys(dict[first_key]);
+            }
         } catch {
             keys = [];
         }
@@ -148,6 +202,7 @@ function get_dict_keys(dict, dict_size, first_key=null, all_keys=[], counter=0) 
         keys.forEach(element => {
             all_keys.push(element);
             counter++;
+            keys_arr = [];
             return get_dict_keys(dict, dict_size, element, all_keys, counter);
         });
     }

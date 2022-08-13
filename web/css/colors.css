@@ -1,0 +1,95 @@
+:root {
+    --bg-color-1: #ffffff;
+    --bg-color-2: #fcfcfc;
+    --bg-color-3: #ffffff;
+    --bg-color-4: #52525211;
+    --bg-color-5: #02020211;
+    --bg-color-6: #ffffff31;
+    --bg-color-7: #ffffff48;
+    --bg-color-8: #ffffff42;
+    --bg-color-9: #2828281f;
+    --bg-color-10: #b8b8b883; /* free */
+    --bg-color-11: #ffffff77;
+    --bg-color-12: #00000011;
+    --bg-color-13: #474747;
+    --bg-color-14: #f3f3f3;
+    --bg-color-15: #ffffff;
+    --text-color-1: #000000af;
+    --text-color-2: #f5f5f5; /* const */
+    --text-color-3: #f5f5f5b9; /* const */
+    --tetx-color-4: #616161;
+    --text-color-5: #000000;
+    --text-color-6: #00000094;
+    --text-color-7: #616161;
+    --stroke-color-1: #ebebeb4d;
+    --stroke-color-2: #5e98f0;
+    --border-color-1: #0000000a;
+    --gradient-1: linear-gradient(190deg, #7799cb 0%, #92a4b9 92%);
+    --gradient-2: linear-gradient(190deg, #79bfd4 0%, #93a5b6 92%);
+    --gradient-3: linear-gradient(190deg, #a5a2de 16%, #a09fad 100%);
+
+    --city-icon-path: url("../icons/day-mode-icons/city-icon.svg");
+    --close-icon-path: url("../icons/day-mode-icons/close-icon.svg");
+    --cloud-path: url("../icons/day-mode-icons/cloud.svg");
+    --github-path: url("../icons/day-mode-icons/github.svg");
+    --heart-icon-path: url("../icons/day-mode-icons/heart-icon.svg");
+    --left-arrow-icon-path: url("../icons/day-mode-icons/left-arrow-icon.svg");
+    --location-icon-path: url("../icons/day-mode-icons/location-icon.svg");
+    --location-not-found-path: url("../icons/day-mode-icons/location-not-found.svg");
+    --menu-icon-path: url("../icons/day-mode-icons/menu-icon.svg");
+    --not-found-icon-path: url("../icons/day-mode-icons/not-found-icon.svg");
+    --right-arrow-icon-path: url("../icons/day-mode-icons/right-arrow-icon.svg");
+    --right-arrow-select-path: url("../icons/day-mode-icons/right-arrow-select.svg");
+    --search-icon-path: url("../icons/day-mode-icons/search-icon.svg");
+    --settings-icon-path: url("../icons/day-mode-icons/settings-icon.svg");
+    --sunrise-icon-path: url("../icons/day-mode-icons/sunrise-icon.svg");
+    --sunset-icon-path: url("../icons/day-mode-icons/sunset-icon.svg");
+}
+
+body.night-mode {
+    --bg-color-1: #4a4c4e;
+    --bg-color-2: #3d3d3f;
+    --bg-color-3: #585858;
+    --bg-color-4: #ffffff11;
+    --bg-color-5: #e4e4e411;
+    --bg-color-6: #ffffff31;
+    --bg-color-7: #ffffff48;
+    --bg-color-8: #ffffff42;
+    --bg-color-9: #cccccc1f;
+    --bg-color-10: #b8b8b883; /* free */
+    --bg-color-11: #4d4d4d77;
+    --bg-color-12: #ffffff11;
+    --bg-color-13: #c9c9c9;
+    --bg-color-14: #555555;
+    --bg-color-15: #5c5c5c;
+    --text-color-1: #d1d1d1d7;
+    --text-color-2: #f5f5f5; /* const */
+    --text-color-3: #f5f5f5b9; /* const */
+    --tetx-color-4: #616161;
+    --text-color-5: #ffffff;
+    --text-color-6: #ffffff94;
+    --text-color-7: #a1a1a1;
+    --stroke-color-1: #6666664d;
+    --stroke-color-2: #5e98f0;
+    --border-color-1: #ffffff0a;
+    --gradient-1: linear-gradient(190deg, #5c6e8b 0%, #4c545f 92%);
+    --gradient-2: linear-gradient(190deg, #58757e 0%, #545b62 92%);
+    --gradient-3: linear-gradient(190deg, #6f6c8b 16%, #535358 100%);
+
+    --city-icon-path: url("../icons/night-mode-icons/city-icon.svg");
+    --close-icon-path: url("../icons/night-mode-icons/close-icon.svg");
+    --cloud-path: url("../icons/night-mode-icons/cloud.svg");
+    --github-path: url("../icons/night-mode-icons/github.svg");
+    --heart-icon-path: url("../icons/night-mode-icons/heart-icon.svg");
+    --left-arrow-icon-path: url("../icons/night-mode-icons/left-arrow-icon.svg");
+    --location-icon-path: url("../icons/night-mode-icons/location-icon.svg");
+    --location-not-found-path: url("../icons/night-mode-icons/location-not-found.svg");
+    --menu-icon-path: url("../icons/night-mode-icons/menu-icon.svg");
+    --not-found-icon-path: url("../icons/night-mode-icons/not-found-icon.svg");
+    --right-arrow-icon-path: url("../icons/night-mode-icons/right-arrow-icon.svg");
+    --right-arrow-select-path: url("../icons/night-mode-icons/right-arrow-select.svg");
+    --search-icon-path: url("../icons/night-mode-icons/search-icon.svg");
+    --settings-icon-path: url("../icons/night-mode-icons/settings-icon.svg");
+    --sunrise-icon-path: url("../icons/night-mode-icons/sunrise-icon.svg");
+    --sunset-icon-path: url("../icons/night-mode-icons/sunset-icon.svg");
+}

@@ -14,7 +14,10 @@
     border: 8px solid #fff;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(.5, 0, .5, 1) infinite;
-    border-color: rgb(107, 107, 107) transparent transparent transparent;
+    border-color: #6b6b6b transparent transparent transparent;
+}
+body.night-mode .animation span {
+    border-color: #a5a5a5 transparent transparent transparent;
 }
 .animation span:nth-child(1) {
     animation-delay: -0.45s;

@@ -151,11 +151,6 @@ const set_icon = (index) => {
 }
 
 const update_page = () => {
-    var slider_blocks = document.querySelectorAll(".slider-block, .day-info-block, .day-card");
-
-    slider_blocks.forEach(element => {
-        element.remove();
-    });
     document_blocks.forEach(element => {
         element.classList.add("disactive");
     });
@@ -178,6 +173,36 @@ const construct_date = () => {
 
     return `${hours}:${min}`;
 }
+
+function transfer_time_from_settings_to_ms() {
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    if (!isNaN(settings)) {
+        throw new Error("Settings not found");
+    }
+
+    let settings_data = settings["data-update"];
+    let time_type = settings_data.match(/s|min|h/)[0];
+    if (time_type) {
+        let time_count = settings_data.split(time_type)[0];
+
+        switch (time_type) {
+            case "s":
+                return +time_count * 1000;
+                break;
+            case "min":
+                return +time_count * 1000 * 60;
+                break;
+            case "h":
+                return +time_count * 1000 * 3600;
+                break;
+            default:
+                throw new Error("Another time type or no time type");
+        }
+    } else {
+        throw new Error("Another time type or no time type");
+    }
+}   
 
 function generate_err_notification(err, place="none") {
     const notification_label = document.querySelector(".error-notification__label");
@@ -322,9 +347,36 @@ const generate_short_daily_forecast = (arr) => {
 
             short_daily_forecast.append(forecast_element);
         }
-    link_scroll();
     }
+    link_scroll();
 
+    const four_day_forecast_slider = new Swiper(".seven-day-forecast-short__content", {
+        slidesPerView: 7,
+        spaceBetween: 10,
+        breakpoints: {
+            280: {
+                slidesPerView: 2
+            },
+            680: {
+                slidesPerView: 3
+            },
+            850: {
+                slidesPerView: 4
+            },
+            950: {
+                slidesPerView: 4
+            },
+            1175: {
+                slidesPerView: 2
+            },
+            1225: {
+                slidesPerView: 3
+            },
+            1350: {
+                slidesPerView: 4
+            }
+        }
+    });
 }
 
 function generate_hourly_forecast(arr) {
@@ -482,6 +534,12 @@ function display_weather(place) {
             } catch {}
         }
 
+        const slider_blocks = document.querySelectorAll(".slider-block, .day-info-block, .day-card");
+
+        slider_blocks.forEach(element => {
+            element.remove();
+        });
+
         weather_content.forEach(element => {
             element.classList.remove("disactive")
         });
@@ -502,7 +560,7 @@ function display_weather(place) {
         weather_main.innerHTML = `
         <div class="weather-main__text">
             <h2 class="weather-main__label">
-                Погода в горде
+                Погода в городе
                 <span class="weather-main__town">${place}</span>
             </h2>
             Данные на
@@ -573,17 +631,113 @@ function display_weather(place) {
 }
 
 function search_event() {
-    const search = document.querySelector(".header-search__search-input");
+    sessionStorage.setItem("search", JSON.stringify(true));
+    const search_input = document.querySelector(".header-search__search-input");
+    const search_button = document.querySelector(".header-search__search-button");
 
-    search.addEventListener("keydown", (event) => {
+    search_input.addEventListener("keydown", (event) => {
         if (event.keyCode == 13) {
-            if (search.value == "") {
+            search(search_input.value);
+        }
+    });
+
+    search_button.addEventListener("click", () => {
+        search(search_input.value);
+    });
+
+    function search(value) {
+        const is_search = JSON.parse(sessionStorage.getItem("search"));
+        const weater_interval = JSON.parse(sessionStorage.getItem("weather-interval"));
+        const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+        clearInterval(weater_interval);
+
+        if (!isNaN(is_search) && !isNaN(weater_interval) && is_search) {
+            if (value == "") {
                 get_user_location();
             }
             update_page();
-            display_weather(search.value);
+            display_weather(value);
+            
+            if (settings["data-update"] != "disable") {
+                const weather_interval_2 = setInterval(() => {
+                    display_weather(value);
+                }, transfer_time_from_settings_to_ms());
+
+                sessionStorage.setItem("weather-interval", JSON.stringify(weather_interval_2));
+            }
+    
+            sessionStorage.setItem("search", JSON.stringify(false));
+    
+            setTimeout(() => {
+                sessionStorage.setItem("search", JSON.stringify(true));
+            }, 700);
         }
-    })
+    }
+}
+
+function get_auto_theme() {
+    if (window.matchMedia && 
+        window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add("night-mode");
+        } else {
+            document.body.classList.remove("night-mode");
+        }
+}
+
+function get_user_theme() {
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    if (!isNaN(settings)) {
+        return;
+    }
+
+    switch(settings["night-mode"]) {
+        case "active":
+            document.body.classList.add("night-mode");
+            set_up_mode(settings["night-mode"]);
+            break
+        case "auto":
+            get_auto_theme();
+            set_up_mode(settings["night-mode"]);
+            break
+        case "disactive":
+            document.body.classList.remove("night-mode");
+            set_up_mode(settings["night-mode"]);
+            break
+        default:
+            get_auto_theme();
+            settings["night-mode"] = "auto";
+            localStorage.setItem("document-settings", JSON.stringify(settings));
+
+            set_up_mode(settings["night-mode"]);
+    }
+
+    function set_up_mode(mode) {
+        const element = document.getElementById(`night-mode-${mode}`);
+        element.checked = true;
+    }
+
+
+}
+
+function night_mode_select_event() {
+    const night_mode_inputs = document.querySelectorAll(".dark-mode-form__button-input");
+
+    night_mode_inputs.forEach(element => {
+        element.addEventListener("click", () => {
+            const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+            if (!isNaN(settings)) {
+                return;
+            }
+
+            settings["night-mode"] = element.value;
+            localStorage.setItem("document-settings", JSON.stringify(settings));
+
+            get_user_theme();
+        });
+    });
 }
 
 function document_events() {
@@ -591,6 +745,15 @@ function document_events() {
     sessionStorage.setItem("latest-towns", JSON.stringify([]));
 
     search_event();
+    
+    addEventListener('DOMContentLoaded', () => {
+        get_user_theme();
+        night_mode_select_event();
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        get_auto_theme();
+    });
 
     search_input.addEventListener("focus", function() {
         search.classList.add("header-search--active");
@@ -606,7 +769,7 @@ function document_events() {
         }
     });
 
-    window.addEventListener("keydown", function(event) {
+    addEventListener("keydown", function(event) {
         if (event.keyCode == 111) {
             setTimeout(() => {
                 search_input.focus();
@@ -721,7 +884,18 @@ function get_city(lat, lng) {
             } else {
                 place = response.address.city;
             }
+
+            const settings = JSON.parse(localStorage.getItem("document-settings"));
+
             display_weather(place);
+
+            if (settings["data-update"] != "disable") {
+                const weather_interval = setInterval(() => {
+                    display_weather(place);
+                }, transfer_time_from_settings_to_ms());
+
+                sessionStorage.setItem("weather-interval", JSON.stringify(weather_interval));
+            }
         }
     }
 }

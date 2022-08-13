@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/colors.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/modal-menu.css">
     <link rel="stylesheet" href="css/ui-adaptivity.css">
+    <link rel="icon" type="image/x-icon" href="icons/logo/logo.svg">
     <title>Погода</title>
 </head>
 <body>
@@ -22,29 +24,59 @@
                     <div class="ui-content settins-content-block">
                         <h2 class="settins-content-block__label">Интерфейс:</h2>
                         <div class="settins-content-block__elements">
-                            <label class="settings-button">
+                            <form class="dark-mode-form dark-theme-atr">
+                                <span class="dark-mode-form__button-name">Тема:</span>
+                                <div class="dark-mode-form__theme-select">
+                                    <input type="radio" id="night-mode-active" class="dark-mode-form__button-input" name="dark-mode" value="active">
+                                    <label for="night-mode-active">Тёмная</label>
+                                    <input type="radio" id="night-mode-auto" class="dark-mode-form__button-input" name="dark-mode" value="auto">
+                                    <label for="night-mode-auto">Авто</label>
+                                    <input type="radio" id="night-mode-disactive" class="dark-mode-form__button-input" name="dark-mode" value="disactive">
+                                    <label for="night-mode-disactive">Светлая</label>
+                                </div>
+                            </form>
+                            <label class="settings-button disactive">
                                 <input class="settings-button__checkbox" id="fix-header" type="checkbox">
                                 <span class="settings-button__label">Использовать фиксированную шапку сайта</span>
                                 <span class="settings-button__triger"></span>
                             </label>
-                            <label class="settings-button">
+                            <label class="settings-button disactive">
                                 <input class="settings-button__checkbox" id="menu-animation" type="checkbox">
                                 <span class="settings-button__label">Смещать содержимое страницы при открытии меню</span>
                                 <span class="settings-button__triger"></span>
                             </label>
-                            <label class="settings-button">
+                            <label class="settings-button disactive">
                                 <input class="settings-button__checkbox" id="24-hours-time" type="checkbox">
                                 <span class="settings-button__label">Использовать 24 часовой временной формат</span>
                                 <span class="settings-button__triger"></span>
                             </label>
-                            <label class="settings-button">
-                                <input class="settings-button__checkbox" id="system-theme" type="checkbox">
-                                <span class="settings-button__label">Использовать системную цветовую тему</span>
-                                <span class="settings-button__triger"></span>
-                            </label>
                         </div>
                     </div>
-                    <div class="ui-content settins-content-block">
+                    <div class="settins-content-block">
+                        <h2 class="settins-content-block__label">Автообновление данных:</h2>
+                        <div class="settins-content-block__elements">
+                            <div class="settings-select">
+                                <span class="settings-select_label">Автообновление данных:</span>
+                                <div class="select">
+                                    <button class="select__button data-update"></button>
+                                    <div class="select__menu data-update">
+                                        <button class="select__option" id="30s">Раз в 30 сек</button>
+                                        <button class="select__option" id="1min">Раз в 1 мин</button>
+                                        <button class="select__option" id="2min">Раз в 2 мин</button>
+                                        <button class="select__option" id="5min">Раз в 5 мин</button>
+                                        <button class="select__option" id="10min">Раз в 10 мин</button>
+                                        <button class="select__option" id="15min">Раз в 15 мин</button>
+                                        <button class="select__option" id="30min">Раз в 30 мин</button>
+                                        <button class="select__option" id="1h">Раз в 1 час</button>
+                                        <button class="select__option" id="2h">Раз в 2 часа</button>
+                                        <button class="select__option" id="5h">Раз в 5 часов</button>
+                                        <button class="select__option" id="disable">Не обновнять данные</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settins-content-block">
                         <h2 class="settins-content-block__label">Единицы измерения:</h2>
                         <div class="settins-content-block__elements">
                             <div class="settings-select">
@@ -74,7 +106,7 @@
                                 <div class="select">
                                     <button class="select__button pressure"></button>
                                     <div class="select__menu pressure">
-                                        <button class="select__option" id="mm-rt">В миллиметрах ртурного столба</button>
+                                        <button class="select__option" id="mm-rt">В миллиметрах ртутного столба</button>
                                         <button class="select__option" id="hpa">В гектопаскалях</button>
                                     </div>
                                 </div>
@@ -101,11 +133,6 @@
             <button class="main-menu__button settings-button-atr">
                 <span class="main-menu__button-name settings-button-menu">Настройки</span>
             </button>
-            <label class="main-menu__button triger-button dark-theme-atr">
-                <input type="checkbox" id="night-mode" class="main-menu__button-input">
-                <span class="main-menu__button-name">Ночной режим</span>
-                <span class="main-menu__button-triger"></span>
-            </label>
         </div>
     </div>
     <button class="menu-burger disactive">
@@ -153,7 +180,7 @@
                 <section class="weather-main js-scroll">
                     <div class="weather-main__text">
                         <h2 class="weather-main__label">
-                            Погода в горде
+                            Погода в городе
                             <span class="weather-main__town">Санкт-Петербург</span>
                         </h2>
                         Данные на
@@ -256,10 +283,8 @@
     </footer>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/slider.js"></script>
     <script src="js/main-menu.js"></script>
     <script src="js/scroll.js"></script>
     <script src="js/settings.js"></script>
-    <script src="js/select.js"></script>
 </body>
 </html>
