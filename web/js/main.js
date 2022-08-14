@@ -151,6 +151,12 @@ const set_icon = (index) => {
 }
 
 const update_page = () => {
+    const slider_blocks = document.querySelectorAll(".slider-block, .day-info-block, .day-card");
+
+    slider_blocks.forEach(element => {
+        element.remove();
+    });
+
     document_blocks.forEach(element => {
         element.classList.add("disactive");
     });
