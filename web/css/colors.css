@@ -44,6 +44,11 @@
     --settings-icon-path: url("../icons/day-mode-icons/settings-icon.svg");
     --sunrise-icon-path: url("../icons/day-mode-icons/sunrise-icon.svg");
     --sunset-icon-path: url("../icons/day-mode-icons/sunset-icon.svg");
+    --info-icon-path: url("../icons/day-mode-icons/info-icon.svg");
+    --git-icon-path: url("../icons/day-mode-icons/git-icon.svg");
+    --vk-icon-path: url("../icons/day-mode-icons/vk-icon.svg");
+    --telegram-icon-path: url("../icons/day-mode-icons/telegram-icon.svg");
+    --mail-icon-path: url("../icons/day-mode-icons/mail-icon.svg");
 }
 
 body.night-mode {
@@ -92,4 +97,9 @@ body.night-mode {
     --settings-icon-path: url("../icons/night-mode-icons/settings-icon.svg");
     --sunrise-icon-path: url("../icons/night-mode-icons/sunrise-icon.svg");
     --sunset-icon-path: url("../icons/night-mode-icons/sunset-icon.svg");
+    --info-icon-path: url("../icons/night-mode-icons/info-icon.svg");
+    --git-icon-path: url("../icons/night-mode-icons/git-icon.svg");
+    --vk-icon-path: url("../icons/night-mode-icons/vk-icon.svg");
+    --telegram-icon-path: url("../icons/night-mode-icons/telegram-icon.svg");
+    --mail-icon-path: url("../icons/night-mode-icons/mail-icon.svg");
 }

@@ -15,9 +15,9 @@
 <body>
     <div class="page-modal disactive">
         <div class="page-blur"></div>
-        <section class="page-modal-settings disactive page-modal-block">
-            <div class="page-modal-settings__label--conteiner">
-                <h1 class="page-modal-settings__label">Настройки</h1>
+        <section class="settings-button-atr disactive page-modal-block">
+            <div class="page-modal__label--conteiner">
+                <h1 class="page-modal__label">Настройки</h1>
             </div>
             <div class="page-modal-settings-content">
                 <div class="page-modal-settings-content__settings">
@@ -116,22 +116,52 @@
                 </div>
             </div>
         </section>
-        <section class="page-modal-favorite-towns disactive page-modal-block">
-            <div class="page-modal-favorite-towns__label--conteiner">
-                <h1 class="page-modal-favorite-towns__label">Избранные города</h1>
+        <section class="info-button-atr disactive page-modal-block">
+            <div class="page-modal__label--conteiner">
+                <h1 class="page-modal__label">О приложении</h1>
             </div>
-        </section>
-        <section class="page-modal-latest-towns disactive page-modal-block">
-            <div class="page-modal-latest-towns__label--conteiner">
-                <h1 class="page-modal-latest-towns__label">Недавние города</h1>
+            <div class="page-modal-info-content">
+                <h2 class="page-modal-info-content__label logo">Погода v1.4.1</h2>
+                <div class="page-modal-info-content__whats-new">
+                    <h2 class="page-modal-info-content__label">Что нового?</h2>
+                    <ul class="info-description">
+                        <li>Добавлена темная тема</li>
+                        <li>Добавлено лого</li>
+                        <li>Добавлено автообновление данных</li>
+                        <li>Исправлены ошибки сохранения данных</li>
+                    </ul>
+                </div>
+                <div class="page-modal-info-content__developers">
+                    <h2 class="page-modal-info-content__label">Другие ветки приложения:</h2>
+                    <ul class="info-description links">
+                        <li class="link branch"><a href="https://github.com/ilyasemenov1/Weather_application_v1.3x_stable" target="_blank">Ветка v1.3x</a></li>
+                    </ul>
+                </div>
+                <div class="page-modal-info-content__whats-new">
+                    <h2 class="page-modal-info-content__label">Есть идеи?</h2>
+                    <ul class="info-description links">
+                        <li class="link mail"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=sialogacc@gmail.com&su=SUBJECT&body=BODY" target="_blank">Почта</a></li>
+                        <li class="link telegram"><a href="https://t.me/si1og" target="_blank">Telegram</a></li>
+                        <li class="link vk"><a href="https://vk.com/si1og" target="_blank">VK</a></li>
+                    </ul>
+                </div>
+                <div class="page-modal-info-content__whats-new">
+                    <h2 class="page-modal-info-content__label">Хотите помочь в разработке?</h2>
+                    <ul class="info-description links">
+                        <li class="link github"><a href="https://github.com/ilyasemenov1/Weather_application_v1.4x_stable/upload/master" target="_blank">Отправьте пул реквест на GitHub</a></li>
+                    </ul>
+                </div>
             </div>
         </section>
     </div>
     <div class="main-menu">
         <h2 class="main-menu__label">Главное меню</h2>
         <div class="main-menu__content">
-            <button class="main-menu__button settings-button-atr">
+            <button class="main-menu__button" id="settings-button-atr">
                 <span class="main-menu__button-name settings-button-menu">Настройки</span>
+            </button>
+            <button class="main-menu__button" id="info-button-atr">
+                <span class="main-menu__button-name info-button-menu">О приложении</span>
             </button>
         </div>
     </div>
@@ -156,9 +186,7 @@
     </header>
     <div class="main-menu--conteiner">
         <div class="main-menu__background"></div>
-        <section class="main-menu">
-
-        </section>
+        <span class="main-menu"></span>
     </div>
     <div class="error-notification disactive">
         <span class="error-notification__label"></span>
@@ -275,9 +303,9 @@
     </main>
     <footer class="footer">
         <div class="footer__content">
-            <a href="https://openweathermap.org/" class="footer-link data">Данные с OpenWeather</a>
+            <a href="https://openweathermap.org/" class="footer-link data" target="_blank">Данные с OpenWeather</a>
             <div class="footer-nav">
-                <a href="https://github.com/ilyasemenov1/Weather_application_v1.4x_stable" class="footer-link github">GitHub</a>
+                <a href="https://github.com/ilyasemenov1/Weather_application_v1.4x_stable" class="footer-link github" target="_blank">GitHub</a>
             </div>
         </div>
     </footer>

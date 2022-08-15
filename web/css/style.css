@@ -262,6 +262,9 @@ body.night-mode .header-search--active {
 .settings-button-menu::before {
     background-image: var(--settings-icon-path);
 }
+.info-button-menu::before {
+    background-image: var(--info-icon-path);
+}
 .favorite-towns-button-menu::before {
     background-image: var(--heart-icon-path);
 }
@@ -1278,7 +1281,7 @@ body.night-mode .day-info-block-day-time__pressure::before {
     display: block;
     margin: 0;
     padding: 2px 4px;
-    border-radius: 5px;
+    border-radius: 10px;
     font-family: "Sourse Sans Pro", sans-serif;
     font-size: 16px;
     font-weight: 600;
@@ -1294,28 +1297,29 @@ body.night-mode .day-info-block-day-time__pressure::before {
 .footer-link.github,
 .footer-link.data {
     position: relative;
-    padding: 2px 4px 2px 22px;
+    padding: 3px 7px 3px 26px;
 }
 .footer-link.data {
-    padding: 2px 4px 2px 25px;   
+    padding: 3px 7px 3px 28px;   
 }
 .footer-link.github::before,
 .footer-link.data::before {
     position: absolute;
     content: "";
     top: 4px;
-    left: 4px;
-    width: 16px;
-    height: 16px;
+    width: 17px;
+    height: 17px;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
 }
 .footer-link.github::before {
+    left: 5px;
     background-image: var(--github-path);
 }
 .footer-link.data::before {
     top: 5px;
+    left: 6px;
     background-image: var(--cloud-path);
 }
 .weather-main__temp-block.c::after,

@@ -178,14 +178,13 @@ function remove_modal(mode="default") {
 }
 
 function menu_event_add(element) {
-    if (element.classList.contains("settings-button-atr")) {
-        page_modal_settings.classList.remove("disactive");
-    } 
-    if (element.classList.contains("favorite-towns-button-atr")) {
-        page_modal_favorite_towns.classList.remove("disactive");
-    }
-    if (element.classList.contains("latest-towns-button-atr")) {
-        page_modal_latest_towns.classList.remove("disactive");
+    const button_atr = element.id;
+    const menu = document.querySelector(`.${button_atr}`);
+
+    if (isNaN(menu)) {
+        menu.classList.remove("disactive");
+    } else {
+        throw new Error(`No menu with that atr: ${button_atr}`);
     }
 }
 

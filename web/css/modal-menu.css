@@ -63,49 +63,18 @@
 .page-modal-block.back-main-animation {
     animation: modal-block-back .3s;
 }
-.page-modal-settings__label--conteiner,
-.page-modal-favorite-towns__label--conteiner,
-.page-modal-latest-towns__label--conteiner {
+.page-modal__label--conteiner {
     justify-content: left;
     font-family: "Sourse Sans Pro", sans-serif;
     font-size: 18px;
     font-weight: 700;
     color: var(--text-color-1);
 }
-.page-modal-settings__label,
-.page-modal-favorite-towns__label,
-.page-modal-latest-towns__label {
+.page-modal__label {
     font-size: 27px;
     margin: 0 0 0 45px;
     white-space: nowrap;
     max-width: calc(100% - 24px);
-}
-.modal-close-button {
-    position: relative;
-    top: 1px;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    margin: 0;
-    border: 1px solid #00000000;
-    border-radius: 50%;
-    outline: none;
-    background: none;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    background-image: var(--close-icon-path);
-    transition: .2s ease;
-}
-.page-modal-settings__close-button:hover,
-.page-modal-settings__close-button:focus,
-.page-modal-favorite-towns__close-button:hover,
-.page-modal-favorite-towns__close-button:focus,
-.page-modal-latest-towns__close-button:hover,
-.page-modal-latest-towns__close-button:focus {
-    cursor: pointer;
-    background-color: var(--bg-color-12);
-    border: 1px solid var(--border-color-1);
 }
 .page-modal-settings-content {
     max-height: 100%;
@@ -374,4 +343,97 @@
     transform: translateY(0px);
     opacity: 1;
     pointer-events: all;
+}
+.page-modal-info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+.page-modal-info-content__label {
+    margin: 0;
+    font-family: "Sourse Sans Pro", sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-color-1);
+    padding: 0 0 0 10px;
+}
+.page-modal-info-content__label.logo {
+    position: relative;
+    margin: 0 0 0 28px;
+    font-size: 26px;
+    font-weight: 700;
+}
+.page-modal-info-content__label.logo::before {
+    position: absolute;
+    left: -18px;
+    top: 6px;
+    content: "";
+    width: 22px;
+    height: 22px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url("../icons/logo/logo.svg");
+    filter: grayscale(30%);
+}
+body.night-mode .page-modal-info-content__label.logo::before {
+    filter: grayscale(60%);
+}
+.info-description {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 5px 0 0 0;
+    font-family: "Sourse Sans Pro", sans-serif;
+}
+.info-description.links {
+    padding: 0 0 0 10px;
+}
+.info-description>li {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-color-1);
+}
+.info-description>li.link {
+    list-style-type: none;
+}
+.info-description>li.link>a {
+    position: relative;
+    padding: 3px 7px 3px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-color-1);
+    transition: .2s ease;
+}
+.info-description>li.link>a::before {
+    position: absolute;
+    left: 5px;
+    top: 4px;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.info-description>li.branch>a::before {
+    left: 7px;
+    background-image: var(--git-icon-path);
+}
+.info-description>li.mail>a::before {
+    background-image: var(--mail-icon-path);
+}
+.info-description>li.telegram>a::before {
+    background-image: var(--telegram-icon-path);
+}
+.info-description>li.vk>a::before {
+    background-image: var(--vk-icon-path);
+}
+.info-description>li.github>a::before {
+    background-image: var(--github-path);
+}
+.info-description>li.link>a:hover {
+    background: var(--bg-color-12);
 }
