@@ -24,6 +24,8 @@
     --stroke-color-1: #ebebeb4d;
     --stroke-color-2: #5e98f0;
     --border-color-1: #0000000a;
+    --scroll-bar-color: #e7e7e7;
+    --scroll-bar-color-2: #a3a3a39a;
     --gradient-1: linear-gradient(190deg, #7799cb 0%, #92a4b9 92%);
     --gradient-2: linear-gradient(190deg, #79bfd4 0%, #93a5b6 92%);
     --gradient-3: linear-gradient(190deg, #a5a2de 16%, #a09fad 100%);
@@ -77,6 +79,8 @@ body.night-mode {
     --stroke-color-1: #6666664d;
     --stroke-color-2: #5e98f0;
     --border-color-1: #ffffff0a;
+    --scroll-bar-color: #8f8f8f;
+    --scroll-bar-color-2: #ececec9a;
     --gradient-1: linear-gradient(190deg, #5c6e8b 0%, #4c545f 92%);
     --gradient-2: linear-gradient(190deg, #58757e 0%, #545b62 92%);
     --gradient-3: linear-gradient(190deg, #6f6c8b 16%, #535358 100%);

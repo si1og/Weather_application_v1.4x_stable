@@ -45,11 +45,10 @@
     left: calc(100% - 500px);
     display: grid;
     grid-template-rows: min-content calc(100% - 53px);
-    grid-gap: 15px;
     max-width: 500px;
     height: 100vh;
     width: 100%;
-    padding: 18px 12px 12px 12px;
+    padding: 0 !important;
     box-shadow: 0px 0px 18px #00000021;
     background: var(--bg-color-1);
     animation: modal-block-add .3s ease;
@@ -64,15 +63,23 @@
     animation: modal-block-back .3s;
 }
 .page-modal__label--conteiner {
+    display: flex;
     justify-content: left;
+    align-items: center;
+    min-height: 70px;
+    width: 100%;
     font-family: "Sourse Sans Pro", sans-serif;
     font-size: 18px;
     font-weight: 700;
     color: var(--text-color-1);
+    transition: .2s ease;
+}
+.page-modal__label--conteiner.scrolled {
+    box-shadow: 4px 6px 8px -3px #00000011;
 }
 .page-modal__label {
     font-size: 27px;
-    margin: 0 0 0 45px;
+    margin: 0 0 0 58px;
     white-space: nowrap;
     max-width: calc(100% - 24px);
 }
@@ -94,7 +101,7 @@
     background: none;
 }
 .page-modal-settings-content__settings-menu::-webkit-scrollbar-thumb {
-    background: #e7e7e7;
+    background: var(--scroll-bar-color);
     border-radius: 10px;
 }
 .settings-content-button {
@@ -120,6 +127,8 @@
     transform: scale(.95);
 }
 .page-modal-settings-content {
+    padding: 0 12px 12px 12px;
+    margin: 0 10px 25px 0;
     overflow-y: visible;
     overflow-x: hidden;  
 }
@@ -127,11 +136,11 @@
     width: 8px;
 }
 .page-modal-settings-content::-webkit-scrollbar-thumb {
-    background: #d3d3d3c4;
+    background: var(--scroll-bar-color);
     border-radius: 10px;
 }
 .page-modal-settings-content::-webkit-scrollbar-thumb:hover {
-    background: #a3a3a39a;
+    background: var(--scroll-bar-color-2);
 }
 .page-modal-settings-content__settings {
     display: flex;
@@ -308,7 +317,7 @@
     background: none;
 }
 .select__menu::-webkit-scrollbar-thumb {
-    background: #e7e7e7;
+    background: var(--scroll-bar-color);
     border-radius: 10px;
 }
 .select__option {
@@ -348,8 +357,20 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin: 0 10px 25px 0;
+    padding: 0 12px 12px 12px;
     overflow-x: hidden;
     overflow-y: visible;
+}
+.page-modal-info-content::-webkit-scrollbar {
+    width: 8px;
+}
+.page-modal-info-content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--scroll-bar-color);
+}
+.page-modal-info-content::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-bar-color-2);
 }
 .page-modal-info-content__label {
     margin: 0;

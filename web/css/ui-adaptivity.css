@@ -88,9 +88,17 @@
         display: none;
     }
     .menu-burger.arrow {
-        top: 19px;
-        left: 20px !important;
+        top: 16px;
+        left: 15px !important;
         animation: main-block-add-rew .3s ease forwards;
+    }
+    @keyframes modal-block-back {
+        0% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(50%);
+        }   
     }
     @keyframes modal-block-add {
         0% {
@@ -107,6 +115,9 @@
         100% {
             transform: translateX(100%);
         }
+    }
+    .page-modal__label--conteiner.scrolled {
+        box-shadow: 0px 3px 8px #00000011;
     }
 }
 @media (max-width: 640px) {
@@ -142,5 +153,8 @@
     }
     .day-info-block-content__block {
         grid-template-columns: 1fr;
+    }
+    .select__menu {
+        width: 100%;
     }
 }
