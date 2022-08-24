@@ -35,21 +35,26 @@
                                     <label for="night-mode-disactive">Светлая</label>
                                 </div>
                             </form>
-                            <label class="settings-button disactive">
+                            <label class="settings-button">
                                 <input class="settings-button__checkbox" id="fix-header" type="checkbox">
-                                <span class="settings-button__label">Использовать фиксированную шапку сайта</span>
+                                <span class="settings-button__label">Фиксировать шапку сайта при прокручивании</span>
                                 <span class="settings-button__triger"></span>
                             </label>
-                            <label class="settings-button disactive">
+                            <label class="settings-button">
                                 <input class="settings-button__checkbox" id="menu-animation" type="checkbox">
-                                <span class="settings-button__label">Смещать содержимое страницы при открытии меню</span>
+                                <span class="settings-button__label">Упростить анимацию открытия меню</span>
                                 <span class="settings-button__triger"></span>
                             </label>
-                            <label class="settings-button disactive">
-                                <input class="settings-button__checkbox" id="24-hours-time" type="checkbox">
-                                <span class="settings-button__label">Использовать 24 часовой временной формат</span>
-                                <span class="settings-button__triger"></span>
-                            </label>
+                            <div class="settings-select">
+                                <span class="settings-select_label">Временной формат:</span>
+                                <div class="select">
+                                    <button class="select__button time-format"></button>
+                                    <div class="select__menu time-format">
+                                        <button class="select__option" id="24h">24-часовой</button>
+                                        <button class="select__option" id="12h">12-часовой</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="settins-content-block">
@@ -118,13 +123,14 @@
                 <h1 class="page-modal__label">О приложении</h1>
             </div>
             <div class="page-modal-info-content">
-                <h2 class="page-modal-info-content__label logo">Погода v1.4.1.1</h2>
+                <h2 class="page-modal-info-content__label logo">Погода v1.4.1.2</h2>
                 <div class="page-modal-info-content__whats-new">
                     <h2 class="page-modal-info-content__label">Что нового?</h2>
                     <ul class="info-description">
                         <li>Добавлена темная тема</li>
                         <li>Добавлено лого</li>
                         <li>Добавлено автообновление данных</li>
+                        <li>Добавлен 12-часовой временной формат</li>
                         <li>Исправлены ошибки сохранения данных</li>
                     </ul>
                 </div>

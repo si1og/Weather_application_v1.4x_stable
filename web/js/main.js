@@ -20,7 +20,7 @@ const short_daily_forecast = document.querySelector(".seven-day-forecast-short__
 
 const average = (array) => array.reduce((a, b) => a + b) / array.length;
 
-const get_date = (index) => {
+let get_date = (index) => {
     const date = new Date();
     date.setDate(date.getDate() + index + 1);
 
@@ -42,28 +42,41 @@ const get_date = (index) => {
     }
 }
 
-const dt_conventer = (dt) => {
-    var options = {
+let dt_conventer = (dt) => {
+
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    let options = {
+        hour12: false,
         hour: '2-digit',
         minute:'2-digit'
     }
+
+    if (!isNaN(settings)) {
+        return;
+    }
+
+    if (settings["time-format"] == "12h") {
+        options.hour12 = true;
+    }
+
     const date = new Date(dt*1000);
     return date.toLocaleDateString('ru-RU', options).split(", ")[1];
 }
 
-const array_min = (arr) => {
+let array_min = (arr) => {
     return arr.reduce(function (p, v) {
         return ( p < v ? p : v );
     });
 }
 
-const array_max = (arr) => {
+let array_max = (arr) => {
     return arr.reduce(function (p, v) {
         return ( p > v ? p : v );
     });
 }
 
-const set_temp = (temp_k) => {
+let set_temp = (temp_k) => {
     let temp = 0;
     const settings = JSON.parse(localStorage.getItem("document-settings"));
     const temp_mode = settings["units"]["temp"];
@@ -87,7 +100,7 @@ const set_temp = (temp_k) => {
     return temp_ret;
 }
 
-const set_temp_atr = () => {
+let set_temp_atr = () => {
     const temp_elements = document.querySelectorAll(".weather-main__temp-block, .day-card__temp, .day-info-block-day-time__temp, .slider-block__temp, .weather-main__self-temp-block");
     const settings = JSON.parse(localStorage.getItem("document-settings"));
 
@@ -96,7 +109,7 @@ const set_temp_atr = () => {
     });
 }
 
-const set_speed = (speed) => {
+let set_speed = (speed) => {
     const settings = JSON.parse(localStorage.getItem("document-settings"));
     const speed_mode = settings["units"]["speed"];
 
@@ -109,7 +122,7 @@ const set_speed = (speed) => {
     }
 }
 
-const set_speed_atr = () => {
+let set_speed_atr = () => {
     const temp_elements = document.querySelectorAll(".weather-main__wind-block, .day-card__wind-block, .day-info-block-day-time__wind");
     const settings = JSON.parse(localStorage.getItem("document-settings"));
 
@@ -118,7 +131,7 @@ const set_speed_atr = () => {
     });
 }
 
-const set_pressure = (pressure) => {
+let set_pressure = (pressure) => {
     const settings = JSON.parse(localStorage.getItem("document-settings"));
     const speed_mode = settings["units"]["pressure"];
 
@@ -131,7 +144,7 @@ const set_pressure = (pressure) => {
     }
 }
 
-const set_pressure_atr = () => {
+let set_pressure_atr = () => {
     const temp_elements = document.querySelectorAll(".weather-main__pressure-block, .day-info-block-day-time__pressure");
     const settings = JSON.parse(localStorage.getItem("document-settings"));
 
@@ -146,11 +159,11 @@ const convent_dt_txt = (dt) => {
     return `${time[0]}:${time[1]}`;
 }
 
-const set_icon = (index) => {
+let set_icon = (index) => {
     return `./icons/weather_icons/${index}.svg`;
 }
 
-const update_page = () => {
+let update_page = () => {
     const slider_blocks = document.querySelectorAll(".slider-block, .day-info-block, .day-card");
 
     slider_blocks.forEach(element => {
@@ -164,20 +177,26 @@ const update_page = () => {
     notification_cont.classList.add("disactive");
 }
 
-const construct_date = () => {
-    const set_format = (value) => {
-        if (value / 10 < 1) {
-            return `0${value}`;
-        } else {
-            return value;
-        }
+let construct_date = () => {
+
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    let options = {
+        hour12: false,
+        hour: '2-digit',
+        minute:'2-digit'
+    }
+
+    if (!isNaN(settings)) {
+        return;
+    }
+
+    if (settings["time-format"] == "12h") {
+        options.hour12 = true;
     }
 
     const date = new Date();
-    const hours = set_format(date.getHours());
-    const min = set_format(date.getMinutes());
-
-    return `${hours}:${min}`;
+    return date.toLocaleDateString('ru-RU', options).split(", ")[1];
 }
 
 function transfer_time_from_settings_to_ms() {
@@ -249,7 +268,7 @@ function generate_err_notification(err, place="none") {
     }
 }
 
-const generate_short_daily_forecast = (arr) => {
+let generate_short_daily_forecast = (arr) => {
 
     const mode = (arr) => {
         return arr.sort((a,b) =>
@@ -258,7 +277,7 @@ const generate_short_daily_forecast = (arr) => {
         ).pop();
     }
 
-    const add_new_day_date = (index) => {
+    let add_new_day_date = (index) => {
         const date = new Date();
         date.setDate(date.getDate() + index + 1);
 
@@ -269,7 +288,7 @@ const generate_short_daily_forecast = (arr) => {
         return date.toLocaleDateString('ru-RU', options);
     }
 
-    const add_week_day = (index) => {
+    let add_week_day = (index) => {
         const date = new Date();
         date.setDate(date.getDate() + index + 1);
 
@@ -283,7 +302,7 @@ const generate_short_daily_forecast = (arr) => {
         }
     }
 
-    const set_min_max_temp = (arr) => {
+    let set_min_max_temp = (arr) => {
         return `${set_temp(array_max(arr))} / ${set_temp(array_min(arr))}`;
     }
 
@@ -402,6 +421,8 @@ function generate_hourly_forecast(arr) {
         element.append(date_element);
     }
 
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
     counter = 1;
     arr.forEach(element => {
         let content = document.createElement("div");
@@ -409,7 +430,7 @@ function generate_hourly_forecast(arr) {
         let time_data = "";
 
         if (arr[0] != element) {
-            time_data = convent_dt_txt(element.dt_txt);
+            time_data = dt_conventer(element.dt);
         } else {
             time_data = construct_date();
         }
@@ -422,13 +443,21 @@ function generate_hourly_forecast(arr) {
         </span>
         `;
         hourly_forecast.append(content);
-        if (convent_dt_txt(element.dt_txt) == "00:00" && arr[0] != element) {
+        if ((dt_conventer(element.dt) == "00:00" || dt_conventer(element.dt) == "00:00 AM") && arr[0] != element) {
             
             content.className = "new-day slider-block swiper-slide";
             add_new_day_date(content, counter);
             counter++;
         } else {
             content.className = "slider-block swiper-slide";
+        }        
+    });
+
+    const time_block_elements = document.querySelectorAll(".slider-block__time");
+
+    time_block_elements.forEach(element => {
+        if (settings["time-format"] == "12h") {
+            element.classList.add("h12");
         }
     });
 
@@ -484,7 +513,7 @@ function generate_full_daily_forecast(arr) {
 
             let counter_data_1 = 0;
             let counter_data_2 = 1;
-            const day_time_arr = ["Ночью", "Утром", "Днём", "Вечером"]
+            const day_time_arr = ["Ночью", "Утром", "Днём", "Вечером"];
 
             for (let i = 0; i < 4; i++) {
                 const day_info_block_time = document.createElement("div");

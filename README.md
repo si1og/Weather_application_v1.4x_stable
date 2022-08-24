@@ -1,5 +1,5 @@
 
-# Weather application v1.4.1.1
+# Weather application v1.4.1.2
 
 The weather application that can generate weather forecast in any world point!
 
@@ -21,7 +21,8 @@ The weather application that can generate weather forecast in any world point!
 
 ## Changes from weather app v1.4.0
 
-1. Append dark theme
-2. Addend logo
-3. Addend auto data update
-4. Fix data saving errors
+1. Append a dark theme
+2. Addend a logo
+3. Addend an auto data update
+4. Added a 12-hour time format 
+5. Fix data saving errors

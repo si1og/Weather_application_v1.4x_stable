@@ -397,10 +397,9 @@
     background-size: contain;
     background-position: center;
     background-image: url("../icons/logo/logo.svg");
-    filter: grayscale(30%);
 }
 body.night-mode .page-modal-info-content__label.logo::before {
-    filter: grayscale(60%);
+    filter: grayscale(40%);
 }
 .info-description {
     display: flex;

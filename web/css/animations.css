@@ -136,3 +136,23 @@ body.night-mode .animation span {
         transform: translateY(-30px);
     }
 }
+@keyframes top-animation {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+@keyframes back-animation {
+    0% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}

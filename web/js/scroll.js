@@ -18,17 +18,21 @@ let page_sctolled = (scroll) => {
 	}
 
 	const settings = JSON.parse(localStorage.getItem("document-settings"));
+	
 	if (!settings["fix-header"]) {
 		header.classList.remove("scrolled");
 		burger.style.transform = "";
-		header.style.top = `0px`;
+		header.style.top = "0px";
+		burger.style.top = `${-(window.pageYOffset - 15)}px`;
 		return;
 	}
 
-	if (window.pageYOffset < 70 + page_scroll && window.pageYOffset > 0) {
-		burger.style.opacity = 0;
+	if (window.pageYOffset < header.clientHeight + page_scroll && window.pageYOffset > page_scroll - header.clientHeight) {
+		burger.style.top = `${window.pageYOffset - page_scroll - burger.clientHeight - 8}px`;
+	} else if (window.pageYOffset < header.clientHeight + page_scroll) {
+		burger.style.top = `${-window.pageYOffset + 15}px`;
 	} else {
-		burger.style.opacity = 1;
+		burger.style.top = `15px`;
 	}
 
 	if (window.pageYOffset < scroll) {

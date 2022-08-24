@@ -95,9 +95,13 @@ page_modal_content.forEach(element => {
 });
 
 const activate_main_menu = () => {
-    main_content_elements.forEach(element => {
-        element.classList.add("main-disactive-menu-acitve");
-    });      
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    if (!settings["menu-animation"]) {
+        main_content_elements.forEach(element => {
+            element.classList.add("main-disactive-menu-acitve");
+        }); 
+    }
 }
 
 const disactive_main_menu = () => {
@@ -113,9 +117,14 @@ const remove_main_disactive = () => {
 }
 
 const active_menu = () => {
-    main_content_elements.forEach(element => {
-        element.classList.add("main-disactive");
-    });
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    if (!settings["menu-animation"]) {
+        main_content_elements.forEach(element => {
+            element.classList.add("main-disactive");
+        });
+    }
+
     document.body.style = "overflow: hidden; height: 100vh;";
 
     sessionStorage.setItem("resize-menu", JSON.stringify("menu"));

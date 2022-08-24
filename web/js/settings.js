@@ -6,8 +6,8 @@ const settings_checkboxhes = document.querySelectorAll(".settings-button__checkb
 const document_default_settings = {
     "night-mode": "auto",
     "fix-header": true,
-    "menu-animation": true,
-    "24-hours-time": true,
+    "menu-animation": false,
+    "time-format": "24h",
     "system-theme": true,
     "data-update": "10min",
     "units": {
@@ -70,6 +70,7 @@ function init_settings() {
     set_select_option("units.speed", "speed");
     set_select_option("units.pressure", "pressure");
     set_select_option("data-update", "data-update");
+    set_select_option("time-format", "time-format");
 
     select_button.forEach(element => {
         element.addEventListener('click', () => {
@@ -100,6 +101,7 @@ function init_settings() {
                 get_select_option(element, settings, "units.speed", "speed");
                 get_select_option(element, settings, "units.pressure", "pressure");
                 get_select_option(element, settings, "data-update", "data-update");
+                get_select_option(element, settings, "time-format", "time-format");
             }
 
             const latest_towns = JSON.parse(sessionStorage.getItem("latest-towns"));
@@ -126,6 +128,8 @@ function init_settings() {
             let settings = JSON.parse(localStorage.getItem("document-settings"));
             settings[element.id] = event.currentTarget.checked;
             localStorage.setItem("document-settings", JSON.stringify(settings));
+
+            set_option_on_check(element);
         });
     
         set_checked_option(element, element.id);
@@ -135,6 +139,39 @@ function init_settings() {
 function set_checked_option(element, option) {
     let settings = JSON.parse(localStorage.getItem("document-settings"));
     element.checked = settings[option];
+}
+
+function set_option_on_check(element) {
+    switch (element.id) {
+        case "fix-header":
+            fix_header_option();
+            break;
+    }
+}
+
+function fix_header_option() {
+    const header = document.querySelector(".header");
+    const page_scroll = 170;
+
+    if (window.pageYOffset < page_scroll) {
+        return;
+    }
+
+    if (header.classList.contains("scrolled")) {
+        header.classList.add("back-animation");
+        
+        setTimeout(() => {
+            header.classList.remove("scrolled");
+            header.classList.remove("back-animation");
+        }, 200);
+    } else {
+        header.classList.add("top-animation");
+        header.classList.add("scrolled");
+        
+        setTimeout(() => {
+            header.classList.remove("top-animation");
+        }, 200);
+    }
 }
 
 function set_select_option(path, option_type) {
@@ -158,7 +195,6 @@ function set_select_option(path, option_type) {
     select_button_new.className = select_button_classes.join(" ");
 
     let select_element = document.getElementById(get_settings_value(settings, path));
-    console.log(select_element);
     select_button_new.textContent = select_element.textContent;
 }
 
