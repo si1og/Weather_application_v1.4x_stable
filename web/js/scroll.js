@@ -1,7 +1,7 @@
 
 const header = document.querySelector(".header");
 
-const page_scroll = 170;
+const page_scroll = 175;
 
 window.addEventListener("load", () => {
 	page_sctolled(page_scroll);
@@ -19,30 +19,28 @@ let page_sctolled = (scroll) => {
 
 	const settings = JSON.parse(localStorage.getItem("document-settings"));
 	
+	let burger_top = Math.round(header.clientHeight / 2 - burger.clientHeight / 2 - 1);
+
 	if (!settings["fix-header"]) {
 		header.classList.remove("scrolled");
-		burger.style.transform = "";
-		header.style.top = "0px";
-		burger.style.top = `${-(window.pageYOffset - 15)}px`;
+		burger.style.top = `${-(window.pageYOffset + burger_top)}px`;
 		return;
 	}
 
 	if (window.pageYOffset < header.clientHeight + page_scroll && window.pageYOffset > page_scroll - header.clientHeight) {
-		burger.style.top = `${window.pageYOffset - page_scroll - burger.clientHeight - 8}px`;
+		burger.style.top = `${window.pageYOffset - page_scroll - burger.clientHeight - burger_top}px`;
 	} else if (window.pageYOffset < header.clientHeight + page_scroll) {
-		burger.style.top = `${-window.pageYOffset + 15}px`;
+		burger.style.top = `${-window.pageYOffset + burger_top}px`;
 	} else {
-		burger.style.top = `15px`;
+		burger.style.top = `${burger_top}px`;
 	}
 
 	if (window.pageYOffset < scroll) {
 		header.classList.remove("scrolled");
-		burger.style.transform = "";
 		header.style.top = `0px`;
 		return false;
 	} else if (window.pageYOffset > scroll) {
 		header.classList.add("scrolled");
-		burger.style.transform = "translateY(-5px)";
 		if (-(header.clientHeight - (window.pageYOffset - page_scroll)) <= 0) {
 			header.style.top = `${-(header.clientHeight - (window.pageYOffset - page_scroll))}px`;		
 		} else if (header.style.top.split("px")[0] < 0) {

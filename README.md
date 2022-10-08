@@ -1,10 +1,11 @@
 
-# Weather application v1.4.1.2
+# Weather application v1.4.2
 
 The weather application that can generate weather forecast in any world point!
 
 ## Features
 
+- Crossplatform
 - Auto location definition
 - Search by city name, country name or city id
 - Daily forecast
@@ -15,14 +16,15 @@ The weather application that can generate weather forecast in any world point!
 - [Openweathermap api](https://openweathermap.org/ap)
 - [Locationiq api](https://locationiq.com/)
 
-## Web site
+## Icons
 
- - [Web site link](https://weather-app.website.yandexcloud.net/)
+- [Meteocons](https://github.com/basmilius/weather-icons)
 
-## Changes from weather app v1.4.0
+## App
 
-1. Append a dark theme
-2. Addend a logo
-3. Addend an auto data update
-4. Added a 12-hour time format 
-5. Fix data saving errors
+ - [App link](https://weather-app.website.yandexcloud.net/)
+
+## Changes from weather app v1.4.1
+
+1. Append favorite towns
+2. Append search recommendations by your favorite towns

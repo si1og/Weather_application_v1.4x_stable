@@ -44,6 +44,52 @@ body.night-mode .animation span {
         opacity: 1;
     }
 }
+.favorite-towns-add-towns.loading .favorite-towns-add-towns__button span {
+    top: calc(50% - 3px);
+    width: 7px;
+    height: 7px;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.favorite-towns-add-towns.loading .favorite-towns-add-towns__button span:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+.favorite-towns-add-towns.loading .favorite-towns-add-towns__button span:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.favorite-towns-add-towns.loading .favorite-towns-add-towns__button span:nth-child(3) {
+    left: 20px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.favorite-towns-add-towns.loading .favorite-towns-add-towns__button span:nth-child(4) {
+    left: 32px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(11px, 0);
+    }
+}
 @keyframes modal-background-remove {
     0% {
         opacity: 1;
@@ -154,5 +200,75 @@ body.night-mode .animation span {
     100% {
         opacity: 0;
         transform: translateY(-100%);
+    }
+}
+@keyframes favorite-town-add {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+@keyframes favorite-towns-no-towns-add {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes favorite-towns-no-towns-remove {
+    0% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+}
+@keyframes modal-menu-top {
+    0% {
+        opacity: 0;
+        transform: translateY(-25px) scale(.7);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+}
+@keyframes modal-menu-bottom {
+    0% {
+        opacity: 0;
+        transform: translateY(25px) scale(.7);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+}
+@keyframes modal-menu-remove-top {
+    0% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-25px) scale(.7);
+    }
+}
+@keyframes modal-menu-remove-bottom {
+    0% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(25px) scale(.7);
     }
 }

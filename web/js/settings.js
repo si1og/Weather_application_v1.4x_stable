@@ -66,30 +66,34 @@ function get_settings_value(settings, path) {
 }
 
 function init_settings() {
+    const settings_block = document.getElementById("settings");
+
     set_select_option("units.temp", "temp");
     set_select_option("units.speed", "speed");
     set_select_option("units.pressure", "pressure");
     set_select_option("data-update", "data-update");
     set_select_option("time-format", "time-format");
 
-    select_button.forEach(element => {
-        element.addEventListener('click', () => {
-            let id = element.classList[2];
-            let element_option = document.getElementById(id);
+    settings_block.addEventListener("click", () => {init_select(event)});
+
+    function init_select(event) {
+        let target = event.target;
+
+        if (target.classList.contains("select__button")) {
+            let id = target.classList[2];
+            let target_option = document.getElementById(id);
     
-            if (element.classList.contains("active")) {
-                element.classList.remove("active");
+            if (target.classList.contains("active")) {
+                target.classList.remove("active");
                 reset_select();
             } else {
                 remove_select();
-                element.classList.add("active");
-                element_option.classList.add("disactive");
+                target.classList.add("active");
+                target_option.classList.add("disactive");
             }
-        });
-    });
-    
-    select__options.forEach(element => {
-        element.addEventListener("click", () => {
+        }
+
+        if (target.classList.contains("select__option")) {
             remove_select();
             reset_select();
 
@@ -97,11 +101,11 @@ function init_settings() {
             const weater_interval = JSON.parse(sessionStorage.getItem("weather-interval"));
 
             if (isNaN(settings)) {
-                get_select_option(element, settings, "units.temp", "temp");
-                get_select_option(element, settings, "units.speed", "speed");
-                get_select_option(element, settings, "units.pressure", "pressure");
-                get_select_option(element, settings, "data-update", "data-update");
-                get_select_option(element, settings, "time-format", "time-format");
+                get_select_option(target, settings, "units.temp", "temp");
+                get_select_option(target, settings, "units.speed", "speed");
+                get_select_option(target, settings, "units.pressure", "pressure");
+                get_select_option(target, settings, "data-update", "data-update");
+                get_select_option(target, settings, "time-format", "time-format");
             }
 
             const latest_towns = JSON.parse(sessionStorage.getItem("latest-towns"));
@@ -120,8 +124,8 @@ function init_settings() {
                     sessionStorage.setItem("weather-interval", JSON.stringify(weather_interval));
                 }
             }
-        });
-    });
+        }
+    }
     
     settings_checkboxhes.forEach(element => {
         element.addEventListener("change", (event) => {;

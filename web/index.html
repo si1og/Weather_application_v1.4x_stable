@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Приложение погоды, способное отображать прогноз в любой точке мира!">
     <link rel="stylesheet" href="css/colors.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
@@ -15,7 +16,7 @@
 <body>
     <div class="page-modal disactive">
         <div class="page-blur"></div>
-        <section class="settings-button-atr disactive page-modal-block">
+        <section class="settings-button-atr disactive page-modal-block" id="settings">
             <div class="page-modal__label--conteiner">
                 <h1 class="page-modal__label">Настройки</h1>
             </div>
@@ -48,10 +49,10 @@
                             <div class="settings-select">
                                 <span class="settings-select_label">Временной формат:</span>
                                 <div class="select">
-                                    <button class="select__button time-format"></button>
+                                    <button class="select__button time-format" aria-label="Select"></button>
                                     <div class="select__menu time-format">
-                                        <button class="select__option" id="24h">24-часовой</button>
-                                        <button class="select__option" id="12h">12-часовой</button>
+                                        <button class="select__option" aria-label="24 Hours" id="24h">24-часовой</button>
+                                        <button class="select__option" aria-label="12 Hours"id="12h">12-часовой</button>
                                     </div>
                                 </div>
                             </div>
@@ -63,16 +64,16 @@
                             <div class="settings-select">
                                 <span class="settings-select_label">Автообновление данных:</span>
                                 <div class="select">
-                                    <button class="select__button data-update"></button>
+                                    <button class="select__button data-update" aria-label="Select"></button>
                                     <div class="select__menu data-update">
-                                        <button class="select__option" id="5min">Раз в 5 мин</button>
-                                        <button class="select__option" id="10min">Раз в 10 мин</button>
-                                        <button class="select__option" id="15min">Раз в 15 мин</button>
-                                        <button class="select__option" id="30min">Раз в 30 мин</button>
-                                        <button class="select__option" id="1h">Раз в 1 час</button>
-                                        <button class="select__option" id="2h">Раз в 2 часа</button>
-                                        <button class="select__option" id="5h">Раз в 5 часов</button>
-                                        <button class="select__option" id="disable">Не обновнять данные</button>
+                                        <button class="select__option" aria-label="5 Minutes" id="5min">Раз в 5 мин</button>
+                                        <button class="select__option" aria-label="10 Minutes" id="10min">Раз в 10 мин</button>
+                                        <button class="select__option" aria-label="15 Minutes" id="15min">Раз в 15 мин</button>
+                                        <button class="select__option" aria-label="30 Minutes" id="30min">Раз в 30 мин</button>
+                                        <button class="select__option" aria-label="1 Hour" id="1h">Раз в 1 час</button>
+                                        <button class="select__option" aria-label="2 Hours" id="2h">Раз в 2 часа</button>
+                                        <button class="select__option" aria-label="5 Hours" id="5h">Раз в 5 часов</button>
+                                        <button class="select__option" aria-label="Disable" id="disable">Не обновнять данные</button>
                                     </div>
                                 </div>
                             </div>
@@ -84,32 +85,32 @@
                             <div class="settings-select">
                                 <span class="settings-select_label">Температура:</span>
                                 <div class="select">
-                                    <button class="select__button temp"></button>
+                                    <button class="select__button temp" aria-label="Select"></button>
                                     <div class="select__menu temp">
-                                        <button class="select__option" id="c">В градусах Цельсия</button>
-                                        <button class="select__option" id="f">В градусах Фаренгейта</button>
-                                        <button class="select__option" id="k">В кельвинах</button>
+                                        <button class="select__option" aria-label="Celcius" id="c">В градусах Цельсия</button>
+                                        <button class="select__option" aria-label="Farenheit" id="f">В градусах Фаренгейта</button>
+                                        <button class="select__option" aria-label="Kelvin" id="k">В кельвинах</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="settings-select">
                                 <span class="settings-select_label">Скорость:</span>
                                 <div class="select">
-                                    <button class="select__button speed"></button>
+                                    <button class="select__button speed" aria-label="Select"></button>
                                     <div class="select__menu speed">
-                                        <button class="select__option" id="mps">В метрах в секунду</button>
-                                        <button class="select__option" id="kmph">В километрах в час</button>
-                                        <button class="select__option" id="milph">В милях в час</button>
+                                        <button class="select__option" aria-label="Meters Per Hour" id="mps">В метрах в секунду</button>
+                                        <button class="select__option" aria-label="Kilometers Per Hour" id="kmph">В километрах в час</button>
+                                        <button class="select__option" aria-label="Miles Per Hour" id="milph">В милях в час</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="settings-select">
                                 <span class="settings-select_label">Давление:</span>
                                 <div class="select">
-                                    <button class="select__button pressure"></button>
+                                    <button class="select__button pressure" aria-label="Select"></button>
                                     <div class="select__menu pressure">
-                                        <button class="select__option" id="mm-rt">В миллиметрах ртутного столба</button>
-                                        <button class="select__option" id="hpa">В гектопаскалях</button>
+                                        <button class="select__option" aria-label="Millimeters Of Mercury" id="mm-rt">В миллиметрах ртутного столба</button>
+                                        <button class="select__option" aria-label="Hectopascals" id="hpa">В гектопаскалях</button>
                                     </div>
                                 </div>
                             </div>
@@ -123,15 +124,13 @@
                 <h1 class="page-modal__label">О приложении</h1>
             </div>
             <div class="page-modal-info-content">
-                <h2 class="page-modal-info-content__label logo">Погода v1.4.1.2</h2>
+                <h2 class="page-modal-info-content__label logo">Погода v1.4.2</h2>
                 <div class="page-modal-info-content__whats-new">
                     <h2 class="page-modal-info-content__label">Что нового?</h2>
                     <ul class="info-description">
-                        <li>Добавлена темная тема</li>
-                        <li>Добавлено лого</li>
-                        <li>Добавлено автообновление данных</li>
-                        <li>Добавлен 12-часовой временной формат</li>
-                        <li>Исправлены ошибки сохранения данных</li>
+                        <li>Добавлены избранные города</li>
+                        <li>Добавлены рекомендации при поиске относительно избранных городов</li>
+                        <li>Добавлено склонение загаловка с названием города по падежам</li>
                     </ul>
                 </div>
                 <div class="page-modal-info-content__developers">
@@ -156,19 +155,46 @@
                 </div>
             </div>
         </section>
+        <section class="favorite-towns-button-atr disactive page-modal-block">
+            <div class="page-modal__label--conteiner">
+                <h1 class="page-modal__label">Избранные города</h1>
+            </div>
+            <div class="page-modal-info-content">
+                <div class="favorite-towns-content">
+                    <div class="favorite-towns-add-towns">
+                        <input type="text" class="favorite-towns-add-towns__input" placeholder="Введите название города">
+                        <button class="favorite-towns-add-towns__button">
+                            <span class="plus-s-1"></span>
+                            <span class="plus-s-2"></span>
+                            <span class="plus-s-3"></span>
+                            <span class="plus-s-4"></span>
+
+                        </button>
+                    </div>
+                    <div class="favorite-towns-no-towns">
+                        <span class="favorite-towns-no-towns__label">У вас нет избранных городов</span>
+                        <button class="favorite-towns__add-button">Добавить город</button>
+                    </div>
+                    <div class="favorite-towns"></div>
+                </div>
+            </div>
+        </section>
     </div>
     <div class="main-menu">
         <h2 class="main-menu__label">Главное меню</h2>
         <div class="main-menu__content">
-            <button class="main-menu__button" id="settings-button-atr">
+            <button class="main-menu__button" id="settings-button-atr" aria-label="Settings">
                 <span class="main-menu__button-name settings-button-menu">Настройки</span>
             </button>
-            <button class="main-menu__button" id="info-button-atr">
+            <button class="main-menu__button" id="favorite-towns-button-atr" aria-label="About App">
+                <span class="main-menu__button-name favorite-towns-button-menu">Избранные города</span>
+            </button>
+            <button class="main-menu__button" id="info-button-atr" aria-label="About App">
                 <span class="main-menu__button-name info-button-menu">О приложении</span>
             </button>
         </div>
     </div>
-    <button class="menu-burger disactive">
+    <button class="menu-burger disactive" aria-label="Main Menu Button">
         <span class="menu-burger__burger"></span>
     </button>
     <div class="main-menu-remove menu-disactive"></div>
@@ -176,11 +202,19 @@
         <div class="header-blocks">
             <div class="header-content">
                 <span class="header-content__label">Погода</span>
-                <div class="header-search">
-                    <div class="header-search__search-button--conteiner">
-                        <button class="header-search__search-button" tabindex="-1"></button>
+                <div class="modal-header-search">
+                    <div class="header-search-modal disable">
+                        <div class="modal-block favorite-towns-modal">
+                            <span class="modal-block__label">Избранные города</span>
+                            <div class="modal-block__content"></div>
+                        </div>
                     </div>
-                    <input class="header-search__search-input" type="text" placeholder="Введите название города" size="1" autocomplete="off">
+                    <div class="header-search">
+                        <div class="header-search__search-button--conteiner">
+                            <button class="header-search__search-button" tabindex="-1" aria-label="Search"></button>
+                        </div>
+                        <input class="header-search__search-input" type="text" placeholder="Введите название города" size="1" autocomplete="off">
+                    </div>
                 </div>
             </div>
             <div class="header-content__function-menu">
@@ -191,11 +225,11 @@
         <div class="main-menu__background"></div>
         <span class="main-menu"></span>
     </div>
-    <div class="error-notification disactive">
-        <span class="error-notification__label"></span>
-        <button class="error-notification__button"></button>
-    </div>
     <main class="main">
+        <div class="error-notification disactive">
+            <span class="error-notification__label"></span>
+            <button class="error-notification__button" aria-label="Notify Button"></button>
+        </div>
         <div class="loading-animation--conteiner">
             <span class="loading-animation">
                 <span class="animation">
@@ -245,13 +279,13 @@
                 <section class="hourly-forecast js-scroll">
                     <h2 class="hourly-forecast__label">Почасовой прогноз</h2>
                     <div class="hourly-forecast__slider">
-                        <button class="hourly-forecast__left-button active-button">
+                        <button class="hourly-forecast__left-button active-button" aria-label="Left Button">
                             <span class="hourly-forecast__left-button-view"></span>
                         </button>
                         <div class="hourly-forecast__slider-block">
                             <div class="hourly-forecast__slider-content swiper-wrapper"></div>
                         </div>
-                        <button class="hourly-forecast__right-button active-button">
+                        <button class="hourly-forecast__right-button active-button" aria-label="Right Button">
                             <span class="hourly-forecast__right-button-view"></span>
                         </button>
                     </div>
@@ -312,7 +346,74 @@
             </div>
         </div>
     </footer>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        function get_auto_theme() {
+            if (window.matchMedia && 
+                window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.body.classList.add("night-mode");
+                } else {
+                    document.body.classList.remove("night-mode");
+                }
+        }
+
+        function set_up_mode(mode) {
+            const element = document.getElementById(`night-mode-${mode}`);
+            element.checked = true;
+        }
+
+        function get_user_theme() {
+            const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+            if (!isNaN(settings)) {
+                const document_default_settings = {
+                    "night-mode": "auto",
+                    "fix-header": true,
+                    "menu-animation": false,
+                    "time-format": "24h",
+                    "system-theme": true,
+                    "data-update": "10min",
+                    "units": {
+                        "temp": "c",
+                        "speed": "mps",
+                        "pressure": "mm-rt"
+                    }
+                }
+
+                localStorage.setItem("document-settings", JSON.stringify(document_default_settings));
+                get_auto_theme();
+                return;
+            }
+
+            switch(settings["night-mode"]) {
+                case "active":
+                    document.body.classList.add("night-mode");
+                    set_up_mode(settings["night-mode"]);
+                    break
+                case "auto":
+                    get_auto_theme();
+                    set_up_mode(settings["night-mode"]);
+                    break
+                case "disactive":
+                    document.body.classList.remove("night-mode");
+                    set_up_mode(settings["night-mode"]);
+                    break
+                default:
+                    get_auto_theme();
+                    settings["night-mode"] = "auto";
+                    localStorage.setItem("document-settings", JSON.stringify(settings));
+
+                    set_up_mode(settings["night-mode"]);
+            }
+        }
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            get_auto_theme();
+        });
+
+        get_user_theme();
+    </script>
+    <script src="../node_modules/swiper/swiper-bundle.min.js"></script>
+    <script src="../node_modules/lvovich/dist/lvovich.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/main-menu.js"></script>
     <script src="js/scroll.js"></script>

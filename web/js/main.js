@@ -1,4 +1,3 @@
-
 const search_input = document.querySelector(".header-search__search-input");
 const search = document.querySelector(".header-search");
 const burger = document.querySelector(".menu-burger");
@@ -591,12 +590,16 @@ function display_weather(place) {
         }
         var weather_now = data.list[0];
 
+        let predict = "";
+        place.toLowerCase().match(/^в[с\з\ч\щ\к\м\л\ж\т\м\г\д\н\п\р\х]/) ? predict = "во" : predict = "в";
+        place.toLowerCase().match(/[a-z]|^[0-9]/) ? predict = "в городе" : void(0);
+
         construct_date();
         weather_main.innerHTML = `
         <div class="weather-main__text">
             <h2 class="weather-main__label">
-                Погода в городе
-                <span class="weather-main__town">${place}</span>
+                Погода ${predict}
+                <span class="weather-main__town">${lvovich.cityIn(place)}</span>
             </h2>
             Данные на
             <span class="weather-main__time">${construct_date()}</span>
@@ -669,6 +672,20 @@ function search_event() {
     sessionStorage.setItem("search", JSON.stringify(true));
     const search_input = document.querySelector(".header-search__search-input");
     const search_button = document.querySelector(".header-search__search-button");
+    const search_modal = document.querySelector(".header-search-modal");
+
+    search_modal.addEventListener("mousedown", () => {recommend_towns_event(event)});
+
+    function recommend_towns_event(event) {
+        let target = event.target;
+
+        if (target.classList.contains("modal-block__recommend-button")) {
+            update_page();
+            display_weather(target.value);
+
+            search_input.value = target.value;
+        }
+    }
 
     search_input.addEventListener("keydown", (event) => {
         if (event.keyCode == 13) {
@@ -676,9 +693,68 @@ function search_event() {
         }
     });
 
+    search_input.addEventListener("input", () => {
+        if (search_input.value) {
+            remove_towns_search();
+            favorite_towns_search(search_input.value);
+        } else {
+            search_modal.classList.add("disable");
+        }
+    });
+
+    search_input.addEventListener("focus", () => {
+        if (search_input.value) {
+            remove_towns_search();
+            favorite_towns_search(search_input.value);
+        }
+    });
+
+    search_input.addEventListener("blur", () => {
+        search_modal.classList.add("disable");
+    });
+
     search_button.addEventListener("click", () => {
         search(search_input.value);
     });
+
+    function remove_towns_search() {
+        let favorite_towns_ = document.querySelectorAll(".modal-block__recommend-button");
+        favorite_towns_.forEach(element => {
+            element.remove();
+        });
+    }
+
+    function favorite_towns_search(value) {
+        let favorite_towns = JSON.parse(localStorage.getItem("favorite-towns"));
+
+        if (isNaN(favorite_towns)) {
+            let favorite_towns_arr = [];
+            let modal_block_content = document.querySelector(".modal-block__content");
+
+            favorite_towns.forEach(element => {
+                let favorite_town = element.name.toLowerCase();
+
+                if (favorite_town.includes(value.toLowerCase())) {
+                    favorite_towns_arr.push(element.name);
+                }
+            });
+
+            favorite_towns_arr.forEach(element => {
+                let town = document.createElement("button");
+                town.className = "modal-block__recommend-button";
+                town.innerText = element;
+                town.value = element;
+
+                modal_block_content.appendChild(town);
+            });
+
+            if (favorite_towns_arr.length > 0) {
+                search_modal.classList.remove("disable");
+            } else {
+                search_modal.classList.add("disable");
+            }
+        }
+    }
 
     function search(value) {
         const is_search = JSON.parse(sessionStorage.getItem("search"));
@@ -711,51 +787,6 @@ function search_event() {
     }
 }
 
-function get_auto_theme() {
-    if (window.matchMedia && 
-        window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.body.classList.add("night-mode");
-        } else {
-            document.body.classList.remove("night-mode");
-        }
-}
-
-function get_user_theme() {
-    const settings = JSON.parse(localStorage.getItem("document-settings"));
-
-    if (!isNaN(settings)) {
-        return;
-    }
-
-    switch(settings["night-mode"]) {
-        case "active":
-            document.body.classList.add("night-mode");
-            set_up_mode(settings["night-mode"]);
-            break
-        case "auto":
-            get_auto_theme();
-            set_up_mode(settings["night-mode"]);
-            break
-        case "disactive":
-            document.body.classList.remove("night-mode");
-            set_up_mode(settings["night-mode"]);
-            break
-        default:
-            get_auto_theme();
-            settings["night-mode"] = "auto";
-            localStorage.setItem("document-settings", JSON.stringify(settings));
-
-            set_up_mode(settings["night-mode"]);
-    }
-
-    function set_up_mode(mode) {
-        const element = document.getElementById(`night-mode-${mode}`);
-        element.checked = true;
-    }
-
-
-}
-
 function night_mode_select_event() {
     const night_mode_inputs = document.querySelectorAll(".dark-mode-form__button-input");
 
@@ -784,10 +815,6 @@ function document_events() {
     addEventListener('DOMContentLoaded', () => {
         get_user_theme();
         night_mode_select_event();
-    });
-
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        get_auto_theme();
     });
 
     search_input.addEventListener("focus", function() {
@@ -875,7 +902,6 @@ function document_scroll() {
     window.addEventListener("scroll", () => {
         handle_scroll_animation();
     });
-
 
     handle_scroll_animation();
 }

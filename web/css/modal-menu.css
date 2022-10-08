@@ -17,7 +17,7 @@
     height: 100vh;
     width: 100vw;
     z-index: 101;
-    animation: modal-background-add .3s;
+    animation: modal-background-add .3s forwards;
     background: var(--bg-color-11);
 }
 .main-disactive {
@@ -38,7 +38,7 @@
     box-sizing: border-box;
 }
 .page-modal.remove-animation {
-    animation: modal-background-remove .3s;
+    animation: modal-background-remove .3s forwards;
 }
 .page-modal-block {
     position: fixed;
@@ -51,16 +51,16 @@
     padding: 0 !important;
     box-shadow: 0px 0px 18px #00000021;
     background: var(--bg-color-1);
-    animation: modal-block-add .3s ease;
-    transition: .2s ease;
+    animation: modal-block-add .3s ease forwards;
+    transition: transform .2s ease, opacity .2s ease;
     box-sizing: border-box;
     z-index: 200;
 }
 .page-modal-block.remove-animation {
-    animation: modal-block-remove .3s;
+    animation: modal-block-remove .3s forwards;
 }
 .page-modal-block.back-main-animation {
-    animation: modal-block-back .3s;
+    animation: modal-block-back .3s forwards;
 }
 .page-modal__label--conteiner {
     display: flex;
@@ -73,6 +73,7 @@
     font-weight: 700;
     color: var(--text-color-1);
     transition: .2s ease;
+    z-index: 10;
 }
 .page-modal__label--conteiner.scrolled {
     box-shadow: 4px 6px 8px -3px #00000011;
@@ -354,6 +355,7 @@
     pointer-events: all;
 }
 .page-modal-info-content {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -456,4 +458,209 @@ body.night-mode .page-modal-info-content__label.logo::before {
 }
 .info-description>li.link>a:hover {
     background: var(--bg-color-12);
+}
+.favorite-towns-content {
+    display: grid;
+    grid-template-rows: 45px 1fr;
+    gap: 25px;
+    height: 100%;
+}
+.favorite-towns-no-towns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.favorite-towns-no-towns.add-animation {
+    animation: favorite-towns-no-towns-add .2s ease forwards;
+}
+.favorite-towns-no-towns.remove-animation {
+    animation: favorite-towns-no-towns-remove .2s ease forwards;
+}
+.favorite-towns-no-towns__label {
+    position: relative;
+    margin: 60px 0 0 0;
+    font-family: "Sourse Sans Pro", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-color-1);
+}
+.favorite-towns-no-towns__label::after {
+    position: absolute;
+    top: -58px;
+    left: calc(50% - 25px);
+    content: "";
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: var(--town-icon-path);
+}
+
+.favorite-towns__add-button {
+    position: relative;
+    width: max-content;
+    padding: 8px 10px 8px 34px;
+    border: none;
+    border-radius: 15px;
+    font-family: "Sourse Sans Pro", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0px 0px 6px #0000001c;
+    color: var(--text-color-1);
+    background: var(--bg-color-3);
+    transition: .2s ease;
+
+}
+.favorite-towns__add-button::after {
+    position: absolute;
+    content: "+";
+    left: 8px;
+    top: calc(50% - 10px);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    background: var(--bg-color-10);
+}
+.favorite-towns__add-button:hover,
+.favorite-towns__add-button:focus {
+    cursor: pointer;
+    box-shadow: 0px 1px 12px #0000001f;
+    transform: translateY(-3px);
+}
+.favorite-towns-add-towns {
+    position: relative;
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+.favorite-towns-add-towns__input {
+    min-height: 45px;
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 15px;
+    outline: none;
+    font-family: "Sourse Sans Pro", sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    box-shadow: 0px 0px 6px #0000001c;  
+    background: var(--bg-color-3);
+    color: var(--text-color-1);
+    transition: .2s ease;
+    box-sizing: border-box;
+}
+.favorite-towns-add-towns__input:focus {
+    box-shadow: 0px 0px 12px #0000001f;
+    background: var(--bg-color-15);
+}
+.favorite-towns-add-towns__button {
+    position: absolute;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 15px;
+    outline: none;
+    background: var(--bg-color-3);
+    box-shadow: 0px 0px 6px #0000001c;
+    transform: translateX(100%);
+    transition: .2s ease;
+    opacity: 0;
+}
+.favorite-towns-add-towns__button:hover {
+    cursor: pointer;
+    background: var(--bg-color-15);
+}
+.favorite-towns-add-towns.active .favorite-towns-add-towns__input {
+    width: calc(100% - 60px);
+}
+.favorite-towns-add-towns.active .favorite-towns-add-towns__button {
+    transform: translateX(0%);  
+    opacity: 1; 
+}
+.favorite-towns-add-towns.loading .favorite-towns-add-towns__input {
+    width: calc(100% - 60px);
+}
+.favorite-towns-add-towns.loading .favorite-towns-add-towns__button {
+    transform: translateX(0%);  
+    opacity: 1; 
+}
+.favorite-towns-add-towns__button span {
+    position: absolute;
+    top: calc(50% - 12px);
+    left: calc(50% - 2px);
+    content: "";
+    width: 4px;
+    height: 25px;
+    border-radius: 10px;
+    background: var(--bg-color-13);
+    transition: .2s ease;
+}
+.favorite-towns-add-towns__button .plus-s-1 {
+    transform: rotate(90deg);
+}
+.favorite-towns {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.favorite-town {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    font-family: "Sourse Sans Pro";
+    font-weight: 600;
+    text-align: left;
+    box-shadow: 0px 0px 6px #0000001c;
+    background: var(--bg-color-3);
+    color: var(--text-color-1);
+    transition: .2s ease;
+    animation: favorite-town-add .2S ease forwards;
+    overflow: hidden;
+}
+.favorite-town__name {
+    font-size: 20px;
+    font-weight: 700;
+    pointer-events: none;
+}
+.favorite-town__coords {
+    position: relative;
+    margin: 0 0 0 23px;
+    font-size: 16px;
+    pointer-events: none;
+}
+.favorite-town__coords::before {
+    position: absolute;
+    content: "";
+    left: -23px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: var(--location-icon-path);
+}
+.favorite-town:hover,
+.favorite-town:focus {
+    cursor: pointer;
+    box-shadow: 0px 1px 12px #0000001f;
+    transform: translateY(-3px);
+}
+.favorite-town__name::first-letter {
+    text-transform: uppercase;
 }

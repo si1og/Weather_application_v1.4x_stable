@@ -20,7 +20,7 @@
     .main-menu {
         position: fixed;
         top: 0;
-        left: 0;
+        left: 0vw;
         justify-content: center;
         align-items: center;
         width: 100vw;
@@ -39,6 +39,9 @@
         font-size: 25px;
         text-transform: uppercase;
         line-height: 33px;
+    }
+    .header-content__label {
+        display: none;
     }
     .main-menu__button-name {
         margin: 0;
@@ -91,6 +94,11 @@
         top: 16px;
         left: 15px !important;
         animation: main-block-add-rew .3s ease forwards;
+    }
+    .favorite-towns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: min-content min-content;
     }
     @keyframes modal-block-back {
         0% {
@@ -146,15 +154,36 @@
         width: 1px;
         height: calc(100% - 30px);
     }
+    .favorite-towns {
+        display: flex;
+    }
 }
 @media (max-width: 500px) {
-    .header-content__label {
-        display: none;
-    }
     .day-info-block-content__block {
         grid-template-columns: 1fr;
     }
     .select__menu {
         width: 100%;
+    }
+}
+@media (max-width: 450px) {
+    .main-menu__button-name {
+        font-size: 23px;
+    }
+    .sinrise-sunset__sunrise,
+    .sinrise-sunset__sunset {
+        font-size: 15px;
+        padding: 0 0 0 35px;
+    }
+    .sinrise-sunset__sunset-icon,
+    .sinrise-sunset__sunrise-icon {
+        width: 35px;
+        height: 35px;
+    }
+}
+@media (max-width: 375px) {
+    .page-modal__label {
+        top: 5px;
+        font-size: 25px;
     }
 }
