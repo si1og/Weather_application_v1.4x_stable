@@ -1,6 +1,37 @@
 {
+  "name": "weather-app",
+  "version": "1.4.2",
+  "description": "The weather application that can generate weather forecast in any world point",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack --config webpack.config.js --watch",
+    "prod": "webpack --config webpack-prod.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilyasemenov1/Weather_application_1.4x_stable.git"
+  },
+  "author": "Ilya Semenov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilyasemenov1/Weather_application_1.4x_stable/issues"
+  },
+  "homepage": "https://github.com/ilyasemenov1/Weather_application_1.4x_stable#readme",
   "dependencies": {
     "lvovich": "^2.0.0",
-    "swiper": "^8.4.2"
+    "swiper": "^8.4.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "babel-loader": "^9.0.0",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "mini-css-extract-plugin": "^2.6.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }

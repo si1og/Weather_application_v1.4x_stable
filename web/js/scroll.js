@@ -1,4 +1,6 @@
 
+import {burger} from "./main.js";
+
 const header = document.querySelector(".header");
 
 const page_scroll = 175;

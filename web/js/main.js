@@ -1,3 +1,14 @@
+import "../css/animations.css";
+import "../css/style.css";
+import "../css/modal-menu.css";
+import "../css/ui-adaptivity.css";
+import "../css/colors.css";
+
+import Swiper, { Navigation } from '../../node_modules/swiper';
+Swiper.use([Navigation]);
+
+const lvovich = require("../../node_modules/lvovich/dist/lvovich.min.js");
+
 const search_input = document.querySelector(".header-search__search-input");
 const search = document.querySelector(".header-search");
 const burger = document.querySelector(".menu-burger");
@@ -312,7 +323,7 @@ let generate_short_daily_forecast = (arr) => {
     var status_arr = [];
     let date_counter = 0;
 
-    day_data = [];
+    let day_data = [];
     for (let i = 0; i < arr.length; i++) {
         day_data.push(arr[i]);
         
@@ -460,7 +471,7 @@ function generate_hourly_forecast(arr) {
         }
     });
 
-    var swiper_hourly_foresast = new Swiper(".hourly-forecast__slider-block", {
+    const swiper_hourly_foresast = new Swiper(".hourly-forecast__slider-block", {
         slidesPerView: "auto",
         spaceBetween: 10,
         slidesPerGroup: 3,
@@ -475,8 +486,8 @@ function generate_hourly_forecast(arr) {
 }
 
 function generate_full_daily_forecast(arr) {
-    day_data = [];
-    counter_data = 0;
+    let day_data = [];
+    let counter_data = 0;
     for (let i = 0; i < arr.length; i++) {
         day_data.push(arr[i]);
         
@@ -963,3 +974,5 @@ function get_city(lat, lng) {
 
 document_events();
 get_user_location();
+
+export {burger, header_function_menu, key}

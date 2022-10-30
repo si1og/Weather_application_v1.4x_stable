@@ -1,23 +1,20 @@
 
-const modal_menu_button = document.querySelectorAll(".main-menu__button");
+import {burger, header_function_menu, key} from "./main.js";
+
 const page_modal = document.querySelector(".page-modal");
 const page_blur = document.querySelector(".page-blur");
 const header_function_menu_ = document.querySelector(".header-content__function-menu");
 const main_menu_remove_ = document.querySelector(".main-menu-remove");
-const page_modal_favorite_towns = document.querySelector(".page-modal-favorite-towns");
-const page_modal_latest_towns = document.querySelector(".page-modal-latest-towns");
 const main_content_elements = document.querySelectorAll(".header, .main, .footer");
 const header_main_menu = document.querySelector(".main-menu");
 const page_modal_content = document.querySelectorAll(".page-modal-info-content, .page-modal-settings-content");
 const favorite_towns_add_towns = document.querySelector(".favorite-towns-add-towns");
 const favorite_towns_add_towns_input = document.querySelector(".favorite-towns-add-towns__input");
-const favorite_towns_add_towns_button = document.querySelector(".favorite-towns-add-towns__button");
 const favorite_towns_no_towns = document.querySelector(".favorite-towns-no-towns");
 const favorite_towns = document.querySelector(".favorite-towns");
 const add_town_button_focus = document.querySelector(".favorite-towns__add-button");
 const add_button_towns = document.querySelector(".favorite-towns-add-towns__button");
 
-var modal_close_buttons = document.querySelectorAll(".modal-close-button");
 var page_modal_blocks = document.querySelectorAll(".page-modal-block");
 
 sessionStorage.setItem("resize-menu", JSON.stringify(false));
@@ -75,7 +72,7 @@ addEventListener("load", () => {
     favorite_towns_event();
 });
 
-main_menu_remove.addEventListener("click", () => {
+main_menu_remove_.addEventListener("click", () => {
     remove_main_disactive();
     disactive_menu();
 });
@@ -414,7 +411,7 @@ let active_menu = () => {
     calc_transform(burger_position());
     burger.classList.add("active");
     header_function_menu.classList.add("menu-active");
-    main_menu_remove.classList.remove("menu-disactive");
+    main_menu_remove_.classList.remove("menu-disactive");
 
     setTimeout(() => {
         header_main_menu.classList.add("active");
