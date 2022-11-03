@@ -1,3 +1,6 @@
 .vscode
 *.txt
 .idea
+node_modules
+prod
+dist
