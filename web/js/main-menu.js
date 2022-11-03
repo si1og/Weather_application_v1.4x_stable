@@ -1,5 +1,5 @@
 
-import {burger, header_function_menu, key} from "./main.js";
+import { burger, header_function_menu, key, update_page, display_weather } from "./main.js";
 
 const page_modal = document.querySelector(".page-modal");
 const page_blur = document.querySelector(".page-blur");
@@ -21,6 +21,7 @@ sessionStorage.setItem("resize-menu", JSON.stringify(false));
 
 page_blur.addEventListener("click", () => {
     remove_modal();
+    switch_main_buttons_tabindex();
 });
 
 burger.addEventListener("click", () => {
@@ -32,6 +33,7 @@ burger.addEventListener("click", () => {
         main_content_elements.forEach(element => {
             element.classList.remove("main-disactive");
         });
+        switch_main_buttons_tabindex();
     }
 
     if (burger.classList.contains("arrow")) {
@@ -43,6 +45,7 @@ burger.addEventListener("click", () => {
         remove_main_disactive();
         disactive_menu();
     } else {
+        switch_main_buttons_tabindex();
         active_menu();
     }
 });
@@ -75,6 +78,7 @@ addEventListener("load", () => {
 main_menu_remove_.addEventListener("click", () => {
     remove_main_disactive();
     disactive_menu();
+    switch_main_buttons_tabindex();
 });
 
 
@@ -408,6 +412,7 @@ let active_menu = () => {
 
     sessionStorage.setItem("resize-menu", JSON.stringify("menu"));
 
+    switch_main_menu_buttons_tabindex();
     calc_transform(burger_position());
     burger.classList.add("active");
     header_function_menu.classList.add("menu-active");
@@ -506,6 +511,7 @@ let active_menu_block = () => {
 
     calc_transform(burger_position(), "not_default");
     activate_main_menu();
+    switch_main_menu_buttons_tabindex();
 
     burger.classList.remove("active");
     burger.classList.add("arrow");
@@ -515,13 +521,31 @@ let active_menu_block = () => {
     });
 }
 
+
+function switch_main_menu_buttons_tabindex() {
+    let menu_buttons = document.querySelectorAll(".main-menu__button");
+    switch_tabindex(menu_buttons);
+}
+
+function switch_main_buttons_tabindex() {
+    let main_focusble = document.querySelectorAll(".main-focusable");
+    switch_tabindex(main_focusble);
+}
+
+function switch_tabindex(arr) {
+    arr.forEach(element => {
+        let tabindex = element.tabIndex;
+        tabindex == "-1" ? element.tabIndex = "0" : element.tabIndex = "-1";
+    });
+}
+
 function disactive_menu() {
     const header_main_menu = document.querySelector(".main-menu");
 
     sessionStorage.setItem("resize-menu", JSON.stringify("default"));
 
-    burger.classList.remove("active");
-    burger.classList.remove("arrow");
+    switch_main_menu_buttons_tabindex();
+    burger.classList.remove("active", "arrow");
     header_function_menu_.classList.remove("menu-active");
     main_menu_remove_.classList.add("menu-disactive");
 

@@ -119,8 +119,7 @@
 }
 .settings-content-button:hover,
 .settings-content-button:focus,
-.settings-button:hover,
-.settings-button:focus  {
+.settings-button:hover  {
     cursor: pointer;
     background: var(--bg-color-12);
 }
@@ -456,7 +455,8 @@ body.night-mode .page-modal-info-content__label.logo::before {
 .info-description>li.github>a::before {
     background-image: var(--github-path);
 }
-.info-description>li.link>a:hover {
+.info-description>li.link>a:hover,
+.info-description>li.link>a:focus {
     background: var(--bg-color-12);
 }
 .favorite-towns-content {

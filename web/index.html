@@ -5,11 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Приложение погоды, способное отображать прогноз в любой точке мира!">
-    <link rel="stylesheet" href="../prod/styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <link rel="icon" type="image/x-icon" href="icons/logo/logo.svg">
     <title>Погода</title>
 </head>
 <body>
+    <div class="main-menu-remove menu-disactive"></div>
+    <header class="header">
+        <div class="header-blocks">
+            <div class="header-content">
+                <span class="header-content__label">Погода</span>
+                <div class="modal-header-search">
+                    <div class="header-search-modal disable">
+                        <div class="modal-block favorite-towns-modal">
+                            <span class="modal-block__label">Избранные города</span>
+                            <div class="modal-block__content"></div>
+                        </div>
+                    </div>
+                    <div class="header-search">
+                        <div class="header-search__search-button--conteiner">
+                            <button class="header-search__search-button" tabindex="-1" aria-label="Search"></button>
+                        </div>
+                        <input class="header-search__search-input main-focusable" type="text" placeholder="Введите название города" size="1" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div class="header-content__function-menu">
+            </div>
+        </div>
+    </header>
+    <button class="menu-burger disactive" aria-label="Main Menu Button">
+        <span class="menu-burger__burger"></span>
+    </button>
+    <div class="main-menu">
+        <h2 class="main-menu__label">Главное меню</h2>
+        <div class="main-menu__content">
+            <button class="main-menu__button" id="settings-button-atr" aria-label="Settings" tabindex="-1">
+                <span class="main-menu__button-name settings-button-menu">Настройки</span>
+            </button>
+            <button class="main-menu__button" id="favorite-towns-button-atr" aria-label="About App" tabindex="-1">
+                <span class="main-menu__button-name favorite-towns-button-menu">Избранные города</span>
+            </button>
+            <button class="main-menu__button" id="info-button-atr" aria-label="About App" tabindex="-1">
+                <span class="main-menu__button-name info-button-menu">О приложении</span>
+            </button>
+        </div>
+    </div>
     <div class="page-modal disactive">
         <div class="page-blur"></div>
         <section class="settings-button-atr disactive page-modal-block" id="settings">
@@ -176,47 +217,6 @@
             </div>
         </section>
     </div>
-    <div class="main-menu">
-        <h2 class="main-menu__label">Главное меню</h2>
-        <div class="main-menu__content">
-            <button class="main-menu__button" id="settings-button-atr" aria-label="Settings">
-                <span class="main-menu__button-name settings-button-menu">Настройки</span>
-            </button>
-            <button class="main-menu__button" id="favorite-towns-button-atr" aria-label="About App">
-                <span class="main-menu__button-name favorite-towns-button-menu">Избранные города</span>
-            </button>
-            <button class="main-menu__button" id="info-button-atr" aria-label="About App">
-                <span class="main-menu__button-name info-button-menu">О приложении</span>
-            </button>
-        </div>
-    </div>
-    <button class="menu-burger disactive" aria-label="Main Menu Button">
-        <span class="menu-burger__burger"></span>
-    </button>
-    <div class="main-menu-remove menu-disactive"></div>
-    <header class="header">
-        <div class="header-blocks">
-            <div class="header-content">
-                <span class="header-content__label">Погода</span>
-                <div class="modal-header-search">
-                    <div class="header-search-modal disable">
-                        <div class="modal-block favorite-towns-modal">
-                            <span class="modal-block__label">Избранные города</span>
-                            <div class="modal-block__content"></div>
-                        </div>
-                    </div>
-                    <div class="header-search">
-                        <div class="header-search__search-button--conteiner">
-                            <button class="header-search__search-button" tabindex="-1" aria-label="Search"></button>
-                        </div>
-                        <input class="header-search__search-input" type="text" placeholder="Введите название города" size="1" autocomplete="off">
-                    </div>
-                </div>
-            </div>
-            <div class="header-content__function-menu">
-            </div>
-        </div>
-    </header>
     <div class="main-menu--conteiner">
         <div class="main-menu__background"></div>
         <span class="main-menu"></span>
@@ -275,13 +275,13 @@
                 <section class="hourly-forecast js-scroll">
                     <h2 class="hourly-forecast__label">Почасовой прогноз</h2>
                     <div class="hourly-forecast__slider">
-                        <button class="hourly-forecast__left-button active-button" aria-label="Left Button">
+                        <button class="hourly-forecast__left-button active-button main-focusable" aria-label="Left Button" tabindex="0">
                             <span class="hourly-forecast__left-button-view"></span>
                         </button>
                         <div class="hourly-forecast__slider-block">
                             <div class="hourly-forecast__slider-content swiper-wrapper"></div>
                         </div>
-                        <button class="hourly-forecast__right-button active-button" aria-label="Right Button">
+                        <button class="hourly-forecast__right-button active-button main-focusable" aria-label="Right Button" tabindex="0">
                             <span class="hourly-forecast__right-button-view"></span>
                         </button>
                     </div>
@@ -336,9 +336,9 @@
     </main>
     <footer class="footer">
         <div class="footer__content">
-            <a href="https://openweathermap.org/" class="footer-link data" target="_blank">Данные с OpenWeather</a>
+            <a href="https://openweathermap.org/" class="footer-link data main-focusable" target="_blank" tabindex="0">Данные с OpenWeather</a>
             <div class="footer-nav">
-                <a href="https://github.com/ilyasemenov1/Weather_application_v1.4x_stable" class="footer-link github" target="_blank">GitHub</a>
+                <a href="https://github.com/ilyasemenov1/Weather_application_v1.4x_stable main-focusable" class="footer-link github main-focusable target="_blank" tabindex="0">GitHub</a>
             </div>
         </div>
     </footer>
@@ -408,6 +408,6 @@
 
         get_user_theme();
     </script>
-    <script src="../prod/bundle.js"></script>
+    <script src="./bundle.js"></script>
 </body>
 </html>

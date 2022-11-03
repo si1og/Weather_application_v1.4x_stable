@@ -1,4 +1,6 @@
 
+import { update_page, display_weather, transfer_time_from_settings_to_ms } from "./main.js";
+
 const select_button = document.querySelectorAll(".select__button");
 const select__options = document.querySelectorAll(".select__option");
 const settings_checkboxhes = document.querySelectorAll(".settings-button__checkbox, .main-menu__button-input");
@@ -242,7 +244,6 @@ function get_dict_keys(dict, dict_size, first_key=null ,all_keys=[], counter=0) 
         keys.forEach(element => {
             all_keys.push(element);
             counter++;
-            keys_arr = [];
             return get_dict_keys(dict, dict_size, element, all_keys, counter);
         });
     }
@@ -251,7 +252,7 @@ function get_dict_keys(dict, dict_size, first_key=null ,all_keys=[], counter=0) 
 }
 
 function compartion_of_two_arr(arr1, arr2) {
-    counter = 0;
+    let counter = 0;
     arr1.forEach(element1 => {
         arr2.forEach(element2 => {
             if (element1 == element2) {

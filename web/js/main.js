@@ -316,11 +316,11 @@ let generate_short_daily_forecast = (arr) => {
         return `${set_temp(array_max(arr))} / ${set_temp(array_min(arr))}`;
     }
 
-    var icon_arr = [];
-    var temp_arr = [];
-    var wind_arr = [];
-    var humidity_arr = [];
-    var status_arr = [];
+    let icon_arr = [];
+    let temp_arr = [];
+    let wind_arr = [];
+    let humidity_arr = [];
+    let status_arr = [];
     let date_counter = 0;
 
     let day_data = [];
@@ -345,7 +345,8 @@ let generate_short_daily_forecast = (arr) => {
                 status_arr.push(element.weather[0].description);
             });
             const forecast_element = document.createElement("a");
-            forecast_element.className = "day-card swiper-slide";
+            forecast_element.className = "day-card swiper-slide main-focusable";
+            forecast_element.tabIndex = "0";
             forecast_element.href = `#day-info-block-${date_counter}`;
             forecast_element.innerHTML = `
             <div class="day-card__label--conteiner">
@@ -433,7 +434,7 @@ function generate_hourly_forecast(arr) {
 
     const settings = JSON.parse(localStorage.getItem("document-settings"));
 
-    counter = 1;
+    let counter = 0;
     arr.forEach(element => {
         let content = document.createElement("div");
 
@@ -975,4 +976,4 @@ function get_city(lat, lng) {
 document_events();
 get_user_location();
 
-export {burger, header_function_menu, key}
+export { burger, header_function_menu, key, update_page, display_weather, transfer_time_from_settings_to_ms }
