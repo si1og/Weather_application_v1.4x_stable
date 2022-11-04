@@ -17,8 +17,8 @@ const main_menu_remove = document.querySelector(".main-menu-remove");
 const animation = document.querySelector(".loading-animation--conteiner");
 const notification_cont = document.querySelector(".error-notification");
 const notification_button = document.querySelector(".error-notification__button");
-var weather_content = document.querySelectorAll(".weather-content");
-var document_blocks = document.querySelectorAll(".js-scroll");
+const weather_content = document.querySelectorAll(".weather-content");
+const document_blocks = document.querySelectorAll(".js-scroll");
 const key = '5ba78f463e9dddeead6f1f0cf154d3ca';
 const token = 'pk.5458a1a49de64870a499080d6af514dc';
 
@@ -52,7 +52,7 @@ let get_date = (index) => {
     }
 }
 
-let dt_conventer = (dt) => {
+let dt_conventer = (dt, is_utc) => {
 
     const settings = JSON.parse(localStorage.getItem("document-settings"));
 
@@ -70,8 +70,14 @@ let dt_conventer = (dt) => {
         options.hour12 = true;
     }
 
-    const date = new Date(dt*1000);
-    return date.toLocaleDateString('ru-RU', options).split(", ")[1];
+    if (is_utc) {
+        let date = new Date((dt - 180*60)*1000);
+        return date.toLocaleDateString('ru-RU', options).split(", ")[1];
+    } else {
+        let date = new Date(dt*1000);
+        return date.toLocaleDateString('ru-RU', options).split(", ")[1];
+    }
+
 }
 
 let array_min = (arr) => {
@@ -275,6 +281,8 @@ function generate_err_notification(err, place="none") {
                 get_user_location();
             });
             break;
+        default:
+            throw new Error("Anonimus error in error notification");
     }
 }
 
@@ -291,7 +299,7 @@ let generate_short_daily_forecast = (arr) => {
         const date = new Date();
         date.setDate(date.getDate() + index + 1);
 
-        var options = {
+        let options = {
             month: 'long', 
             day: 'numeric' 
         };
@@ -386,7 +394,7 @@ let generate_short_daily_forecast = (arr) => {
     }
     link_scroll();
 
-    const four_day_forecast_slider = new Swiper(".seven-day-forecast-short__content", {
+    let four_day_forecast_slider = new Swiper(".seven-day-forecast-short__content", {
         slidesPerView: 7,
         spaceBetween: 10,
         breakpoints: {
@@ -418,15 +426,15 @@ let generate_short_daily_forecast = (arr) => {
 function generate_hourly_forecast(arr) {
 
     const add_new_day_date = (element, index) => {
-        const date = new Date();
+        let date = new Date();
         date.setDate(date.getDate() + index);
 
-        var options = {
+        let options = {
             month: 'numeric', 
             day: 'numeric' 
         };
 
-        const date_element = document.createElement("span");
+        let date_element = document.createElement("span");
         date_element.className = "slider-date";
         date_element.textContent = date.toLocaleDateString('ru-RU', options);
         element.append(date_element);
@@ -434,17 +442,11 @@ function generate_hourly_forecast(arr) {
 
     const settings = JSON.parse(localStorage.getItem("document-settings"));
 
-    let counter = 0;
+    let counter = 1;
     arr.forEach(element => {
         let content = document.createElement("div");
-
         let time_data = "";
-
-        if (arr[0] != element) {
-            time_data = dt_conventer(element.dt);
-        } else {
-            time_data = construct_date();
-        }
+        arr[0] != element ? time_data = dt_conventer(element.dt, true) : time_data = construct_date();
 
         content.innerHTML = `
         <span class="slider-block__time">${time_data}</span>
@@ -454,7 +456,7 @@ function generate_hourly_forecast(arr) {
         </span>
         `;
         hourly_forecast.append(content);
-        if ((dt_conventer(element.dt) == "00:00" || dt_conventer(element.dt) == "00:00 AM") && arr[0] != element) {
+        if ((dt_conventer(element.dt, true) == "00:00" || dt_conventer(element.dt, true) == "00:00 AM") && arr[0] != element) {
             
             content.className = "new-day slider-block swiper-slide";
             add_new_day_date(content, counter);
@@ -464,12 +466,10 @@ function generate_hourly_forecast(arr) {
         }        
     });
 
-    const time_block_elements = document.querySelectorAll(".slider-block__time");
+    let time_block_elements = document.querySelectorAll(".slider-block__time");
 
     time_block_elements.forEach(element => {
-        if (settings["time-format"] == "12h") {
-            element.classList.add("h12");
-        }
+        settings["time-format"] == "12h" ? element.classList.add("h12") : void(0);
     });
 
     const swiper_hourly_foresast = new Swiper(".hourly-forecast__slider-block", {
@@ -558,6 +558,27 @@ function generate_full_daily_forecast(arr) {
     }
 }
 
+let set_round_data = (element_sp, data) => {
+    const element_data = document.querySelector(`.weather-ditails__data.${element_sp}`);
+    const round = document.querySelector(`#${element_sp}`);
+
+    element_data.textContent = data;
+
+    if (data) {
+        round.style = `stroke-dasharray: ${250*(data/100)} 400;`;
+    } else {
+        round.style = "stroke: transparent;";
+    }
+}
+
+let set_dt = (data) => {
+    const sunrise = document.querySelector(".sinrise-sunset__sunrise-time");
+    const sunset = document.querySelector(".sinrise-sunset__sunset-time");
+
+    sunrise.textContent = dt_conventer(data.city.sunrise, false);
+    sunset.textContent = dt_conventer(data.city.sunset), false;
+}
+
 function display_weather(place) {
     if (!place) {
         return;
@@ -642,27 +663,6 @@ function display_weather(place) {
         </div>
         `;
 
-        const set_round_data = (element_sp, data) => {
-            const element_data = document.querySelector(`.weather-ditails__data.${element_sp}`);
-            const round = document.querySelector(`#${element_sp}`);
-
-            element_data.textContent = data;
-
-            if (data) {
-                round.style = `stroke-dasharray: ${250*(data/100)} 400;`;
-            } else {
-                round.style = "stroke: transparent;";
-            }
-        }
-
-        const set_dt = (data) => {
-            const sunrise = document.querySelector(".sinrise-sunset__sunrise-time");
-            const sunset = document.querySelector(".sinrise-sunset__sunset-time");
-
-            sunrise.textContent = dt_conventer(data.city.sunrise);
-            sunset.textContent = dt_conventer(data.city.sunset);
-        }
-
         document_blocks.forEach(element => {
             element.classList.remove("disactive");
         });
@@ -739,32 +739,34 @@ function search_event() {
     function favorite_towns_search(value) {
         let favorite_towns = JSON.parse(localStorage.getItem("favorite-towns"));
 
-        if (isNaN(favorite_towns)) {
-            let favorite_towns_arr = [];
-            let modal_block_content = document.querySelector(".modal-block__content");
+        if (!isNaN(favorite_towns)) {
+            return;
+        }
 
-            favorite_towns.forEach(element => {
-                let favorite_town = element.name.toLowerCase();
+        let favorite_towns_arr = [];
+        let modal_block_content = document.querySelector(".modal-block__content");
 
-                if (favorite_town.includes(value.toLowerCase())) {
-                    favorite_towns_arr.push(element.name);
-                }
-            });
+        favorite_towns.forEach(element => {
+            let favorite_town = element.name.toLowerCase();
 
-            favorite_towns_arr.forEach(element => {
-                let town = document.createElement("button");
-                town.className = "modal-block__recommend-button";
-                town.innerText = element;
-                town.value = element;
-
-                modal_block_content.appendChild(town);
-            });
-
-            if (favorite_towns_arr.length > 0) {
-                search_modal.classList.remove("disable");
-            } else {
-                search_modal.classList.add("disable");
+            if (favorite_town.includes(value.toLowerCase())) {
+                favorite_towns_arr.push(element.name);
             }
+        });
+
+        favorite_towns_arr.forEach(element => {
+            let town = document.createElement("button");
+            town.className = "modal-block__recommend-button";
+            town.innerText = element;
+            town.value = element;
+
+            modal_block_content.appendChild(town);
+        });
+
+        if (favorite_towns_arr.length > 0) {
+            search_modal.classList.remove("disable");
+        } else {
+            search_modal.classList.add("disable");
         }
     }
 
@@ -776,9 +778,7 @@ function search_event() {
         clearInterval(weater_interval);
 
         if (!isNaN(is_search) && !isNaN(weater_interval) && is_search) {
-            if (value == "") {
-                get_user_location();
-            }
+            value === "" ? get_user_location() : void(0);
             update_page();
             display_weather(value);
             
@@ -852,19 +852,6 @@ function document_events() {
     });
 }
 
-function disactive_menu() {
-    const header_main_menu = document.querySelector(".main-menu");
-
-    burger.classList.remove("active");
-    header_function_menu.classList.remove("menu-active");
-    main_menu_remove.classList.add("menu-disactive");
-    header_main_menu.classList.remove("active");
-
-    setTimeout(() => {
-        header_main_menu.classList.add("disactive");
-    }, 300);
-}
-
 function link_scroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(element) {
@@ -877,6 +864,33 @@ function link_scroll() {
     });
 }
 
+let element_in_view = (element, margin) => {
+    const element_top = element.getBoundingClientRect().top;
+    
+    return (
+        element_top <= (window.innerHeight - margin || document.documentElement.clientHeight)
+    );
+    };
+
+let display_scroll_element = (element) => {
+    element.classList.add("scrolled");
+    element.classList.remove("not-scrolled");
+};
+
+let hide_scroll_element = (element) => {
+    element.classList.add("not-scrolled");
+}
+
+let handle_scroll_animation = (scrollEl) => {
+    scrollEl.forEach((element) => {
+        if (element_in_view(element, 0)) {
+            display_scroll_element(element);
+        } else {
+            hide_scroll_element(element);
+        }
+    })
+}
+
 function document_scroll() {	
     const scrollElements = document.querySelectorAll(".js-scroll");
 
@@ -884,38 +898,22 @@ function document_scroll() {
         element.classList.add("not-scrolled");
     });
 
-    const element_in_view = (element, margin) => {
-        const element_top = element.getBoundingClientRect().top;
-        
-        return (
-            element_top <= (window.innerHeight - margin || document.documentElement.clientHeight)
-        );
-        };
-
-    const display_scroll_element = (element) => {
-        element.classList.add("scrolled");
-        element.classList.remove("not-scrolled");
-    };
-
-    const hide_scroll_element = (element) => {
-        element.classList.add("not-scrolled");
-    }
-
-    const handle_scroll_animation = () => {
-    scrollElements.forEach((element) => {
-        if (element_in_view(element, 0)) {
-            display_scroll_element(element);
-        } else {
-            hide_scroll_element(element);
-        }
-    })
-    }
-
     window.addEventListener("scroll", () => {
-        handle_scroll_animation();
+        handle_scroll_animation(scrollElements);
     });
 
-    handle_scroll_animation();
+    handle_scroll_animation(scrollElements);
+}
+
+function success(pos) {
+    const crd = pos.coords;
+
+    get_city(crd.latitude, crd.longitude);
+    search_input.value = "";
+}
+
+function error() {
+    generate_err_notification("geolocation");
 }
 
 function get_user_location() {
@@ -924,53 +922,41 @@ function get_user_location() {
         timeout: 5000,
         maximumAge: 0
     };
-    
-    function success(pos) {
-        const crd = pos.coords;
 
-        get_city(crd.latitude, crd.longitude);
-        search_input.value = "";
-        
-    }
-    
-    function error() {
-        generate_err_notification("geolocation");
-    }
-    
     navigator.geolocation.getCurrentPosition(success, error, options);
 }
 
 function get_city(lat, lng) {
     var xhr = new XMLHttpRequest();
 
-    xhr.open('GET', `https://us1.locationiq.com/v1/reverse.php?key=${token}&lat=${lat}&lon=${lng}&format=json`, true);
-    xhr.send();
-    xhr.addEventListener("readystatechange", process_request, false);
-  
     function process_request() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
             let place = "";
-
+    
             if (response.address.town) {
                 place = response.address.town;
             } else {
                 place = response.address.city;
             }
-
+    
             const settings = JSON.parse(localStorage.getItem("document-settings"));
-
+    
             display_weather(place);
-
+    
             if (settings["data-update"] != "disable") {
                 const weather_interval = setInterval(() => {
                     display_weather(place);
                 }, transfer_time_from_settings_to_ms());
-
+    
                 sessionStorage.setItem("weather-interval", JSON.stringify(weather_interval));
             }
         }
     }
+
+    xhr.open('GET', `https://us1.locationiq.com/v1/reverse.php?key=${token}&lat=${lat}&lon=${lng}&format=json`, true);
+    xhr.send();
+    xhr.addEventListener("readystatechange", process_request, false);
 }
 
 document_events();
