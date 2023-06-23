@@ -246,6 +246,9 @@ function transfer_time_from_settings_to_ms() {
 }   
 
 function generate_err_notification(err, place="none") {
+    weather_content.forEach(element => {
+        element.classList.add("disactive")
+    });
     const notification_label = document.querySelector(".error-notification__label");
 
     const old_notification_button = document.querySelector(".error-notification__button");
@@ -579,12 +582,17 @@ let set_dt = (data) => {
     sunset.textContent = dt_conventer(data.city.sunset), false;
 }
 
+async function getWeather(place, key) {
+    update_page();
+    return await fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${place}&appid=${key}&lang=ru&cnt=40`)
+}
+
 function display_weather(place) {
     if (!place) {
         return;
     }
 
-    fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${place}&appid=${key}&lang=ru&cnt=40`)  
+    getWeather(place, key)  
     .then(function(resp) { return resp.json() })
     .then(function(data) {
 
@@ -600,9 +608,7 @@ function display_weather(place) {
                 sessionStorage.setItem("latest-towns", JSON.stringify(latest_towns));
             } catch {}
         }
-
         const slider_blocks = document.querySelectorAll(".slider-block, .day-info-block, .day-card");
-
         slider_blocks.forEach(element => {
             element.remove();
         });
@@ -610,19 +616,11 @@ function display_weather(place) {
         weather_content.forEach(element => {
             element.classList.remove("disactive")
         });
-        animation.classList.add("disactive");
+        document_blocks.forEach(element => {
+            element.classList.remove("disactive");
+        });
 
-        if (data.cod == 404) {
-            generate_err_notification("not-found", place);
-            weather_content.forEach(element => {
-                element.classList.add("disactive")
-            });
-            return;
-        } else if (data.cod != 200) {
-            return;
-        }
         var weather_now = data.list[0];
-
         let predict = "";
         place.toLowerCase().match(/^в[с\з\ч\щ\к\м\л\ж\т\м\г\д\н\п\р\х]/) ? predict = "во" : predict = "в";
         place.toLowerCase().match(/[a-z]|^[0-9]/) ? predict = "в городе" : void(0);
@@ -663,10 +661,6 @@ function display_weather(place) {
         </div>
         `;
 
-        document_blocks.forEach(element => {
-            element.classList.remove("disactive");
-        });
-
         set_dt(data);
         set_round_data("clouds", weather_now.clouds.all);
         set_round_data("pop", weather_now.pop*100);
@@ -677,6 +671,12 @@ function display_weather(place) {
         set_temp_atr();
         set_speed_atr();
         set_pressure_atr();
+    })
+    .catch(() => {
+        generate_err_notification("not-found", place);
+    })
+    .finally(() => {
+        animation.classList.add("disactive");
     })
 }
 
@@ -692,7 +692,6 @@ function search_event() {
         let target = event.target;
 
         if (target.classList.contains("modal-block__recommend-button")) {
-            update_page();
             display_weather(target.value);
 
             search_input.value = target.value;
@@ -779,7 +778,6 @@ function search_event() {
 
         if (!isNaN(is_search) && !isNaN(weater_interval) && is_search) {
             value === "" ? get_user_location() : void(0);
-            update_page();
             display_weather(value);
             
             if (settings["data-update"] != "disable") {
@@ -929,7 +927,9 @@ function get_user_location() {
 function get_city(lat, lng) {
     var xhr = new XMLHttpRequest();
 
-    function process_request() {
+    xhr.open('GET', `https://us1.locationiq.com/v1/reverse.php?key=${token}&lat=${lat}&lon=${lng}&format=json`, true);
+    xhr.send();
+    xhr.addEventListener("readystatechange", () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
             let place = "";
@@ -952,11 +952,7 @@ function get_city(lat, lng) {
                 sessionStorage.setItem("weather-interval", JSON.stringify(weather_interval));
             }
         }
-    }
-
-    xhr.open('GET', `https://us1.locationiq.com/v1/reverse.php?key=${token}&lat=${lat}&lon=${lng}&format=json`, true);
-    xhr.send();
-    xhr.addEventListener("readystatechange", process_request, false);
+    }, false);
 }
 
 document_events();
