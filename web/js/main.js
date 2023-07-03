@@ -28,8 +28,6 @@ const hourly_forecast = document.querySelector(".hourly-forecast__slider-content
 const full_daily_forecast = document.querySelector(".seven-days-foracast-ditails");
 const short_daily_forecast = document.querySelector(".seven-day-forecast-short__slider");
 
-// TODO: Fix theme switch bug
-
 const average = (array) => array.reduce((a, b) => a + b) / array.length;
 
 let get_date = (index) => {
