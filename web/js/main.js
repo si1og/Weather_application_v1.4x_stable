@@ -28,6 +28,8 @@ const hourly_forecast = document.querySelector(".hourly-forecast__slider-content
 const full_daily_forecast = document.querySelector(".seven-days-foracast-ditails");
 const short_daily_forecast = document.querySelector(".seven-day-forecast-short__slider");
 
+// TODO: Fix theme switch bug
+
 const average = (array) => array.reduce((a, b) => a + b) / array.length;
 
 let get_date = (index) => {
@@ -806,12 +808,14 @@ function night_mode_select_event() {
     const night_mode_inputs = document.querySelectorAll(".dark-mode-form__button-input");
 
     night_mode_inputs.forEach(element => {
-        element.addEventListener("click", () => {
+        element.addEventListener("change", () => {
+            console.log(1);
             const settings = JSON.parse(localStorage.getItem("document-settings"));
 
             if (!isNaN(settings)) {
                 return;
             }
+
 
             settings["night-mode"] = element.value;
             localStorage.setItem("document-settings", JSON.stringify(settings));
@@ -825,9 +829,9 @@ function document_events() {
 
     sessionStorage.setItem("latest-towns", JSON.stringify([]));
 
-    search_event();
     
     addEventListener('DOMContentLoaded', () => {
+        search_event();
         get_user_theme();
         night_mode_select_event();
     });
@@ -944,7 +948,7 @@ function get_city(lat, lng) {
             } else {
                 place = response.address.city;
             }
-    
+     
             const settings = JSON.parse(localStorage.getItem("document-settings"));
     
             display_weather(place);
@@ -960,9 +964,10 @@ function get_city(lat, lng) {
     }, false);
 }
 
-window.addEventListener("load", () => {
-    document_events();
-    get_user_location();
-})
+
+// Don't use "load" event
+document_events();
+get_user_location();
+
 
 export { burger, header_function_menu, key, update_page, display_weather, transfer_time_from_settings_to_ms }
