@@ -123,6 +123,13 @@
     cursor: pointer;
     background: var(--bg-color-12);
 }
+.settings-button {
+    outline: #00000000 solid;
+}
+.settings-button:has(input:focus-visible) {
+    outline: var(--bg-color-16) solid;
+    background: var(--bg-color-12);
+}
 .settings-content-button:active {
     transform: scale(.95);
 }
@@ -252,14 +259,19 @@
     display: flex;
     flex-direction: column;
     border-radius: 15px;
+    outline: #00000000 solid;
     box-shadow: 0px 0px 6px #0000001c;
     background: var(--bg-color-3);
     transition: .2s ease;
+}
+.select:has(.select__button:focus-visible) {
+    outline: var(--bg-color-16) solid;
 }
 .select__button {
     padding: 10px 15px;
     margin: 0 20px 0 0;
     border: none;
+    outline: none !important;
     font-family: "Sourse Sans Pro", sans-serif;
     font-size: 16px;
     font-weight: 500;
@@ -324,7 +336,6 @@
     padding: 10px;
     border: none;
     border-radius: 15px;
-    outline: none;
     font-family: "Sourse Sans Pro", sans-serif;
     font-size: 16px;
     font-weight: 500;
@@ -346,12 +357,14 @@
     transform: translateY(-30px);
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
 }
 .select__button.active ~ .select__menu {
     display: flex;
     transform: translateY(0px);
     opacity: 1;
     pointer-events: all;
+    visibility: visible;
 }
 .page-modal-info-content {
     position: relative;
@@ -422,6 +435,7 @@ body.night-mode .page-modal-info-content__label.logo::before {
 }
 .info-description>li.link>a {
     position: relative;
+    width: fit-content;
     padding: 3px 7px 3px 30px;
     border-radius: 10px;
     text-decoration: none;
@@ -540,6 +554,7 @@ body.night-mode .page-modal-info-content__label.logo::before {
     position: relative;
     width: 100%;
     margin: 10px 0 0 0;
+      
 }
 .favorite-towns-add-towns__input {
     min-height: 45px;
@@ -547,7 +562,7 @@ body.night-mode .page-modal-info-content__label.logo::before {
     padding: 8px 10px;
     border: none;
     border-radius: 15px;
-    outline: none;
+    outline: #00000000 solid; 
     font-family: "Sourse Sans Pro", sans-serif;
     font-weight: 500;
     font-size: 17px;
@@ -560,37 +575,51 @@ body.night-mode .page-modal-info-content__label.logo::before {
 .favorite-towns-add-towns__input:focus {
     box-shadow: 0px 0px 12px #0000001f;
     background: var(--bg-color-15);
+    outline: var(--bg-color-16) solid;
 }
 .favorite-towns-add-towns__button {
     position: absolute;
+    top: 0;
     right: 0;
     width: 45px;
     height: 45px;
     border: none;
     border-radius: 15px;
-    outline: none;
     background: var(--bg-color-3);
     box-shadow: 0px 0px 6px #0000001c;
     transform: translateX(100%);
     transition: .2s ease;
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 .favorite-towns-add-towns__button:hover {
     cursor: pointer;
     background: var(--bg-color-15);
 }
-.favorite-towns-add-towns.active .favorite-towns-add-towns__input {
+.favorite-towns-add-towns.active  .favorite-towns-add-towns__input,
+.favorite-towns-add-towns:has(.favorite-towns-add-towns__button:focus-visible) .favorite-towns-add-towns__input {
     width: calc(100% - 60px);
 }
 .favorite-towns-add-towns.active .favorite-towns-add-towns__button {
     transform: translateX(0%);  
+    visibility: visible;
+    pointer-events: all;
     opacity: 1; 
+}
+.favorite-towns-add-towns__button:focus-visible {
+    transform: translateX(0%);  
+    visibility: visible;
+    pointer-events: all;
+    opacity: 1;
 }
 .favorite-towns-add-towns.loading .favorite-towns-add-towns__input {
     width: calc(100% - 60px);
 }
 .favorite-towns-add-towns.loading .favorite-towns-add-towns__button {
     transform: translateX(0%);  
+    visibility: visible;
+    pointer-events: all;
     opacity: 1; 
 }
 .favorite-towns-add-towns__button span {
@@ -621,7 +650,6 @@ body.night-mode .page-modal-info-content__label.logo::before {
     padding: 10px;
     border: none;
     border-radius: 20px;
-    outline: none;
     font-family: "Sourse Sans Pro";
     font-weight: 600;
     text-align: left;

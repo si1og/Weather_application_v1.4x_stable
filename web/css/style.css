@@ -7,8 +7,13 @@ body {
     background: var(--bg-color-2);
     overflow-x: hidden;
 }
-button, a {
-    outline: none;
+a, button {
+    display: block;
+    outline: #00000000 solid;
+}
+a:focus-visible,
+button:focus-visible {
+    outline: var(--bg-color-16) solid;
 }
 .disactive {
     display: none !important;
@@ -106,10 +111,14 @@ body.night-mode .header-content__label::before {
     grid-template-columns: 45px 1fr;
     align-items: center;
     height: 50px;
-    background: var(--bg-color-14);
+    outline: #00000000 solid;
     border-radius: 8px;
+    background: var(--bg-color-14);
     transition: .2s ease;
     z-index: 10;
+}
+.header-search:has(.header-search__search-input:focus-visible) {
+    outline: var(--bg-color-16) solid;
 }
 .header-search--active {
     background: var(--bg-color-15);
@@ -166,7 +175,7 @@ body.night-mode .header-search--active {
     width: 40px;
     height: 40px;
     border: 1px solid #ffffff00;
-    outline: none;
+    
     border-radius: 100%;
     background: none;
     background-size: 28px 28px;
@@ -206,7 +215,6 @@ body.night-mode .header-search--active {
     width: 100%;
     padding: 7px;
     border-radius: 10px;
-    outline: none;
     border: none;
     background: none;
     text-align: left;
@@ -254,14 +262,20 @@ body.night-mode .header-search--active {
     cursor: pointer;
 }
 .dark-mode-form__button-input {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 .dark-mode-form__theme-select {
     display: flex;
     gap: 10px;
     padding: 5px;
     border-radius: 30px;
+    outline: #00000000 solid;
     background: #a3a3a32b;
+}
+.dark-mode-form__button-input:focus-visible + label {
+    outline: var(--bg-color-16) solid;
 }
 .dark-mode-form__button-input:checked + label {
     background: var(--bg-color-1);
@@ -599,7 +613,6 @@ body.night-mode .header-search--active {
     padding: 0;
     margin: 0;
     border: none;
-    outline: none;
     background: none;
     cursor: pointer;
 }
@@ -1270,7 +1283,6 @@ body.night-mode .day-info-block-day-time__pressure::before {
     padding: 5px 15px 5px 33px;
     border: none;
     border-radius: 20px;
-    outline: none;
     font-family: "Sourse Sans Pro", sans-serif;
     font-weight: 600;
     font-size: 17px;
@@ -1516,7 +1528,6 @@ body.night-mode .day-info-block-day-time__pressure::before {
     padding: 5px 8px 5px 30px;
     border: none;
     border-radius: 10px;
-    outline: none;
     font-size: 17px;
     font-family: "Sourse Sans Pro", sans-serif;
     font-weight: 600;
