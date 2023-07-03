@@ -587,7 +587,7 @@ async function getWeather(place, key) {
     return await fetch(`https://api.openweathermap.org/data/2.5/forecast/?q=${place}&appid=${key}&lang=ru&cnt=40`)
 }
 
-function display_weather(place) {
+function display_weather(place) {;
     if (!place) {
         return;
     }
@@ -680,27 +680,100 @@ function display_weather(place) {
     })
 }
 
+function recommend_towns_event(event) {
+    let target = event.target;
+
+    if (target.classList.contains("modal-block__recommend-button")) {
+        display_weather(target.value);
+        console.dir(target)
+
+        search_input.value = target.value;
+    }
+}
+
+function remove_towns_search() {
+    let favorite_towns_ = document.querySelectorAll(".modal-block__recommend-button");
+    favorite_towns_.forEach(element => {
+        element.remove();
+    });
+}
+
+function favorite_towns_search(value) {
+    const search_modal = document.querySelector(".modal-header-search");
+    let favorite_towns = JSON.parse(localStorage.getItem("favorite-towns"));
+
+    if (!isNaN(favorite_towns)) {
+        return;
+    }
+
+    let favorite_towns_arr = [];
+    let modal_block_content = document.querySelector(".modal-block__content");
+
+    favorite_towns.forEach(element => {
+        let favorite_town = element.name.toLowerCase();
+
+        if (favorite_town.includes(value.toLowerCase())) {
+            favorite_towns_arr.push(element.name);
+        }
+    });
+
+    favorite_towns_arr.forEach(element => {
+        let town = document.createElement("button");
+        town.className = "modal-block__recommend-button";
+        town.innerText = element;
+        town.value = element;
+
+        modal_block_content.appendChild(town);
+    });
+
+    if (favorite_towns_arr.length > 0) {
+        search_modal.classList.add("active");
+    } else {
+        search_modal.classList.remove("active");
+    }
+}
+
+function searchF(value) {
+    const is_search = JSON.parse(sessionStorage.getItem("search"));
+    const weater_interval = JSON.parse(sessionStorage.getItem("weather-interval"));
+    const settings = JSON.parse(localStorage.getItem("document-settings"));
+
+    clearInterval(weater_interval);
+
+    if (!isNaN(is_search) && !isNaN(weater_interval) && is_search) {
+        value === "" ? get_user_location() : void(0);
+        display_weather(value);
+        
+        if (settings["data-update"] != "disable") {
+            const weather_interval_2 = setInterval(() => {
+                display_weather(value);
+            }, transfer_time_from_settings_to_ms());
+
+            sessionStorage.setItem("weather-interval", JSON.stringify(weather_interval_2));
+        }
+
+        sessionStorage.setItem("search", JSON.stringify(false));
+
+        setTimeout(() => {
+            sessionStorage.setItem("search", JSON.stringify(true));
+        }, 700);
+    }
+}
+
 function search_event() {
     sessionStorage.setItem("search", JSON.stringify(true));
     const search_input = document.querySelector(".header-search__search-input");
     const search_button = document.querySelector(".header-search__search-button");
-    const search_modal = document.querySelector(".header-search-modal");
+    const search_modal = document.querySelector(".modal-header-search");
+    const modal_bar = document.querySelector(".modal-block");
 
-    search_modal.addEventListener("mousedown", () => {recommend_towns_event(event)});
-
-    function recommend_towns_event(event) {
-        let target = event.target;
-
-        if (target.classList.contains("modal-block__recommend-button")) {
-            display_weather(target.value);
-
-            search_input.value = target.value;
-        }
-    }
+    modal_bar.addEventListener("mousedown", (event) => {
+        recommend_towns_event(event)
+    });
 
     search_input.addEventListener("keydown", (event) => {
         if (event.keyCode == 13) {
-            search(search_input.value);
+            searchF(search_input.value);
         }
     });
 
@@ -709,7 +782,7 @@ function search_event() {
             remove_towns_search();
             favorite_towns_search(search_input.value);
         } else {
-            search_modal.classList.add("disable");
+            search_modal.classList.remove("active");
         }
     });
 
@@ -721,80 +794,12 @@ function search_event() {
     });
 
     search_input.addEventListener("blur", () => {
-        search_modal.classList.add("disable");
+        search_modal.classList.remove("active");
     });
 
     search_button.addEventListener("click", () => {
-        search(search_input.value);
+        searchF(search_input.value);
     });
-
-    function remove_towns_search() {
-        let favorite_towns_ = document.querySelectorAll(".modal-block__recommend-button");
-        favorite_towns_.forEach(element => {
-            element.remove();
-        });
-    }
-
-    function favorite_towns_search(value) {
-        let favorite_towns = JSON.parse(localStorage.getItem("favorite-towns"));
-
-        if (!isNaN(favorite_towns)) {
-            return;
-        }
-
-        let favorite_towns_arr = [];
-        let modal_block_content = document.querySelector(".modal-block__content");
-
-        favorite_towns.forEach(element => {
-            let favorite_town = element.name.toLowerCase();
-
-            if (favorite_town.includes(value.toLowerCase())) {
-                favorite_towns_arr.push(element.name);
-            }
-        });
-
-        favorite_towns_arr.forEach(element => {
-            let town = document.createElement("button");
-            town.className = "modal-block__recommend-button";
-            town.innerText = element;
-            town.value = element;
-
-            modal_block_content.appendChild(town);
-        });
-
-        if (favorite_towns_arr.length > 0) {
-            search_modal.classList.remove("disable");
-        } else {
-            search_modal.classList.add("disable");
-        }
-    }
-
-    function search(value) {
-        const is_search = JSON.parse(sessionStorage.getItem("search"));
-        const weater_interval = JSON.parse(sessionStorage.getItem("weather-interval"));
-        const settings = JSON.parse(localStorage.getItem("document-settings"));
-
-        clearInterval(weater_interval);
-
-        if (!isNaN(is_search) && !isNaN(weater_interval) && is_search) {
-            value === "" ? get_user_location() : void(0);
-            display_weather(value);
-            
-            if (settings["data-update"] != "disable") {
-                const weather_interval_2 = setInterval(() => {
-                    display_weather(value);
-                }, transfer_time_from_settings_to_ms());
-
-                sessionStorage.setItem("weather-interval", JSON.stringify(weather_interval_2));
-            }
-    
-            sessionStorage.setItem("search", JSON.stringify(false));
-    
-            setTimeout(() => {
-                sessionStorage.setItem("search", JSON.stringify(true));
-            }, 700);
-        }
-    }
 }
 
 function night_mode_select_event() {
@@ -955,7 +960,9 @@ function get_city(lat, lng) {
     }, false);
 }
 
-document_events();
-get_user_location();
+window.addEventListener("load", () => {
+    document_events();
+    get_user_location();
+})
 
 export { burger, header_function_menu, key, update_page, display_weather, transfer_time_from_settings_to_ms }

@@ -1440,13 +1440,19 @@ body.night-mode .day-info-block-day-time__pressure::before {
     box-sizing: border-box;
     overflow-y: visible;
     overflow-x: hidden;
-    z-index: -2;
     transition: .15s ease;
-}
-.header-search-modal.disable {
+    z-index: -1;
     opacity: 0;
     transform: translateY(-10px);
     pointer-events: none;
+    visibility: hidden;
+}
+.modal-header-search.active .header-search-modal,
+.modal-header-search:has(.modal-block__recommend-button:focus) .header-search-modal {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+    visibility: visible;
 }
 .modal-block {
     display: flex;
@@ -1466,14 +1472,29 @@ body.night-mode .day-info-block-day-time__pressure::before {
     flex-direction: column;
 }
 .modal-block__recommend-button {
+    position: relative;
     margin: 0;
     padding: 10px 15px;
     border: none;
+    outline: none;
     text-align: left;
     font-size: 16px;
     font-weight: 600;
     color: var(--text-color-1);
     background: var(--bg-color-1);
+    transition: .2s ease;
+}
+.modal-block__recommend-button::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    width: 4px;
+    height: 100%;
+    border-radius: 0 3px 3px 0;
+    background: var(--bg-color-16);
+    opacity: 0;
+    transform: translateX(-100%);
     transition: .2s ease;
 }
 .modal-block__recommend-button::first-letter {
@@ -1483,6 +1504,14 @@ body.night-mode .day-info-block-day-time__pressure::before {
     cursor: pointer;
     background: var(--bg-color-14);
 }
+.modal-block__recommend-button:focus {
+    outline: none;
+    background: var(--bg-color-14);
+}
+.modal-block__recommend-button:focus::before {
+    opacity: 1;
+    transform: translateY(0);
+} 
 .info-menu {
     position: absolute;
     display: flex;
