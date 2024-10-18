@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/ilyasemenov1/Weather_application_1.4x_stable#readme",
   "dependencies": {
-    "lvovich": "^2.0.0",
+    "lvovich": "^2.0.2",
     "swiper": "^8.4.4"
   },
   "devDependencies": {
