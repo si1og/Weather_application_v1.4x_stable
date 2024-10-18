@@ -21,7 +21,7 @@
   "homepage": "https://github.com/ilyasemenov1/Weather_application_1.4x_stable#readme",
   "dependencies": {
     "lvovich": "^2.0.0",
-    "swiper": "^8.4.4"
+    "swiper": "^8.4.7"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
